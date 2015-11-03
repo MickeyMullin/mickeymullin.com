@@ -2,9 +2,9 @@ moment = require('moment')
 docpadConfig = {
   templateData:
     site:
-      title: 'My Awesome Blog'
-      tagline: 'For to do Things Amazingly Awesome'
-      description: 'A blog all about how awesome I am'
+      title: 'Mickey Mullin'
+      tagline: 'Author and Software Engineer'
+      description: 'Teasing the forthcoming novel, Ghostwolf, plus some trials in computer codery'
       logo: '/img/logo.png'
       url: ''
       cover: '/img/cover.jpg'
@@ -31,11 +31,11 @@ docpadConfig = {
         }
       ]
     author:
-      name: 'John U. Doe'
+      name: 'Mickey Mullin'
       img: ''
       url: '/'
-      location: 'Nowhere, IL',
-      bio: 'I do stuff and things'
+      location: 'New Jersey, USA',
+      bio: 'Author'
     getPreparedTitle: -> if @document.title then "#{@document.title} | #{@site.title}" else @site.title
     getDescription: -> if @document.description then "#{@document.description} | #{@site.description}" else @site.description
     bodyClass: -> if @document.isPost then "post-template" else "home-template"
