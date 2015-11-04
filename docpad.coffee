@@ -3,11 +3,11 @@ docpadConfig = {
   templateData:
     site:
       title: 'Mickey Mullin'
-      tagline: 'Author and Software Engineer'
+      tagline: 'Author, Software Engineer, Maker of Pancakes'
       description: 'Teasing the forthcoming novel, Ghostwolf, plus some trials in computer codery'
       logo: '/img/logo.png'
       url: ''
-      cover: '/img/cover.jpg'
+      cover: '/img/bellevue-trail-eerie.jpg'
       navigation: [
         {
           name: 'Home',
@@ -20,14 +20,14 @@ docpadConfig = {
           section: 'about'
         },
         {
-          name: 'Fiction',
-          href: '/tags/fiction.html',
-          section: 'tag-fiction'
+          name: 'Ghostwolf',
+          href: '/ghostwolf.html',
+          section: 'ghostwolf'
         },
         {
-          name: 'Test Posts',
-          href: '/tags/test.html',
-          section: 'tag-test'
+          name: 'Teasers',
+          href: '/tags/teaser.html',
+          section: 'tag-teaser'
         }
       ]
     author:
@@ -35,7 +35,7 @@ docpadConfig = {
       img: ''
       url: '/'
       location: 'New Jersey, USA',
-      bio: 'Author'
+      bio: 'Novelist and software engineer in New Jersey, USA'
     getPreparedTitle: -> if @document.title then "#{@document.title} | #{@site.title}" else @site.title
     getDescription: -> if @document.description then "#{@document.description} | #{@site.description}" else @site.description
     bodyClass: -> if @document.isPost then "post-template" else "home-template"
