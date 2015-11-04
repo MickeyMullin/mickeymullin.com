@@ -4,9 +4,9 @@ docpadConfig = {
     site:
       title: 'Mickey Mullin'
       tagline: 'Author, Software Engineer, Maker of Pancakes'
-      description: 'Teasing the forthcoming novel, Ghostwolf, plus some trials in computer codery'
+      description: 'Official site for the author of the forthcoming novel, Ghostwolf. Mickey also writes software, but that\'s not as much fun to curl up with and dive into with a glass of wine.'
       logo: '/img/logo.png'
-      url: ''
+      url: 'http://mickeymullin.com'
       cover: '/img/bellevue-trail-eerie.jpg'
       navigation: [
         {

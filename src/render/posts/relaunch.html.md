@@ -13,7 +13,7 @@ tags:
 
 #### A new beginning
 
-[MickeyMullin.com] has had a "coming soon" blub on its homepage for over three hundred years (give or take). What is visible at the time that I'm writing this is incomplete and still bears more elements of the source template than I'd like, but I wanted very much to get something up and out.
+[MickeyMullin.com](http://mickeymullin.com) has had a "coming soon" blub on its homepage for over three hundred years (give or take). What is visible at the time that I'm writing this is incomplete and still bears more elements of the source template than I'd like, but I wanted very much to get something up and out.
 
 There will be three things that you'll typically find, here. First and formost, I'll be teasing content for my in-progress novel, *[Ghostwolf](/ghostwolf.html)*. I'm leading off this relaunch with the jacket text and a couple of excerpts from it. I'll follow this up with chapters, partial and complete, as they get through the editing process. I'll also get commenting capability plugged into the site so that friends and constructive strangers can push me to get ever better on my work.
 
