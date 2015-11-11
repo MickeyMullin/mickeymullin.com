@@ -1,18 +1,20 @@
 ---
 title: 'To Do'
 layout: 'page'
-cover: '/img/sammamish-20150626.jpg'
+cover: '/img/sammamish.jpg'
 active: false
 ---
 
-* Reduce image sizes
+* ~~Image sizes~~
 * Deployment
 * Auto-raise homepage blinds
 * Comments
 * Page/section for Ghostwolf excerpts/chapters
   * automatically read in tagged posts
 * PrettyUrl
+* Fix excerpts to read from meta instead of MD-laden post
 * Tags/sections in side navigation
 * More photos
+* Fix logo moon (white instead of black)
 * Twitter feed
 * Hooks to Twitter for new blog posts (may be challenging, due to static generation)

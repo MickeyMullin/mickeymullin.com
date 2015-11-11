@@ -1,6 +1,6 @@
 ---
 title: "Relaunch"
-cover: '/img/ecwed-tree-bough-20150605.jpg'
+cover: '/img/ecwed-tree-bough.jpg'
 isPost: true
 active: true
 excerptOther: 'Where "soon" finally becomes "now."'

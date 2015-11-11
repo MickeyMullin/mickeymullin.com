@@ -1,12 +1,14 @@
 ---
 title: 'About'
 layout: 'page'
-cover: '/img/sammamish-20150626.jpg'
+cover: '/img/sammamish.jpg'
 ---
 
 #### Mickey Mullin
 
 Recently transplanted from the Pacific Northwest and into the backwoods wilds of suburban New Jersey, I press dozens of plastic buttons thousands of times each day for fun and profit.
+
+My present obsession is _[Ghostwolf](/ghostwolf.html)_. Check out what I've revealed thus far.
 
 Note that content on this site ranges somewhere between PG-13 and R. Sex, drugs, and rock'n'roll will be present. Also, swearing. And not very much drugs, actually. Or rock'n'roll. Pretty much just sex and swearing. Maybe some drinking. And the occassional ramble.
 
