@@ -9,9 +9,10 @@ active: false
 * Deployment
 * Auto-raise homepage blinds
 * Comments
+* PrettyUrl
+* Cachebusting
 * Page/section for Ghostwolf excerpts/chapters
   * automatically read in tagged posts
-* PrettyUrl
 * Fix excerpts to read from meta instead of MD-laden post
 * Tags/sections in side navigation
 * More photos

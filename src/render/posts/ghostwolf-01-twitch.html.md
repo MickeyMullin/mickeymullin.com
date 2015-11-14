@@ -1,9 +1,9 @@
 ---
-title: "Twitch"
+title: "Chapter 1: Twitch"
 cover: '/img/cover-tree-dark.jpg'
 isPost: true
 active: true
-excerptOther: 'A captive Diana (Di) was prepared for an unknown ritual. Gabriel (Gabe) and Vanessa (Nessa) hear a strange wolf howl while camping. Theresa (Reese) and Miranda (Ran) were out with Roland and Emily to celebrate Ran&apos;s 21st birthday. Di discovered the identity of her captor.'
+excerpt: 'A captive Diana (Di) was prepared for an unknown ritual. Gabriel (Gabe) and Vanessa (Nessa) hear a strange wolf howl while camping. Theresa (Reese) and Miranda (Ran) were out with Roland and Emily to celebrate Ran&apos;s 21st birthday. Di discovered the identity of her captor.'
 postDate: 'Sun Nov 08 2015 19:57:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - ghostwolf
@@ -18,6 +18,8 @@ tags:
  - novel
  - wolf
 ---
+
+[//]: # (Kidnapped)
 
 They hadn’t raped her. Diana could hear voices rising and falling in a rhythmic chanting. It sounded almost soothing, and she did what she could to allow the sound to calm her. She wasn’t entirely successful, though, because the chanting was coming from the throats of the people who had abducted her, stripped her naked, gagged and bound her, and then shut her in a rough stone room that counted darkness among its only recognizable features.
 
@@ -35,6 +37,8 @@ Before her eyes had a chance to adjust to the brightness enough for her to even 
 Tears immediately welled up in Diana’s eyes and she braced herself for what she’d thought, hoped, she’d avoided for hours. I am alive, she cried inside her mind. I won’t die down here, no matter what they do to me. Diana sobbed through her gag. I will live. She tried to struggled against them as they pulled her legs apart, but she was fatigued, her muscles cramped, she was hungry, and dehydrated, and they were large, powerful men.
 
 ---
+
+[//]: # (Spooked)
  
 “Wake! Up!” Vanessa hissed into Gabriel’s ear, each word punctuated with her fingernails jabbing into his chest.
 Gabriel tried to open his eyes, but sleep still clung to him tightly, gluing one of his eyes partly shut. “What?” he croaked. It was meant to sound irritable, but the firesmoke that gummed his eyes had lined his throat and chest with phlegm. He rubbed the sleep-sewn eye and cleared his throat. He had been in the middle of the weirdest dream he could ever remember having…or would have been, if the memory of the dream had not already faded into an indistinct foreboding.
@@ -62,6 +66,8 @@ Gabriel stopped moving. Wolves don’t howl like that. Do they? He didn’t even
 “Shh!” Gabriel didn’t stop carefully pushing bullets into the chambers of the .38 revolver. He’d debated keeping it loaded, but decided in the end that in the event that he was caught with it that an unloaded pistol would probably be slightly less damning. “Stay here,” he whispered, and slipped outside on silent bare feet.
 
 ---
+
+[//]: # (Celebrated)
 
 The shot glasses pounded the table, and Ran said very seriously, “Take heed, my maties, for thar be mischief afoot.” She had leaned in and placed one hand to the side of her mouth to lend the sentence an air of conspiracy, but the music, laughter, and raised voices gave the background a noise soup that forced Ran to use a conspiratorial yell to be heard by the other three at the table.
 
@@ -119,6 +125,8 @@ Roland compressed his lips and looked down, chastised. He nodded. Emily tried to
 
 ---
 
+[//]: # (Revealed)
+
 A breath Diana didn’t realize she’d been holding exploded from around her gag. Cold water! What the hell? They were…washing her? Firmly but not unkindly. Diana was pretty damn sure it would still constitute sexual assault, legally—you really need a woman’s tacit permission before you strip her naked and bathe her—but still, Diana felt relief cascade over her nerves: The hadn’t done anything else to her. Prospective rapists might yet want to bathe you first…but they were so quiet. She had not heard a single word from any of them from her kidnapping up to this truly surreal sponge bath. Still fueled by her will to survive, she also began to again hope that she could come away from this without being fully violated by her captors.
 
 As her bonds had not allowed her any movement at all, she regretfully admitted that she appreciated having her own filth cleared away from her body. She didn’t appreciate it enough to allow them even a modicum of forgiveness for her abduction—she would not allow herself to grow attracted to her captors! Stockholm Syndrome my ass! (OK, maybe that took way longer than a day or so. But still.)
@@ -151,4 +159,5 @@ _Moira!?_
 
 ---
 
-Back to _[Ghostwolf](/ghostwolf.html)_.
+* Continue to [Chapter 2: Release](/posts/ghostwolf-02-release.html)
+* Up to _[Ghostwolf](/ghostwolf.html)_ contents.

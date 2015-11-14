@@ -3,7 +3,7 @@ title: "Relaunch"
 cover: '/img/ecwed-tree-bough.jpg'
 isPost: true
 active: true
-excerptOther: 'Where "soon" finally becomes "now."'
+excerpt: 'Where "soon" finally becomes "now."'
 postDate: 'Wed Nov 04 2015 00:00:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - bob loblaw

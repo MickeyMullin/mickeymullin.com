@@ -3,7 +3,7 @@ title: "Gabe and Nessa Adopt a Pet"
 cover: '/img/cover-tree-dark.jpg'
 isPost: true
 active: true
-excerptOther: 'Gabe and Nessa are camping in the woods when an unusual storm rolls in.'
+excerpt: 'Gabe and Nessa are camping in the woods when an unusual storm rolls in.'
 postDate: 'Wed Nov 04 2015 01:00:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - ghostwolf

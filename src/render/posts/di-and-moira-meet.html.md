@@ -3,7 +3,7 @@ title: "Di and Moira Meet"
 cover: '/img/cover-tree-dark.jpg'
 isPost: true
 active: true
-excerptOther: 'Di bumps into Moira, and the hit it off.'
+excerpt: 'Di bumps into Moira, and the hit it off.'
 postDate: 'Wed Nov 04 2015 00:30:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - ghostwolf

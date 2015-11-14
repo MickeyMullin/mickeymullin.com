@@ -20,7 +20,8 @@ At the dawn of human civilization, a secretive cabal with an agenda of secular p
 #### Chapters
 
 1. [Twitch](/posts/ghostwolf-01-twitch.html)
-1. Release
+1. [Release](/posts/ghostwolf-02-release.html)
+1. Attacks
 1. Fates
 1. Sites
 1. ...
