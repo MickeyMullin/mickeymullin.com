@@ -7,7 +7,6 @@ excerpt: 'Di experiences the worst breakup of her life. Reese gets woozy and see
 postDate: 'Sat Nov 14 2015 17:17:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - ghostwolf
- - chapter
  - di
  - reese
  - ran
@@ -16,7 +15,7 @@ tags:
 
 [//]: # (The Walk)
 
-Diana tried to speak, but her throat was still terribly dry and sore from thirst. The croak that came out was barely audible, especially over the powerful chanting. The bikini-clad woman---her top was no more modest a covering than her bottom---smiled a little more widely. Oh, my god, Moira!
+<a name="the-walk"></a>Diana tried to speak, but her throat was still terribly dry and sore from thirst. The croak that came out was barely audible, especially over the powerful chanting. The bikini-clad woman---her top was no more modest a covering than her bottom---smiled a little more widely. Oh, my god, Moira!
 
 Diana laughed and then sobbed in relief, her vision becoming blurry with unfallen tears. Moira gestured to the one holding Diana's ankles, and she was again standing. Diana had known when she started dating Moira that Moira was the most repressed woman she'd ever met. Moira didn't even realize she was a lesbian until Diana kissed her, releasing in a moment feelings Moira had spent her whole life uselessly trying to kindle with man after man.
 
@@ -38,7 +37,7 @@ Moira brushed her cheek against Diana's. "If Master Art's right," said Moira dir
 
 [//]: # (Meet Jordan)
 
-"And this is my sister," sounded Ran's voice from behind Reese. Reese turned to find Ran and a man each holding a drink in both hands. He was indeed very handsome, in a dangerous, bad boy kind of way. His skin ran a dark Mediterranean olive, definitely darker than Ran's flawless chocolate cream. He had crew cut black hair, leaving a few scars visible on his scalp. Pale gray eyes contrasted attractively against his skin, and his designer jeans and form-fitting T-shirt emphasized an athlete's physique.
+<a name="meet-jordan"></a>"And this is my sister," sounded Ran's voice from behind Reese. Reese turned to find Ran and a man each holding a drink in both hands. He was indeed very handsome, in a dangerous, bad boy kind of way. His skin ran a dark Mediterranean olive, definitely darker than Ran's flawless chocolate cream. He had crew cut black hair, leaving a few scars visible on his scalp. Pale gray eyes contrasted attractively against his skin, and his designer jeans and form-fitting T-shirt emphasized an athlete's physique.
 
 Ran could pick 'em.
 
@@ -60,7 +59,7 @@ Ran's new friend chuckled and plopped down in Emily's old seat, diagonal from Re
 
 [//]: * (Sacrifice)
 
-Diana paused a beat, and tried to scream. All that came out at first were raspy threads of ragged breath. Then she did indeed start screaming and struggling with everything in her. Reason, logic, intellect, directed passion---the qualities she prided in herself---were completely replaced by terror. She screamed as Moira raised back up onto her knees and began chanting along with the man at Diana's head---Master Art? This could not possibly be real! Diana screamed long and loudly, in spite of  dryness in her throat, as Moira touched the tip of her dagger to the crown of Diana's head. Diana's breath caught in her throat for a moment as Moira moved the dagger blade down from her head, and Diana she felt the cold metal against her labia, and she dared not move.
+<a name="sacrifice"></a>Diana paused a beat, and tried to scream. All that came out at first were raspy threads of ragged breath. Then she did indeed start screaming and struggling with everything in her. Reason, logic, intellect, directed passion---the qualities she prided in herself---were completely replaced by terror. She screamed as Moira raised back up onto her knees and began chanting along with the man at Diana's head---Master Art? This could not possibly be real! Diana screamed long and loudly, in spite of  dryness in her throat, as Moira touched the tip of her dagger to the crown of Diana's head. Diana's breath caught in her throat for a moment as Moira moved the dagger blade down from her head, and Diana she felt the cold metal against her labia, and she dared not move.
 
 But the dagger was there no longer than it had been against the crown of her head. Diana resumed screaming as the point of the blade touched---poked!---her forehead. Moira raised up the knife again, then touched---Ow, ow, *ow*! That went *in* a little!---Diana's naval. Still chanting with Master Art, Moira pressed the point of the dagger into Diana's throat. There was blood---her blood!---dripping from the point of the dagger, now, when Moira raised it up then rested---no, pushed---it against the base of Diana's solar plexus.
 
@@ -83,7 +82,7 @@ Then, the light grew outward from every crevice and pore and became everything.
 
 [//]: # (First Sight)
 
-Extremely dizzy and just a little nauseated, Reese slowly opened her eyes. Directly in front of her was her sister, completely naked but for slowly billowing waves of jet black hair that draped over her from her head to what would have been her ankles, were she standing. Brilliant white wings---angel wings---were at her back, and as Reese watched, Ran's wings arched over Reese protectively. Emanating from every part of her, even her black hair and large, dark eyes, was a bright, warm golden glow that illuminated and highlighted every part of their surroundings.
+<a name="first-sight"></a>Extremely dizzy and just a little nauseated, Reese slowly opened her eyes. Directly in front of her was her sister, completely naked but for slowly billowing waves of jet black hair that draped over her from her head to what would have been her ankles, were she standing. Brilliant white wings---angel wings---were at her back, and as Reese watched, Ran's wings arched over Reese protectively. Emanating from every part of her, even her black hair and large, dark eyes, was a bright, warm golden glow that illuminated and highlighted every part of their surroundings.
 
 Beside Ran, Jordan was a man superimposed with a tiger, a demon, a gorilla---they kept shifting, and every one of them looked dangerous and hungry---except where Ran's light shined on him. Jordan's right arm and the right side of his face were clad in shining knight's armor, and instead of hunger, his right eye shone with strength and resolve. He, too, had colors emanating from his body, but they were dimmer than Ran's and kept shifting. Red, black, sickly green---and cool, steel blue on the side adjacent to Ran.
 
@@ -104,7 +103,7 @@ More and more images flew faster and became less distinct. Taking form from the 
 
 [//]: # (Realized)
 
-Moira's ears hummed, Diana's last words still echoing in her mind. Motes of light were swirling all over her and Art's bodies, and there was so much of what Art had called the "Power" flowing through her that she was still struggling to maintain her composure through what Moira could only think of as a continuous full-body orgasm.
+<a name="realized"></a>Moira's ears hummed, Diana's last words still echoing in her mind. Motes of light were swirling all over her and Art's bodies, and there was so much of what Art had called the "Power" flowing through her that she was still struggling to maintain her composure through what Moira could only think of as a continuous full-body orgasm.
 
 Composure was very, very necessary. In spite of the Power, in spite of the intense pleasure rocketing back and forth from her loins to the tips of her fingers and toes and back again. Moira was looking down. Down at a bare, bloody slab of stone. They had completed the ritual, they had called forth the Other, and it had opened a long-closed door on another world, flooding them all with Power, unimaginable, impossible, mythical *Power*.
 
@@ -113,4 +112,5 @@ But their sacrifice was gone. In an instant, the Other realized this, too, and i
 ---
 
 * Back to [Chapter 1: Twitch](/posts/ghostwolf-01-twitch.html)
+* Continue to [Chapter 3: Attacks](/posts/ghostwolf-03-attacks.html)
 * Up to _[Ghostwolf](/ghostwolf.html)_ contents.

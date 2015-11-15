@@ -7,7 +7,6 @@ excerpt: 'A captive Diana (Di) was prepared for an unknown ritual. Gabriel (Gabe
 postDate: 'Sun Nov 08 2015 19:57:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - ghostwolf
- - chapter
  - di
  - gabe
  - nessa
@@ -21,7 +20,7 @@ tags:
 
 [//]: # (Kidnapped)
 
-They hadn’t raped her. Diana could hear voices rising and falling in a rhythmic chanting. It sounded almost soothing, and she did what she could to allow the sound to calm her. She wasn’t entirely successful, though, because the chanting was coming from the throats of the people who had abducted her, stripped her naked, gagged and bound her, and then shut her in a rough stone room that counted darkness among its only recognizable features.
+<a name="kidnapped"></a>They hadn’t raped her. Diana could hear voices rising and falling in a rhythmic chanting. It sounded almost soothing, and she did what she could to allow the sound to calm her. She wasn’t entirely successful, though, because the chanting was coming from the throats of the people who had abducted her, stripped her naked, gagged and bound her, and then shut her in a rough stone room that counted darkness among its only recognizable features.
 
 Shortly after they’d torn and cut her clothes away, her greatest relief was that they hadn’t violated her. Diana spent perhaps two hours fearing that each time one of them approached her that now, now they would do it. But they didn’t. As the hours crept by and no more of them approached, Diana began to wish that something, anything, would happen. Beat her, rape her, sell her, just get it over with. The time and the darkness eroded her terror; boredom crowded out vulnerability. Eventually, the pain in the joints of her bound limbs began to outweigh every other thought.
 
@@ -40,7 +39,7 @@ Tears immediately welled up in Diana’s eyes and she braced herself for what sh
 
 [//]: # (Spooked)
  
-“Wake! Up!” Vanessa hissed into Gabriel’s ear, each word punctuated with her fingernails jabbing into his chest.
+<a name="spooked"></a>“Wake! Up!” Vanessa hissed into Gabriel’s ear, each word punctuated with her fingernails jabbing into his chest.
 Gabriel tried to open his eyes, but sleep still clung to him tightly, gluing one of his eyes partly shut. “What?” he croaked. It was meant to sound irritable, but the firesmoke that gummed his eyes had lined his throat and chest with phlegm. He rubbed the sleep-sewn eye and cleared his throat. He had been in the middle of the weirdest dream he could ever remember having…or would have been, if the memory of the dream had not already faded into an indistinct foreboding.
 
 “Shh!” Vanessa was sitting up on their camping pallet—three blankets, two sleeping bags, and a sheet over an air mattress. Nights are cold out here in October. Gabriel could feel tension in Vanessa’s body. She whispered, “There’s something moving out there.”
@@ -69,7 +68,7 @@ Gabriel stopped moving. Wolves don’t howl like that. Do they? He didn’t even
 
 [//]: # (Celebrated)
 
-The shot glasses pounded the table, and Ran said very seriously, “Take heed, my maties, for thar be mischief afoot.” She had leaned in and placed one hand to the side of her mouth to lend the sentence an air of conspiracy, but the music, laughter, and raised voices gave the background a noise soup that forced Ran to use a conspiratorial yell to be heard by the other three at the table.
+<a name="celebrated"></a>The shot glasses pounded the table, and Ran said very seriously, “Take heed, my maties, for thar be mischief afoot.” She had leaned in and placed one hand to the side of her mouth to lend the sentence an air of conspiracy, but the music, laughter, and raised voices gave the background a noise soup that forced Ran to use a conspiratorial yell to be heard by the other three at the table.
 
 “If you’re going to try to talk like a pirate, that should be, ‘_me_ maties,’ Ran.” Emily lounged back into her chair, a form-fitting pristine white mohair sweater accentuating her generous bosom. The white of the sweater created a deliberate contrast with her poker straight nearly-black hair. Her bangs were cut to artfully brush the tips of her eyelashes, and the entire effect made her already remarkable eyes into blue-white stars emerging from the nightfall of her hair. Her lips had the full, plump quality that other women pay to gain, and even wearing a self-satisfied smirk, they invited a languid, sensual kiss, particularly when sporting bright red lipstick. Every inch of her 5’4” form was composed of curves and the hints of motion that invited losing one’s mind to the body’s passions.
 
@@ -127,7 +126,7 @@ Roland compressed his lips and looked down, chastised. He nodded. Emily tried to
 
 [//]: # (Revealed)
 
-A breath Diana didn’t realize she’d been holding exploded from around her gag. Cold water! What the hell? They were…washing her? Firmly but not unkindly. Diana was pretty damn sure it would still constitute sexual assault, legally—you really need a woman’s tacit permission before you strip her naked and bathe her—but still, Diana felt relief cascade over her nerves: The hadn’t done anything else to her. Prospective rapists might yet want to bathe you first…but they were so quiet. She had not heard a single word from any of them from her kidnapping up to this truly surreal sponge bath. Still fueled by her will to survive, she also began to again hope that she could come away from this without being fully violated by her captors.
+<a name="revealed"></a>A breath Diana didn’t realize she’d been holding exploded from around her gag. Cold water! What the hell? They were…washing her? Firmly but not unkindly. Diana was pretty damn sure it would still constitute sexual assault, legally—you really need a woman’s tacit permission before you strip her naked and bathe her—but still, Diana felt relief cascade over her nerves: The hadn’t done anything else to her. Prospective rapists might yet want to bathe you first…but they were so quiet. She had not heard a single word from any of them from her kidnapping up to this truly surreal sponge bath. Still fueled by her will to survive, she also began to again hope that she could come away from this without being fully violated by her captors.
 
 As her bonds had not allowed her any movement at all, she regretfully admitted that she appreciated having her own filth cleared away from her body. She didn’t appreciate it enough to allow them even a modicum of forgiveness for her abduction—she would not allow herself to grow attracted to her captors! Stockholm Syndrome my ass! (OK, maybe that took way longer than a day or so. But still.)
 
