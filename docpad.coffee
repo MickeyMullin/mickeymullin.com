@@ -30,11 +30,38 @@ docpadConfig = {
           section: 'tag-teaser'
         }
       ]
+      services:
+            buttons: ['FacebookLike']  # used to customise the order of the buttons
+
+            facebookLikeButton:
+                applicationId: '266367676718271'
+            facebookFollowButton:
+                applicationId: '266367676718271'
+                username: 'balupton'
+            twitterTweetButton: 'MickeyMullin'
+            twitterFollowButton: 'MickeyMullin'
+            githubFollowButton: 'MickeyMullin'
+            #githubStarButton: 'MickeyMullin/mickeymullin.com'
+            #quoraFollowButton: 'Mickey-Mullin'
+            #travisStatusButton: 'bevry/docpad'
+            #furyButton: 'docpad'
+            #gittipButton: 'docpad'
+            #flattrButton: '344188/balupton-on-Flattr'
+            #paypalButton: 'mickey@dreamwolf.us'  # paypal button email id
+
+            disqus: 'mickeymullin'
+            #gauges: 'get.gaug.es-id'
+            googleAnalytics: 'UA-70144528-1'
+            #inspectlet: 'inspectlet-id'
+            #mixpanel: 'mixpanel-id'
+            #reinvigorate: 'reinvigorate-id'
+            #zopim: 'zopim-id'
     author:
       name: 'Mickey Mullin'
-      img: ''
-      url: '/'
-      location: 'New Jersey, USA',
+      img: '/img/mickey-mullin_20151128_600x600.jpg'
+      url: '/about.html'
+      href: '/about.html'
+      location: 'New Jersey, USA'
       bio: 'Novelist and software engineer in New Jersey, USA'
     getPreparedTitle: -> if @document.title then "#{@document.title} | #{@site.title}" else @site.title
     getDescription: -> if @document.description then "#{@document.description} | #{@site.description}" else @site.description
@@ -58,7 +85,7 @@ docpadConfig = {
       moment(ts).format(format)
   collections:
     posts: ->
-      @getCollection("html").findAllLive({active:true, isPost: true, isPagedAuto: {$ne: true}}, {postDate: 1}).on "add", (model) ->
+      @getCollection("html").findAllLive({active:true, isPost: true, isPagedAuto: {$ne: true}}, {postDate: -1}).on "add", (model) ->
         model.setMetaDefaults({layout:"post"})
   plugins:
     tags:

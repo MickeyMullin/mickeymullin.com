@@ -4,7 +4,7 @@ cover: '/img/cover-tree-dark.jpg'
 isPost: true
 active: true
 excerpt: 'Di bumps into Moira, and the hit it off.'
-postDate: 'Wed Nov 04 2015 00:30:00 GMT-0500 (Eastern Standard Time)'
+postDate: '2015-11-04 00:30:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - ghostwolf
  - di

@@ -220,5 +220,5 @@ In the spotlight of a tractor trailer’s headlamps, something too big to be a w
 ---
 
 * Back to [Chapter 2: Release](/posts/ghostwolf-02-release.html)
-[//]: # (* Continue to [Chapter 4: Fates](/posts/ghostwolf-04-fates.html))
+* Continue to [Chapter 4: Placate](/posts/ghostwolf-04-placate.html)
 * Up to _[Ghostwolf](/ghostwolf.html)_ contents.

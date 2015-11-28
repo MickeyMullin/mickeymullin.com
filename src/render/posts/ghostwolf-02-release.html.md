@@ -4,7 +4,7 @@ cover: '/img/cover-tree-dark.jpg'
 isPost: true
 active: true
 excerpt: 'Di experiences the worst breakup of her life. Reese gets woozy and sees things. Moira notices something awry.'
-postDate: 'Sat Nov 14 2015 17:17:00 GMT-0500 (Eastern Standard Time)'
+postDate: '2015-11-14 17:17:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - ghostwolf
  - di
@@ -107,7 +107,7 @@ More and more images flew faster and became less distinct. Taking form from the 
 
 Composure was very, very necessary. In spite of the Power, in spite of the intense pleasure rocketing back and forth from her loins to the tips of her fingers and toes and back again. Moira was looking down. Down at a bare, bloody slab of stone. They had completed the ritual, they had called forth the Other, and it had opened a long-closed door on another world, flooding them all with Power, unimaginable, impossible, mythical *Power*.
 
-But their sacrifice was gone. In an instant, the Other realized this, too, and it settled its otherworldly gaze upon Moira. Held in the focused, nauseous evil within its eyes, Moira could barely hear the screaming that erupted all around her.
+But their sacrifice was gone. Caught in the revelation of Power, Moira could barely hear the screaming that erupted all around her, let alone contemplate the implications of her former lover’s missing corpse.
 
 ---
 

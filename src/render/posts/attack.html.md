@@ -4,7 +4,7 @@ cover: '/img/cover-tree-dark.jpg'
 isPost: true
 active: true
 excerpt: 'Gabe and Nessa are camping in the woods when an unusual storm rolls in.'
-postDate: 'Wed Nov 04 2015 01:00:00 GMT-0500 (Eastern Standard Time)'
+postDate: '2015-11-04 01:00:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - ghostwolf
  - excerpt

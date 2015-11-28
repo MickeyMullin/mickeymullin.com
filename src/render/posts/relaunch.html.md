@@ -4,7 +4,7 @@ cover: '/img/ecwed-tree-bough.jpg'
 isPost: true
 active: true
 excerpt: 'Where "soon" finally becomes "now."'
-postDate: 'Wed Nov 04 2015 00:00:00 GMT-0500 (Eastern Standard Time)'
+postDate: '2015-11-04 00:00:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - bob loblaw
  - ghostwolf

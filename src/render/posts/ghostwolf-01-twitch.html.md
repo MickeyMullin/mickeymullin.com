@@ -3,8 +3,8 @@ title: "Chapter 1: Twitch"
 cover: '/img/cover-tree-dark.jpg'
 isPost: true
 active: true
-excerpt: 'A captive Diana (Di) was prepared for an unknown ritual. Gabriel (Gabe) and Vanessa (Nessa) hear a strange wolf howl while camping. Theresa (Reese) and Miranda (Ran) were out with Roland and Emily to celebrate Ran&apos;s 21st birthday. Di discovered the identity of her captor.'
-postDate: 'Sun Nov 08 2015 19:57:00 GMT-0500 (Eastern Standard Time)'
+excerpt: 'A captive Diana (Di) is prepared for an unknown ritual. Gabriel (Gabe) and Vanessa (Nessa) hear a strange wolf howl while camping. Theresa (Reese) and Miranda (Ran) are out with Roland and Emily to celebrate Ran&apos;s 21st birthday. Di discovers the identity of her captor.'
+postDate: '2015-11-08 19:57:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - ghostwolf
  - di
