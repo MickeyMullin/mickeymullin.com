@@ -20,7 +20,7 @@ active: false
 * ~~Fix excerpts to read from meta instead of MD-laden post~~
 * Tags/sections in side navigation
 * More photos
-* Fix logo moon (white instead of black)
+* ~~Fix logo moon (white instead of black)~~
 * Twitter feed
 * Hooks to Twitter for new blog posts (may be challenging, due to static generation)
 * In-place comments, to allow visitors to write for proofing and specific passages
