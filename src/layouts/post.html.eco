@@ -68,6 +68,10 @@ layout: 'default'
         </a>
       </section>
 
+      <section class="disqus">
+        <%- @getDisqus() %>
+      </section>
+
     </footer>
 
   </article>

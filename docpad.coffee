@@ -2,12 +2,12 @@ moment = require('moment')
 docpadConfig = {
   templateData:
     site:
-      title: 'My Awesome Blog'
-      tagline: 'For to do Things Amazingly Awesome'
-      description: 'A blog all about how awesome I am'
+      title: 'Mickey Mullin'
+      tagline: 'Author, Software Engineer, Maker of Pancakes'
+      description: 'Official site for the author of the forthcoming novel, Ghostwolf. Mickey also writes software, but that\'s not as much fun to curl up with and dive into with a glass of wine.'
       logo: '/img/logo.png'
-      url: ''
-      cover: '/img/cover.jpg'
+      url: 'http://mickeymullin.com'
+      cover: '/img/bellevue-trail-eerie.jpg'
       navigation: [
         {
           name: 'Home',
@@ -20,22 +20,49 @@ docpadConfig = {
           section: 'about'
         },
         {
-          name: 'Fiction',
-          href: '/tags/fiction.html',
-          section: 'tag-fiction'
+          name: 'Ghostwolf',
+          href: '/ghostwolf.html',
+          section: 'ghostwolf'
         },
         {
-          name: 'Test Posts',
-          href: '/tags/test.html',
-          section: 'tag-test'
+          name: 'Teasers',
+          href: '/tags/teaser.html',
+          section: 'tag-teaser'
         }
       ]
+      services:
+            buttons: ['FacebookLike']  # used to customise the order of the buttons
+
+            facebookLikeButton:
+                applicationId: '266367676718271'
+            facebookFollowButton:
+                applicationId: '266367676718271'
+                username: 'balupton'
+            twitterTweetButton: 'MickeyMullin'
+            twitterFollowButton: 'MickeyMullin'
+            githubFollowButton: 'MickeyMullin'
+            #githubStarButton: 'MickeyMullin/mickeymullin.com'
+            #quoraFollowButton: 'Mickey-Mullin'
+            #travisStatusButton: 'bevry/docpad'
+            #furyButton: 'docpad'
+            #gittipButton: 'docpad'
+            #flattrButton: '344188/balupton-on-Flattr'
+            #paypalButton: 'mickey@dreamwolf.us'  # paypal button email id
+
+            disqus: 'mickeymullin'
+            #gauges: 'get.gaug.es-id'
+            googleAnalytics: 'UA-70144528-1'
+            #inspectlet: 'inspectlet-id'
+            #mixpanel: 'mixpanel-id'
+            #reinvigorate: 'reinvigorate-id'
+            #zopim: 'zopim-id'
     author:
-      name: 'John U. Doe'
-      img: ''
-      url: '/'
-      location: 'Nowhere, IL',
-      bio: 'I do stuff and things'
+      name: 'Mickey Mullin'
+      img: '/img/mickey-mullin_20151128_600x600.jpg'
+      url: '/about.html'
+      href: '/about.html'
+      location: 'New Jersey, USA'
+      bio: 'Novelist and software engineer in New Jersey, USA'
     getPreparedTitle: -> if @document.title then "#{@document.title} | #{@site.title}" else @site.title
     getDescription: -> if @document.description then "#{@document.description} | #{@site.description}" else @site.description
     bodyClass: -> if @document.isPost then "post-template" else "home-template"

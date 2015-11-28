@@ -20,7 +20,7 @@
       <% if page.tags: %>
         <%- @partial('tags', {tags: page.tags}) %>
       <% end %>
-      <time class="post-date" datetime="<%= @time(page.postDate, 'YYYY-MMMM-DD') %>"><%= @time(page.postDate, 'DD MMMM YYYY') %></time>
+      <time class="post-date" datetime="<%= @time(page.postDate, 'YYYY-MMM-DD HH:mm') %>"><%= @time(page.postDate, 'ddd MMMM DD, HH:mm') %></time>
     </footer>
 </article>
 <% end %>
