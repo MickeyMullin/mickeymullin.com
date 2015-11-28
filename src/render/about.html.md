@@ -15,4 +15,14 @@ Note that content on this site ranges somewhere between PG-13 and R. Sex, drugs,
 I do have an employer, but they have the right to disavow me, and nothing I say can be used against them.
 
 For shorter quips, bereft of depth, gravity and prose, take a gander <span title="If you're using a screen reader, or an oddball who reads website source code, you may find it amusing that that reads 'a gander at-at Mickey Mullin.'">at [@MickeyMullin](https://twitter.com/MickeyMullin)</span> on <a class="icon-twitter read-more" href="https://twitter.com/MickeyMullin"><span class="hidden">Twitter</span></a>&nbsp;Twitter.
- 
+
+---
+
+### About this site
+
+Static site generator: [DocPad](http://docpad.org).  
+(Current) site design: [Casper](https://github.com/TryGhost/Casper); [DocPad port](https://github.com/docpad/docpad-skeleton-casper) by [Benjamin Lupton](https://github.com/balupton).
+
+Respective licenses at above links.
+
+All original content Copyright Mickey Mullin &copy; 2015, unless otherwise noted. All rights reserved.
