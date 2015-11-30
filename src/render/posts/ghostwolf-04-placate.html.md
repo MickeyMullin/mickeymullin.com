@@ -7,6 +7,7 @@ excerpt: 'Ancients communicate with their lessers.'
 postDate: '2015-11-27 19:29:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - ghostwolf
+ - ghostwolf chapter
  - cas
  - the indian
  - moira

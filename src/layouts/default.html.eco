@@ -8,11 +8,29 @@
     <meta name="HandheldFriendly" content="True" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="shortcut icon" href="/favicon.ico">
-    <%- @getBlock("styles").add('/css/screen.css').add('/css/main.css').add('//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400').toHTML() %>
+    <%- @getBlock("styles").add('/css/screen.css?cache=20151130').add('/css/main.css?cache=20151130').add('//fonts.googleapis.com/css?family=Merriweather:300,700,700italic,300italic|Open+Sans:700,400').toHTML() %>
     <meta name="generator" content="Docpad 6.x" />
     <link rel="alternate" type="application/rss+xml" title="<%= @site.title %>" href="/rss.xml" />
   </head>
   <body class="<%= @bodyClass() %> nav-closed">
+    <script>
+window.fbAsyncInit = function() {
+  FB.init({
+    appId      : '188940484781233',
+    xfbml      : true,
+    version    : 'v2.5'
+  });
+};
+
+(function(d, s, id){
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) {return;}
+    js = d.createElement(s); js.id = id;
+    js.src = "//connect.facebook.net/en_US/sdk.js";
+    fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));
+    </script>
+
     <%- @partial('navigation') %>
     <div class="site-wrapper">
 
@@ -25,5 +43,7 @@
 
     </div>
     <%- @getBlock("scripts").add('//code.jquery.com/jquery-2.1.4.min.js').add('/js/jquery.fitvids.js').add('/js/index.js').toHTML() %>
+
+    <div id="fb-root"></div>
   </body>
 </html>

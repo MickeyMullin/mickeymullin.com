@@ -68,8 +68,9 @@ layout: 'default'
         </a>
       </section>
 
-      <section class="disqus">
-        <%- @getDisqus() %>
+      <section id="comments" class="social-network">
+        <div class="fb-like" data-href="<%= @getUrl(@document) %>" data-layout="standard" data-action="like" data-show-faces="true" data-share="true"></div>
+        <div class="fb-comments" data-href="<%= @getUrl(@document) %>" data-numposts="5"></div>
       </section>
 
     </footer>

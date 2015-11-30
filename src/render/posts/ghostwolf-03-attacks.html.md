@@ -7,6 +7,7 @@ excerpt: 'Gabe and Nessa adopt a rambunctious pet, while Cassandra (Cas) struggl
 postDate: '2015-11-15 11:24:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - ghostwolf
+ - ghostwolf chapter
  - gabe
  - nessa
  - cas

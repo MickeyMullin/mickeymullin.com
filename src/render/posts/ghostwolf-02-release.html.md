@@ -7,6 +7,7 @@ excerpt: 'Di experiences the worst breakup of her life. Reese gets woozy and see
 postDate: '2015-11-14 17:17:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - ghostwolf
+ - ghostwolf chapter
  - di
  - reese
  - ran

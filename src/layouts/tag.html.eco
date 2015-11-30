@@ -6,7 +6,7 @@ layout: 'default'
 <%- @partial('masthead') %>
 
 <main id="content" class="content" role="main">
-  <h1 style="width: 80%; max-width: 710px; margin: 0px auto;">Posts for "<%= @document.tag %>" tag</h1>
+  <h1 style="width: 80%; max-width: 710px; margin: 0px auto;">Posts tagged <nobr>"<%= @document.tag %>"</nobr></h1>
   <% for page in @getFiles({tags:{$has: @document.tag} ,isPagedAuto: {$ne: true}}, {postDate: -1}).toJSON(): %>
   <article class="post">
     <header class="post-header">

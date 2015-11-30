@@ -655,13 +655,14 @@ body.nav-opened .nav {
     padding: 0.6rem 4%;
     overflow: hidden;
     white-space: nowrap;
-    text-overflow: ellipsis;
+    text-overflow: clip; /*ellipsis*/
 }
 .nav li a:after {
     display: inline-block;
     content: " .......................................................";
     color: rgba(255,255,255,0.2);
     margin-left: 5px;
+    text-overflow: clip;
 }
 .nav .nav-current:before {
     color: #fff;

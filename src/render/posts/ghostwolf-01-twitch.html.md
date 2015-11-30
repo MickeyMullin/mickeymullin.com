@@ -7,6 +7,7 @@ excerpt: 'A captive Diana (Di) is prepared for an unknown ritual. Gabriel (Gabe)
 postDate: '2015-11-08 19:57:00 GMT-0500 (Eastern Standard Time)'
 tags:
  - ghostwolf
+ - ghostwolf chapter
  - di
  - gabe
  - nessa

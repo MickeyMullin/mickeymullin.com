@@ -25,19 +25,19 @@ docpadConfig = {
           section: 'ghostwolf'
         },
         {
-          name: 'Teasers',
-          href: '/tags/teaser.html',
-          section: 'tag-teaser'
+          name: 'Chapters',
+          href: '/tags/ghostwolf-chapter.html',
+          section: 'tag-chapter'
         }
       ]
       services:
             buttons: ['FacebookLike']  # used to customise the order of the buttons
 
-            facebookLikeButton:
-                applicationId: '266367676718271'
-            facebookFollowButton:
-                applicationId: '266367676718271'
-                username: 'balupton'
+            #facebookLikeButton:
+            #    applicationId: '266367676718271'
+            #facebookFollowButton:
+            #    applicationId: '266367676718271'
+            #    username: 'balupton'
             twitterTweetButton: 'MickeyMullin'
             twitterFollowButton: 'MickeyMullin'
             githubFollowButton: 'MickeyMullin'
@@ -60,9 +60,12 @@ docpadConfig = {
       name: 'Mickey Mullin'
       img: '/img/mickey-mullin_20151128_600x600.jpg'
       url: '/about.html'
-      href: '/about.html'
+      href: '/'
       location: 'New Jersey, USA'
       bio: 'Novelist and software engineer in New Jersey, USA'
+    # -----------------------------
+    # Helpers
+    #
     getPreparedTitle: -> if @document.title then "#{@document.title} | #{@site.title}" else @site.title
     getDescription: -> if @document.description then "#{@document.description} | #{@site.description}" else @site.description
     bodyClass: -> if @document.isPost then "post-template" else "home-template"
@@ -83,6 +86,8 @@ docpadConfig = {
       format = format || 'MMMM DO, YYYY'
       ts = new Date(ts) || new Date()
       moment(ts).format(format)
+    getUrl: (document) ->
+      return @site.url + (document.url or document.get?('url'))
   collections:
     posts: ->
       @getCollection("html").findAllLive({active:true, isPost: true, isPagedAuto: {$ne: true}}, {postDate: -1}).on "add", (model) ->
