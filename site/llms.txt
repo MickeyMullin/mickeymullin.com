@@ -3,7 +3,8 @@
 > Local networking, Wi-Fi and custom software business in Manchester, New Hampshire, serving southern NH. On-site work: network troubleshooting, business and home Wi-Fi, Ubiquiti UniFi installation, small-office networks (1–20 people), Cat6 network cabling, wireless bridges and internet failover, and low-voltage network subcontracting for general contractors. Software: custom internal tools, integrations and automation, small-business websites, and MVPs. One person scopes, installs and supports every job.
 
 ## About
-- Owner: Mickey Mullin, software developer and security architect
+- Owner: Mickey Mullin, software developer with 30 years of experience (network administrator, IT certification instructor, software company co-founder; engineer and engineering manager at Microsoft and Yahoo, 2013–2023), now an enterprise software consultant
+- Builds software with AI-assisted development, reviewed and tested to production standards; clients own their code
 - Based in: Manchester, NH (service area: Manchester, Bedford, Goffstown, Hooksett, Londonderry, Derry, Merrimack, Nashua, Concord and nearby towns)
 - Email: hello@mickeymullin.com
 - Website: https://mickeymullin.com/
