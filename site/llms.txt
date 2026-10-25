@@ -1,6 +1,6 @@
 # Mickey Mullin: Networks & Software
 
-> Local networking, Wi-Fi and custom software business in Manchester, New Hampshire, serving southern NH. On-site work: network troubleshooting, business and home Wi-Fi, Ubiquiti UniFi installation, small-office networks (1–20 people), Cat6 network cabling, wireless bridges and internet failover, and low-voltage network subcontracting for general contractors. Software: custom internal tools, integrations and automation, small-business websites, and MVPs. One person scopes, installs and supports every job.
+> Local networking, Wi-Fi and custom software business in Manchester, New Hampshire, serving southern NH. On-site work: network troubleshooting, business and home Wi-Fi, Ubiquiti UniFi installation, small-office networks (1–20 people), Cat6 network cabling, wireless bridges and internet failover, and low-voltage network subcontracting for general contractors. Software: custom internal tools, taking AI-built prototypes to production ("last mile": custom domain and DNS, hosting, logins, Gmail / Google Workspace or Microsoft 365 email, CRM integration, security review, backups), integrations and automation, small-business websites, and MVPs. One person scopes, installs and supports every job.
 
 ## About
 - Owner: Mickey Mullin, software developer with 30 years of experience (network administrator, IT certification instructor, software company co-founder; engineer and engineering manager at Microsoft and Yahoo, 2013–2023), now an enterprise software consultant
@@ -17,6 +17,7 @@
 - Wi-Fi / UniFi design and install, home or small office: $600–2,500
 - Network cabling, small office (4–12 drops): $1,000–3,000
 - Custom software and integrations: fixed quote per project
+- AI prototype to production: review first, then a fixed quote to finish
 
 ## Pages
 - [Home](https://mickeymullin.com/): services, pricing, service area, contact

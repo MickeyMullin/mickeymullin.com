@@ -86,6 +86,7 @@
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Network cabling"}},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Low-voltage network subcontracting for general contractors"}},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Custom software development"}},
+        {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "AI prototype to production", "description": "Taking apps built with AI tools such as ChatGPT, Claude, Lovable, Bolt or Replit to production: custom domain and DNS, hosting, user accounts, Gmail / Google Workspace or Microsoft 365 email, CRM integration, security review, backups and monitoring."}},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Integrations and automation"}},
         {"@type": "Offer", "itemOffered": {"@type": "Service", "name": "Small-business websites"}}
       ]
@@ -126,6 +127,8 @@
        "acceptedAnswer": {"@type": "Answer", "text": "Yes. Evening and Saturday appointments are available, which is often easier for homes and small offices that can't go offline during the day."}},
       {"@type": "Question", "name": "Do you use AI to write the software?",
        "acceptedAnswer": {"@type": "Answer", "text": "Yes, as a tool. AI-assisted development lets one experienced developer build in weeks what used to take a small team months. Every line still goes through the review, testing and design judgment that 30 years of production software taught me, and you own all of the code when we're done."}},
+      {"@type": "Question", "name": "I built an app with AI. Can you make it work for real?",
+       "acceptedAnswer": {"@type": "Answer", "text": "Usually, yes. I start with a review of what you have: what works, what is risky, and what is missing, such as the domain, hosting, logins, email, CRM and security. Then you get a fixed quote to finish it. Sometimes rebuilding one piece costs less than patching it, and I will tell you when that is the case. You keep the code, and every account is in your name."}},
       {"@type": "Question", "name": "Do you do electrical work?",
        "acceptedAnswer": {"@type": "Answer", "text": "No. Anything involving power, such as a new outlet for a rack or UPS, goes to a licensed electrician."}}
     ]
@@ -180,6 +183,10 @@
               <dt>“A spreadsheet is running the business.”</dt>
               <dd>A small custom tool or integration that does the job properly and talks to what you already use.</dd>
             </div>
+            <div>
+              <dt>“We built an app with AI. Now what?”</dt>
+              <dd>Your domain, hosting, logins, email and CRM connected, and a security check, so people can actually use it.</dd>
+            </div>
           </dl>
         </aside>
       </div>
@@ -213,12 +220,28 @@
           <h2>Built around how you actually work.</h2>
           <p>Software is my day trade: 30 years of it, from Microsoft and Yahoo to the enterprise platforms I build today. AI-assisted development gets you a working version quickly. Decades of experience make sure it is clean, tested and yours to keep.</p>
         </header>
+        <div class="svc-col">
         <ul class="svc">
           <li><b>Custom software</b><span>Internal tools, portals and dashboards that replace the spreadsheet, the whiteboard and the sticky notes.</span></li>
+          <li><b>Mockup to production</b><span>You or your team built something with ChatGPT, Claude, Lovable, Bolt or Replit, and it almost works. I take it the last mile: your domain, real hosting, logins, your email and CRM, backups and a security check, so customers and staff can actually use it.</span></li>
           <li><b>Integrations &amp; automation</b><span>Connect your CRM, scheduling, invoicing and email so data is entered once and the busywork stops.</span></li>
           <li><b>Small-business websites</b><span>Fast, clean sites that load quickly, show up in local search, and can be edited without calling anyone.</span></li>
           <li><b>MVPs &amp; prototypes</b><span>A working first version of the idea, enough to test with real customers before spending big.</span></li>
         </ul>
+        <div class="lastmile">
+          <h3>The last mile</h3>
+          <p>The questions that stall an AI-built app, and how I answer them:</p>
+          <ul>
+            <li><b>What about DNS?</b> Your own domain pointed at the app, with HTTPS, and your existing email still working afterward.</li>
+            <li><b>How do I hook this to Gmail?</b> Send and receive through Google Workspace or Microsoft 365, with SPF, DKIM and DMARC set up so mail lands in inboxes, not spam.</li>
+            <li><b>How does it get into our CRM?</b> Leads, contacts and orders flow into HubSpot, Salesforce, Zoho or whatever you already use.</li>
+            <li><b>Where does it live?</b> Hosting sized to the job, in your name and on your billing.</li>
+            <li><b>Who can log in?</b> Real accounts and roles instead of a shared link.</li>
+            <li><b>Is it safe?</b> API keys out of the code, the database locked down, customer data handled properly.</li>
+            <li><b>What if it breaks?</b> Backups, monitoring and a written runbook, plus ongoing support if you want it.</li>
+          </ul>
+        </div>
+        </div>
       </div>
     </section>
 
@@ -266,6 +289,7 @@
               <tr><th scope="row">Wi-Fi / UniFi design &amp; install <small>home or small office</small></th><td>$600–2,500</td></tr>
               <tr><th scope="row">Network cabling <small>small office, 4–12 drops</small></th><td>$1,000–3,000</td></tr>
               <tr><th scope="row">Custom software &amp; integrations <small>scoped per project</small></th><td>Fixed quote</td></tr>
+              <tr><th scope="row">Mockup to production <small>review first, then a quote to finish</small></th><td>Fixed quote</td></tr>
             </tbody>
           </table>
         </div>
@@ -320,6 +344,10 @@
           <details>
             <summary>Do you use AI to write the software?</summary>
             <p>Yes, as a tool. AI-assisted development lets one experienced developer build in weeks what used to take a small team months. Every line still goes through the review, testing and design judgment that 30 years of production software taught me, and you own all of the code when we&#39;re done.</p>
+          </details>
+          <details>
+            <summary>I built an app with AI. Can you make it work for real?</summary>
+            <p>Usually, yes. I start with a review of what you have: what works, what is risky, and what is missing, such as the domain, hosting, logins, email, CRM and security. Then you get a fixed quote to finish it. Sometimes rebuilding one piece costs less than patching it, and I will tell you when that is the case. You keep the code, and every account is in your name.</p>
           </details>
           <details>
             <summary>Do you do electrical work?</summary>
