@@ -19,7 +19,7 @@ tools/
 TODO.md          everything left to launch and grow the site
 ```
 
-No framework and no build step: plain HTML/CSS/JS, plus one PHP file for the form. Hostinger's LiteSpeed serves it directly and honors `.htaccess`. Once the site grows past a handful of service and location pages, move the shared header, footer and JSON-LD into a static generator. See TODO.md.
+**Status:** `site/` is the design and content prototype (plain HTML/CSS/JS). The target stack is Bun + React (Vite, prerendered) + Elysia on Node, deployed as a Hostinger Node.js Web App. `contact.php` goes away in that re-platform. See TODO.md.
 
 ## Local preview
 
