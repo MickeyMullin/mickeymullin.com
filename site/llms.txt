@@ -17,7 +17,7 @@
 - Wi-Fi / UniFi design and install, home or small office: $600–2,500
 - Network cabling, small office (4–12 drops): $1,000–3,000
 - Custom software and integrations: fixed quote per project
-- AI prototype to production: review first, then a fixed quote to finish
+- AI prototype to production: free review, then a fixed quote to finish
 
 ## Pages
 - [Home](https://mickeymullin.com/): services, pricing, service area, contact

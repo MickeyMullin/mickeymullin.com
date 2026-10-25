@@ -1,1 +1,39 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="10" fill="#1f3a3d"/><text x="32" y="42" text-anchor="middle" font-family="IBM Plex Mono, ui-monospace, Menlo, monospace" font-size="26" font-weight="600" fill="#eef2f0" letter-spacing="-1">MM</text><rect x="14" y="49" width="36" height="3" rx="1.5" fill="#c8501c"/></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><rect width="64" height="64" rx="12" fill="#6A0DAD"/><svg x="10" y="9.6" width="44" height="44.8" viewBox="0 0 1100 1120" style="color:#FFFFFF;fill-rule:evenodd"><g id="logo" transform="matrix(1,0,0,1,0,48)">
+        <g id="RJ45">
+            <path id="connector-housing" d="M886,828L1004,828L1004,874L1025,874L1025,1022C1025,1034 1019,1040 1007,1040L883,1040C871,1040 865,1034 865,1022L865,874L886,874L886,828ZM888,911L888,1008L1004,1009L1003,911L888,911ZM930,853L930,889L960,889L960,853L930,853Z" style="fill:#FFFFFF;"/>
+            <g id="contacts" transform="matrix(1,0,0,1,-10,0)">
+                <g id="contact-4" transform="matrix(1,0,0,1,-2,0)">
+                    <rect x="989" y="927" width="14" height="65" style="fill:#FFFFFF;fill-rule:nonzero;"/>
+                </g>
+                <g id="contact-3" transform="matrix(1,0,0,1,-1,0)">
+                    <rect x="962" y="927" width="14" height="65" style="fill:#FFFFFF;fill-rule:nonzero;"/>
+                </g>
+                <g id="contact-2" transform="matrix(1,0,0,1,1,0)">
+                    <rect x="935" y="927" width="14" height="65" style="fill:#FFFFFF;fill-rule:nonzero;"/>
+                </g>
+                <g id="contact-1" transform="matrix(1,0,0,1,2,0)">
+                    <rect x="908" y="927" width="14" height="65" style="fill:#FFFFFF;fill-rule:nonzero;"/>
+                </g>
+            </g>
+        </g>
+        <g id="M">
+            <path id="M-main" d="M70,180L530,640L990,180L990,850L900,850L900,397.279L530,767.279L70,307.279L70,180Z" style="fill:#FFFFFF;fill-rule:nonzero;"/>
+        </g>
+        <g id="lower-line">
+            <path id="lower-left-diagonal" d="M70,380L490,800L426.36,863.64L160,597.279L160,1040L70,1040L70,380Z" style="fill:#FFFFFF;fill-rule:nonzero;"/>
+        </g>
+        <g id="WiFi" transform="matrix(1.039959,0,0,1.039959,-21.178187,-36.216088)">
+            <g id="wifi-core" transform="matrix(1.119578,0,0,1.119578,-63.376436,-90.746909)">
+                <path d="M421.106,491.106C480.843,431.368 579.157,431.368 638.894,491.106L530,600L421.106,491.106Z" style="fill:#FFFFFF;fill-rule:nonzero;"/>
+            </g>
+            <g id="wifi-arc-3" transform="matrix(0.98607,0,0,0.944409,7.383089,6.100265)">
+                <path d="M307.969,377.969C429.771,256.166 630.229,256.166 752.032,377.968L695.463,434.537C651.596,390.67 592.037,366 530,366C467.963,366 408.404,390.67 364.537,434.537L307.969,377.969Z" style="fill:#FFFFFF;fill-rule:nonzero;"/>
+            </g>
+            <g id="wifi-arc-2" transform="matrix(0.98607,0,0,0.944409,7.383089,6.100265)">
+                <path d="M208.974,278.974C294.082,193.865 409.638,146 530,146C650.362,146 765.918,193.865 851.026,278.973L794.458,335.542C649.381,190.465 410.619,190.465 265.542,335.542L208.974,278.974Z" style="fill:#FFFFFF;fill-rule:nonzero;"/>
+            </g>
+            <g id="wifi-arc-1" transform="matrix(0.98607,0,0,0.944409,7.383089,6.100265)">
+                <path d="M109.979,179.979C340.396,-50.438 719.604,-50.438 950.021,179.979L893.453,236.547C797.096,140.19 666.269,86 530,86C393.731,86 262.904,140.19 166.547,236.547L109.979,179.979Z" style="fill:#FFFFFF;fill-rule:nonzero;"/>
+            </g>
+        </g>
+    </g></svg></svg>
