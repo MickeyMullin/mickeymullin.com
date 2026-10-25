@@ -1,8 +1,47 @@
 # mickeymullin.com
 
-Static site generator: [DocPad](http://docpad.org).  
-(Current) site design: [Casper](https://github.com/TryGhost/Casper); [DocPad port](https://github.com/docpad/docpad-skeleton-casper) by [Benjamin Lupton](https://github.com/balupton).
+Source for [mickeymullin.com](https://mickeymullin.com/): networking, Wi-Fi and custom software in Manchester and southern New Hampshire.
 
-Respective licenses at above links.
+The previous DocPad site is archived on the [`docpad`](../../tree/docpad) branch.
 
-All original content Copyright Mickey Mullin &copy; 2015. All rights reserved.
+## Layout
+
+```
+site/            → deployed as-is to the web root (Hostinger public_html)
+  index.html       single-page site: content, meta, JSON-LD structured data
+  styles.css       all styles (no build step)
+  script.js        analytics bootstrap, event tracking, contact form
+  contact.php      contact form handler (PHP 8, mail())
+  robots.txt, sitemap.xml, llms.txt, 404.html, .htaccess, favicon.svg
+  images/          og-image.png (1200×630 social card)
+tools/
+  og-image.html    source for images/og-image.png (render at 1200×630)
+TODO.md          everything left to launch and grow the site
+```
+
+No framework and no build step: plain HTML/CSS/JS, plus one PHP file for the form. Hostinger's LiteSpeed serves it directly and honors `.htaccess`. Once the site grows past a handful of service and location pages, move the shared header, footer and JSON-LD into a static generator. See TODO.md.
+
+## Local preview
+
+```sh
+cd site && python3 -m http.server 8787
+# open http://127.0.0.1:8787/
+```
+
+`contact.php` needs PHP to run (`php -S 127.0.0.1:8787 -t site`). Under the Python server the form shows its "didn't send" fallback.
+
+## Analytics
+
+Fill in the IDs in the `window.SITE` block in `index.html`. Each tool loads only when its ID is set:
+
+- `ga4`: Google Analytics 4 measurement ID
+- `umamiSrc` / `umamiId`: self-hosted Umami
+- `clarity`: Microsoft Clarity (optional)
+
+Tracked events: `generate_lead` (form sent), `click_to_call`, `click_to_email`, `cta_click`.
+
+## Deploy
+
+Upload the contents of `site/` to `public_html/` (hPanel File Manager, SFTP, or Hostinger's Git deploy pointed at this repo with `site/` as the root). See TODO.md for removing the old WordPress install first.
+
+© Mickey Mullin. All rights reserved.

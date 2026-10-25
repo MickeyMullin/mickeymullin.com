@@ -1,0 +1,6 @@
+# mickeymullin.com: public pages are open to all crawlers, including
+# search and AI crawlers (Googlebot, Bingbot, OAI-SearchBot, PerplexityBot, ClaudeBot).
+User-agent: *
+Disallow: /contact.php
+
+Sitemap: https://mickeymullin.com/sitemap.xml
