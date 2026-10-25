@@ -149,6 +149,7 @@
         </span>
       </a>
       <nav class="nav" aria-label="Primary">
+        <a href="#about">About</a>
         <a href="#networking">Networking</a>
         <a href="#software">Software</a>
         <a href="#pricing">Pricing</a>
@@ -165,34 +166,73 @@
         <div class="hero-copy">
           <p class="eyebrow">Manchester &amp; southern New Hampshire</p>
           <h1>Networks that hold&nbsp;up. Software that&nbsp;fits.</h1>
-          <p class="lede">Wi-Fi, UniFi networks, cabling and troubleshooting for small offices and homes, plus the custom software and integrations that run on top of them. You deal with one person from the first call to the hand-off.</p>
+          <p class="lede"><strong>Hi, I'm Mickey.</strong> I set up Wi-Fi, UniFi networks and cabling for small offices and homes, and I build the custom software and integrations that run on top of them. You deal with me from the first call to the hand-off.</p>
           <div class="hero-actions">
             <a class="btn" href="#contact" data-cta="hero">Tell me what's going on</a>
             <a class="link-arrow" href="#pricing">See typical prices</a>
           </div>
         </div>
 
-        <aside class="spec" aria-label="Common reasons people call">
-          <p class="spec-label">Common first calls</p>
-          <dl>
-            <div>
-              <dt>“The Wi-Fi drops in the back office.”</dt>
-              <dd>On-site diagnosis, a coverage plan, and access points placed where they're actually needed.</dd>
-            </div>
-            <div>
-              <dt>“We're moving into a new space.”</dt>
-              <dd>Network design, install, guest Wi-Fi kept apart from the business network, and a labeled port map.</dd>
-            </div>
-            <div>
-              <dt>“A spreadsheet is running the business.”</dt>
-              <dd>A small custom tool or integration that does the job properly and talks to what you already use.</dd>
-            </div>
-            <div>
-              <dt>“We built an app with AI. Now what?”</dt>
-              <dd>Your domain, hosting, logins, email and CRM connected, and a security check, so people can actually use it.</dd>
-            </div>
-          </dl>
-        </aside>
+        <figure class="hero-photo">
+          <picture>
+            <source type="image/webp"
+                    srcset="/images/mickey-mullin-400.webp 400w, /images/mickey-mullin-800.webp 800w, /images/mickey-mullin-1200.webp 1200w"
+                    sizes="(max-width: 900px) 200px, 360px">
+            <img src="/images/mickey-mullin-800.jpg" width="800" height="1000"
+                 alt="Mickey Mullin, chin on hand, in a blue chambray shirt"
+                 fetchpriority="high" decoding="async">
+          </picture>
+          <figcaption>
+            <b>Mickey Mullin</b>
+            <span>30 years in software &amp; networks</span>
+            <span>Formerly Microsoft and Yahoo</span>
+          </figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- About -->
+    <section id="about" class="band">
+      <div class="wrap split">
+        <div class="split-head">
+          <p class="eyebrow">Who you're working with</p>
+          <h2>Mickey Mullin</h2>
+          <p>Network administrator, IT instructor, software company co-founder, then engineer and engineering manager at Microsoft and Yahoo.</p>
+        </div>
+        <div class="about-copy">
+          <p>I've built software and run networks for 30 years. I started out as a network administrator, taught IT certification courses, co-founded a software company, and from 2013 to 2023 was an engineer and then an engineering manager at Microsoft and Yahoo, where my teams ran high-availability ad platforms on AWS.</p>
+          <p>Today I build enterprise software as a consultant, for clients that include a national property-management company and a drayage and shipping company. I use AI coding tools every day, and three decades of reading, reviewing and running production code keeps that output clean and consistent. For a small business, that puts custom software within reach.</p>
+          <p>The same habits make networks dependable: plan it, build it cleanly, test it, write down how it works.</p>
+          <p>You work directly with me. The person who scopes the job is the one who pulls the cable, configures the gear and answers the phone afterward. No account managers, no hand-offs to someone you've never met.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Common first calls -->
+    <section class="band band-alt" aria-labelledby="calls-h">
+      <div class="wrap">
+        <div class="sec-head">
+          <p class="eyebrow">Common first calls</p>
+          <h2 id="calls-h">Sound familiar?</h2>
+        </div>
+        <dl class="calls">
+          <div>
+            <dt>“The Wi-Fi drops in the back office.”</dt>
+            <dd>On-site diagnosis, a coverage plan, and access points placed where they're actually needed.</dd>
+          </div>
+          <div>
+            <dt>“We're moving into a new space.”</dt>
+            <dd>Network design, install, guest Wi-Fi kept apart from the business network, and a labeled port map.</dd>
+          </div>
+          <div>
+            <dt>“A spreadsheet is running the business.”</dt>
+            <dd>A small custom tool or integration that does the job properly and talks to what you already use.</dd>
+          </div>
+          <div>
+            <dt>“We built an app with AI. Now what?”</dt>
+            <dd>Your domain, hosting, logins, email and CRM connected, and a security check, so people can actually use it.</dd>
+          </div>
+        </dl>
       </div>
     </section>
 
@@ -300,33 +340,8 @@
       </div>
     </section>
 
-    <!-- About -->
-    <section id="about" class="band">
-      <div class="wrap about">
-        <figure class="portrait">
-          <picture>
-            <source type="image/webp"
-                    srcset="/images/mickey-mullin-400.webp 400w, /images/mickey-mullin-800.webp 800w, /images/mickey-mullin-1200.webp 1200w"
-                    sizes="(max-width: 760px) 220px, 260px">
-            <img src="/images/mickey-mullin-800.jpg" width="800" height="1000"
-                 alt="Mickey Mullin, chin on hand, in a blue chambray shirt"
-                 loading="lazy" decoding="async">
-          </picture>
-          <figcaption class="sr-only">Mickey Mullin</figcaption>
-        </figure>
-        <div class="about-copy">
-          <p class="eyebrow">Who you're working with</p>
-          <h2>Mickey Mullin</h2>
-          <p>I've built software and run networks for 30 years. I started out as a network administrator, taught IT certification courses, co-founded a software company, and from 2013 to 2023 was an engineer and then an engineering manager at Microsoft and Yahoo, where my teams ran high-availability ad platforms on AWS.</p>
-          <p>Today I build enterprise software as a consultant, for clients that include a national property-management company and a drayage and shipping company. I use AI coding tools every day, and three decades of reading, reviewing and running production code keeps that output clean and consistent. For a small business, that puts custom software within reach.</p>
-          <p>The same habits make networks dependable: plan it, build it cleanly, test it, write down how it works.</p>
-          <p>You work directly with me. The person who scopes the job is the one who pulls the cable, configures the gear and answers the phone afterward. No account managers, no hand-offs to someone you've never met.</p>
-        </div>
-      </div>
-    </section>
-
     <!-- FAQ -->
-    <section class="band band-alt">
+    <section class="band">
       <div class="wrap split">
         <header class="split-head">
           <p class="eyebrow">Questions</p>
@@ -362,7 +377,7 @@
     </section>
 
     <!-- Service area -->
-    <section id="area" class="band">
+    <section id="area" class="band band-alt">
       <div class="wrap split">
         <header class="split-head">
           <p class="eyebrow">Service area</p>
