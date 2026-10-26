@@ -135,6 +135,8 @@ describe('analytics CSP sources', () => {
     expect(ANALYTICS.umamiDomains.split(',')).toContain('mickeymullin.com')
     expect(ANALYTICS.umamiDomains).not.toContain('localhost')
     expect(ANALYTICS.umamiDomains).not.toContain('home.vorheim.com')
+    // the temporary domain was dropped at cutover (#690)
+    expect(ANALYTICS.umamiDomains).not.toContain('hostingersite.com')
   })
 })
 

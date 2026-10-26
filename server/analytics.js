@@ -14,8 +14,7 @@ export const ANALYTICS = {
   umamiId: '7052ef9d-7fe6-4ea4-98b7-31f2943a1f5f',
   // Umami records visits only on these hosts, so the local preview and any
   // other copy of the site never count.
-  // TODO(#690): drop the temporary domain at cutover.
-  umamiDomains: 'mickeymullin.com,palegoldenrod-sardine-733559.hostingersite.com',
+  umamiDomains: 'mickeymullin.com',
   // Microsoft Clarity project ID (optional)
   clarity: '',
 }
