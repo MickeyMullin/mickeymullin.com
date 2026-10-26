@@ -1,3 +1,16 @@
 .DS_Store
 private/
 *.log
+
+# dependencies and build output
+node_modules/
+build/
+.react-router/
+
+# package-lock.json is the one committed lockfile (Hostinger installs with npm)
+bun.lock
+bun.lockb
+
+# local secrets
+.env
+.env.*

@@ -1,4 +1,4 @@
-/* mickeymullin.com — single stylesheet, no build step */
+/* mickeymullin.com — single global stylesheet (linked from app/root.tsx) */
 /* Brand: purple #6A0DAD, violet #9D4EDD, lilac #C77DFF, mint #5EE6A8. Theme: Mint Dark. */
 
 :root {
@@ -233,6 +233,7 @@ a:hover { color: var(--ink); }
 .field textarea { resize: vertical; min-height: 130px; }
 .field input:focus, .field textarea:focus { outline: 2px solid var(--mint); outline-offset: 1px; }
 .field input[aria-invalid="true"], .field textarea[aria-invalid="true"] { border-color: #FF9AA2; box-shadow: 0 0 0 1px #FF9AA2; }
+.field-error { margin: .35rem 0 0; font-size: .88rem; color: #FF9AA2; }
 .hp { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .form .btn { justify-self: start; }
 .form-status { min-height: 1.5em; margin: 0; color: var(--on-deep-2); }

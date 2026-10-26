@@ -57,7 +57,9 @@ Mickey, in hPanel:
    | Output directory | `build` |
    | Entry file | `server.js` |
 
-5. Environment variables: none are required for stage 1. Without the SMTP settings, the contact form shows the email address as a fallback instead of sending.
+   The build needs the devDependencies (`vite`, `@react-router/dev`), so the install step must not run with `NODE_ENV=production` or `--omit=dev` *(unverified how Hostinger installs)*. If the build log says `react-router: not found`, that's the cause.
+
+5. Environment variables: none are required for stage 1. Without the SMTP settings, the contact form answers HTTP 503 and shows the email address as a fallback instead of sending.
 6. **Deploy**, then send Luci the temporary URL. If detection picked anything other than `react-router`, send a screenshot of the settings screen.
 
 Luci then verifies against the temporary URL:
@@ -69,7 +71,15 @@ curl -s $U/ | grep -c '<h1'                         # pre-rendered HTML, not an 
 curl -s $U/ | grep -o 'application/ld+json' | wc -l # JSON-LD present (then parse each block)
 for p in robots.txt sitemap.xml llms.txt favicon.ico icon-512.png images/og-image.png; do curl -s -o /dev/null -w "%{http_code} $p\n" $U/$p; done
 curl -s -o /dev/null -w '%{http_code}\n' $U/no-such-page # expect 404
+# contact form without JavaScript: 503 + fallback message without SMTP, 200 once SMTP is set
+curl -s -o /dev/null -w '%{http_code}\n' -d 'name=Test&email=test%40example.com&message=Stage+1+check' "$U/?index"
+# honeypot: 200 (reports success, sends nothing)
+curl -s -o /dev/null -w '%{http_code}\n' -d 'name=Bot&email=bot%40example.com&message=x&company_url=http%3A%2F%2Fspam' "$U/?index"
+# rate limit: these two plus four more POSTs from the same IP; the 6th within 15 minutes answers 429
+for i in 1 2 3 4; do curl -s -o /dev/null -w '%{http_code} ' -d 'name=T&email=t%40example.com&message=x' "$U/?index"; done; echo
 ```
+
+The rate limit is per visitor IP, read from the `X-Forwarded-For` header Hostinger's proxy adds (Express `trust proxy` = 1 hop). Check that it really is per visitor: the `IP:` line of a test message (once SMTP is set) should show your own address, not a Hostinger one. If it shows a proxy address, set `TRUST_PROXY` to the number of proxies in front of the app and restart.
 
 Then in a browser: desktop and phone layouts, the form with JavaScript off (the fallback message), and Lighthouse mobile (SEO and Accessibility at least 95).
 
@@ -97,14 +107,14 @@ Prerequisites: stage 1 verified; the business name (#675) and prices (#676) are 
    | `SMTP_USER` | the sending address |
    | `SMTP_PASS` | a Google **app password** for that address (entered in hPanel only) |
 
-   Analytics variables (`GA4_ID`, `UMAMI_SRC`, `UMAMI_WEBSITE_ID`, `CLARITY_ID`) get added later by #682/#692/#695. Changing a variable needs a redeploy, because pages are pre-rendered at build time.
+   The SMTP variables are read when the app starts, so changing one needs a restart (a redeploy also restarts it). Analytics variables (`GA4_ID`, `UMAMI_SRC`, `UMAMI_WEBSITE_ID`, `CLARITY_ID`) get added later by #682/#692/#695; those will be baked into the pre-rendered pages, so changing one needs a redeploy.
 6. **Redeploy** from hPanel (or push to `master`).
 
 Luci verifies with the stage 1 checks against `https://mickeymullin.com`, plus:
 
 - `dig +short mickeymullin.com A` and `dig +short www.mickeymullin.com A` return only the new IP.
-- HTTPS certificate is valid for both names, and `www` redirects to the apex (or the reverse, but consistently).
-- `http://` redirects to `https://`.
+- HTTPS certificate is valid for both names, and `www` redirects to the apex. The app itself answers any `www.` host with a 301 to the bare domain.
+- `http://` redirects to `https://`. The app doesn't do this redirect itself (the old `.htaccess` did), so it has to come from Hostinger's proxy. If it doesn't, file a task.
 - A real contact submission arrives in the inbox, and its headers show SPF, DKIM and DMARC passing.
 - Search Console: submit `/sitemap.xml` and request indexing of `/` (#693). Then ping IndexNow (#691).
 

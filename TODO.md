@@ -5,5 +5,5 @@ Work is tracked in Dispatch (private board), project **MickeyMullin.com**, progr
 Next up:
 
 1. Confirm the Hostinger plan supports Node.js Web Apps (Business or Cloud).
-2. Re-platform to **Bun + React + Elysia**. React + Vite gets prerendered to static HTML for SEO. Elysia runs on Node through `@elysiajs/node`, because Hostinger's managed hosting runs Node 18–24 and not Bun. The current `site/` prototype, including `contact.php`, is a design and content reference only. PHP is not part of the target stack.
+2. Re-platform to React Router v7 on Express (#680). README.md describes the stack; PHP is no longer part of it.
 3. Decisions that block launch: business name, published prices, and whether cabling is offered at launch.
