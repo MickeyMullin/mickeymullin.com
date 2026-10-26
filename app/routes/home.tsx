@@ -39,7 +39,9 @@ export const meta: Route.MetaFunction = () => [
 
 // The contact form posts here (works without JavaScript).
 export async function action({ request, context }: Route.ActionArgs) {
-  const { result, status } = await handleContact(await request.formData(), {
+  // server/app.js already refuses other methods; this keeps the action safe on its own.
+  if (request.method !== 'POST') return data(null, { status: 405, headers: { Allow: 'POST' } })
+  const { result, status } = await handleContact(() => request.formData(), {
     mail: context?.mail !== undefined ? context.mail : defaultMailSetup(),
     rateLimited: Boolean(context?.rateLimited),
     ip: context?.clientIp ?? '',

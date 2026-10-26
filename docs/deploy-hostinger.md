@@ -57,7 +57,7 @@ Mickey, in hPanel:
    | Output directory | `build` |
    | Entry file | `server.js` |
 
-   The build needs the devDependencies (`vite`, `@react-router/dev`), so the install step must not run with `NODE_ENV=production` or `--omit=dev` *(unverified how Hostinger installs)*. If the build log says `react-router: not found`, that's the cause.
+   The build tools (`vite`, `@react-router/dev`) are regular dependencies, so the build works whether or not Hostinger installs devDependencies. `npm ci --omit=dev && npm run build && npm run smoke` was checked locally on Node 22 with npm 10.
 
 5. Environment variables: none are required for stage 1. Without the SMTP settings, the contact form answers HTTP 503 and shows the email address as a fallback instead of sending.
 6. **Deploy**, then send Luci the temporary URL. If detection picked anything other than `react-router`, send a screenshot of the settings screen.
@@ -79,7 +79,16 @@ curl -s -o /dev/null -w '%{http_code}\n' -d 'name=Bot&email=bot%40example.com&me
 for i in 1 2 3 4; do curl -s -o /dev/null -w '%{http_code} ' -d 'name=T&email=t%40example.com&message=x' "$U/?index"; done; echo
 ```
 
-The rate limit is per visitor IP, read from the `X-Forwarded-For` header Hostinger's proxy adds (Express `trust proxy` = 1 hop). Check that it really is per visitor: the `IP:` line of a test message (once SMTP is set) should show your own address, not a Hostinger one. If it shows a proxy address, set `TRUST_PROXY` to the number of proxies in front of the app and restart.
+The rate limit is per visitor IP, read from the `X-Forwarded-For` header Hostinger's proxy adds (Express `trust proxy` = 1 hop, the default). Confirm the hop count once, without exposing anything publicly:
+
+1. Mickey adds the env var `LOG_CLIENT_IP=1` in hPanel and restarts the app.
+2. From a machine whose public IP you know (`curl -s https://ifconfig.me`), request `curl -s -o /dev/null $U/robots.txt`.
+3. In the app's runtime log, find the line `[client-ip] GET /robots.txt req.ip=… x-forwarded-for="…" remote=…`. The log is only visible in hPanel; nothing is added to any response.
+4. Read it:
+   - `req.ip` is your public IP: one hop is right. Leave `TRUST_PROXY` unset.
+   - `req.ip` is a Hostinger or CDN address and your IP is further left in `x-forwarded-for`: count the addresses to the right of yours, add one, and set `TRUST_PROXY` to that number (for example `x-forwarded-for="<you>, 10.0.0.5"` means `TRUST_PROXY=2`). Restart and repeat step 2 until `req.ip` is your IP.
+   - `x-forwarded-for` is empty: the proxy doesn't send it, so every visitor shares one rate limit. File a task.
+5. Remove `LOG_CLIENT_IP` and restart. While it's set, every request is logged with the visitor's IP.
 
 Then in a browser: desktop and phone layouts, the form with JavaScript off (the fallback message), and Lighthouse mobile (SEO and Accessibility at least 95).
 

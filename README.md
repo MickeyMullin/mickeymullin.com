@@ -29,6 +29,7 @@ public/              favicons, app icons, images (copied to build/client as-is)
 server.js            entry file: loads the build and starts Express
 server/app.js        the Express app (middleware, static files, React Router handler)
 server/prerendered.js  finds pre-rendered pages and hashes their inline scripts for the CSP
+scripts/smoke.mjs    npm run smoke: plain-Node smoke test of a build
 tests/               bun test suites
 tools/og-image.html  source for public/images/og-image.png (render at 1200×630)
 assets/              original photos
@@ -53,6 +54,8 @@ npm run build
 PORT=4317 npm start   # or: PORT=4317 node server.js
 ```
 
+`npm run smoke` checks a build in plain Node (no Bun): it starts `node server.js` on a free port with `CONTACT_TRANSPORT=log`, requests `/` (expects 200 and the H1), `/no-such-page` (404), a form POST to `/?index` (200) and a PUT to `/?index` (405), then stops the server. It exits non-zero if any check fails. Run `npm run build` first.
+
 Without SMTP settings the contact form answers with its "please email me" fallback. To see the full success path locally, start with `CONTACT_TRANSPORT=log`, which prints each message to the server log instead of sending it. Don't set that on Hostinger.
 
 ### Lockfile
@@ -70,7 +73,9 @@ Without SMTP settings the contact form answers with its "please email me" fallba
 | Output directory | `build` |
 | Entry file | `server.js` |
 
-Hostinger detects the app type from `react-router` and `@react-router/express` in `package.json`. `server.js` listens on `process.env.PORT`.
+Hostinger detects the app type from `react-router` and `@react-router/express` in `package.json`. `server.js` listens on `process.env.PORT`. `engines.node` is `>=22.12`, which Vite 7 requires.
+
+The build tools (`@react-router/dev`, `vite`) are in `dependencies`, not `devDependencies`, so the build still works if Hostinger installs with `--omit=dev` or `NODE_ENV=production`. Only TypeScript and the type packages are dev-only; the build doesn't need them.
 
 ### Environment variables
 
@@ -85,6 +90,7 @@ Set these in hPanel, never in the repo. All are optional; without the SMTP group
 | `SMTP_USER` | the SMTP login, usually the sending address |
 | `SMTP_PASS` | a Google app password for that login |
 | `TRUST_PROXY` | Express "trust proxy" setting. Default `1` (one reverse proxy in front, which is how Hostinger runs Node apps) |
+| `LOG_CLIENT_IP` | `1` logs each request's `req.ip`, raw `X-Forwarded-For` and socket address, to confirm the `TRUST_PROXY` hop count after a deploy. Leave unset otherwise |
 | `PORT` | set by Hostinger |
 
 SMTP settings are read when the app starts, so changing one needs a restart or redeploy.
@@ -96,12 +102,14 @@ The form posts to the home route's action (`/?index`). Without JavaScript the br
 - Fields: name, email and message are required; phone and town are optional. Every field has a length cap, checked in the browser and again on the server, with per-field error messages.
 - Anything that goes into a mail header has CR, LF and other control characters replaced with spaces.
 - `company_url` is a honeypot: filled in, the server reports success and sends nothing.
-- POSTs are limited to 5 per 15 minutes per IP (express-rate-limit, in-memory). Over the limit, the visitor gets the page back with HTTP 429 and a message to wait or email directly.
+- POSTs are limited to 5 per 15 minutes per IP (express-rate-limit, in-memory), and the limit is checked before the body is read. Over the limit, the visitor gets the page back with HTTP 429 and a message to wait or email directly.
+- POSTs need a `Content-Length` of at most 100 KB (otherwise 411 or 413). A body that isn't a form (JSON, broken multipart) gets the form back with HTTP 400 and the usual field errors.
+- The server answers only GET, HEAD and POST. Any other method, OPTIONS included, gets 405 with `Allow: GET, HEAD, POST` before the body is read, because React Router would otherwise hand PUT, PATCH and DELETE to the contact action. There is no cross-origin API, so there's nothing to answer a CORS preflight for. The action also refuses anything but POST on its own.
 - On success the browser calls `track('generate_lead')`, which does nothing until analytics is configured.
 
 ## Security headers and CSP
 
-helmet sets HSTS, `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options: DENY` and the rest of its defaults, plus a `Permissions-Policy`. The Content Security Policy has no `'unsafe-inline'` for scripts or styles:
+helmet sets HSTS (`max-age=31536000` without `includeSubDomains` or preload, because not every subdomain of mickeymullin.com is confirmed to serve HTTPS; revisit after the cutover), `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options: DENY` and the rest of its defaults, plus a `Permissions-Policy`. The Content Security Policy has no `'unsafe-inline'` for scripts or styles:
 
 - **Pre-rendered pages** are static files, so a per-request nonce can't be written into them. They contain a few inline scripts from React Router (hydration data, the module loader, scroll restoration), whose content is fixed at build time. At startup `server/prerendered.js` reads every pre-rendered HTML file in `build/client` and adds the sha256 hash of each inline script to `script-src`. The hashes always match the files actually served, and a rebuild updates them on the next start.
 - **Pages rendered per request** (the contact form result, the 404 page) get a fresh random nonce in the CSP header, which React Router and React put on their inline scripts.
@@ -109,6 +117,10 @@ helmet sets HSTS, `X-Content-Type-Options`, `Referrer-Policy`, `X-Frame-Options:
 - Styles come only from `/assets` and Google Fonts. The logo SVG uses presentation attributes instead of `style` attributes so no inline styles are needed. Fonts come from `fonts.gstatic.com` until they are self-hosted (Dispatch #685).
 
 When analytics is turned on, each tool's script and beacon hosts have to be added to the CSP in `server/app.js`.
+
+## Canonical host
+
+Requests whose `Host` header is exactly `www.mickeymullin.com` (any port, any case) get a 301 to `https://mickeymullin.com` plus the same path and query. The check uses only the `Host` header, never `X-Forwarded-Host`, and the target is the fixed origin from `app/content/site.ts`, so a request can't produce a redirect to another site. Every other host is served normally.
 
 ## Caching
 

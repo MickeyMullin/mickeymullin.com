@@ -20,6 +20,12 @@ const CONTACT_PATHS = new Set(['/', '/_root.data'])
 // Form posts are a few KB; refuse anything far larger before React Router buffers it.
 const MAX_POST_BYTES = 100 * 1024
 
+// The only methods the site answers. React Router would hand PUT, PATCH and
+// DELETE to the contact action, so they are refused before anything reads a
+// body. OPTIONS gets 405 too: the site has no cross-origin API to preflight.
+const ALLOWED_METHODS = new Set(['GET', 'HEAD', 'POST'])
+const ALLOW_HEADER = 'GET, HEAD, POST'
+
 /**
  * Hostinger runs the app behind its own reverse proxy, which appends the
  * visitor's address to X-Forwarded-For. Trusting exactly one hop makes req.ip
@@ -36,32 +42,70 @@ export function parseTrustProxy(value) {
 }
 
 /**
+ * Refuses a request without reading its body, and closes the connection so
+ * Node doesn't read and discard the rest of the upload either.
+ * @param {import('express').Response} res
+ * @param {number} status
+ * @param {string} message
+ */
+function refuse(res, status, message) {
+  res.set('Connection', 'close').status(status).type('text/plain').send(`${message}\n`)
+}
+
+/**
  * @param {object} options
  * @param {import('react-router').ServerBuild} options.build
  * @param {string} [options.clientDir] defaults to build/client
+ * @param {string} [options.canonicalOrigin] defaults to the site origin from app/content/site.ts
  * @param {import('../app/lib/mailer.server').MailSetup | null} [options.mail]
  *   overrides the SMTP setup from env vars (tests)
  * @param {{ windowMs?: number, limit?: number }} [options.rateLimit]
  * @param {boolean | number | string} [options.trustProxy]
+ * @param {(line: string) => void} [options.logClientIp] logs each request's
+ *   client address details; on when LOG_CLIENT_IP=1
  */
 export function createApp({
   build,
   clientDir = path.join(ROOT, 'build/client'),
+  canonicalOrigin = build.entry.module.canonicalOrigin,
   mail,
   rateLimit: { windowMs = 15 * 60 * 1000, limit = 5 } = {},
   trustProxy = parseTrustProxy(process.env.TRUST_PROXY),
+  logClientIp = process.env.LOG_CLIENT_IP === '1' ? (line) => console.info(line) : undefined,
 }) {
   const prerendered = loadPrerendered(clientDir)
+  const canonicalUrl = new URL(canonicalOrigin)
+  const wwwHost = `www.${canonicalUrl.hostname}`
   const app = express()
 
   app.set('trust proxy', trustProxy)
   app.disable('x-powered-by')
 
-  // One canonical host: www.mickeymullin.com → mickeymullin.com
   app.use((req, res, next) => {
-    if (req.hostname?.startsWith('www.')) {
-      return res.redirect(301, `https://${req.hostname.slice(4)}${req.originalUrl}`)
-    }
+    if (ALLOWED_METHODS.has(req.method)) return next()
+    res.set('Allow', ALLOW_HEADER)
+    refuse(res, 405, 'Method not allowed.')
+  })
+
+  // Deploy check for the trust proxy hop count (docs/deploy-hostinger.md):
+  // with LOG_CLIENT_IP=1, log what Express sees as the client address next to
+  // the raw header. Turn it off again once the setting is confirmed.
+  if (logClientIp) {
+    app.use((req, res, next) => {
+      const xff = req.get('x-forwarded-for') ?? ''
+      logClientIp(
+        `[client-ip] ${req.method} ${req.path} req.ip=${req.ip} x-forwarded-for="${xff}" remote=${req.socket.remoteAddress}`,
+      )
+      next()
+    })
+  }
+
+  // One canonical host: www.mickeymullin.com → mickeymullin.com. Decided on
+  // the Host header only (never X-Forwarded-Host), and always redirecting to
+  // the fixed origin, so no request can produce a redirect to another site.
+  app.use((req, res, next) => {
+    const host = (req.get('host') ?? '').replace(/:\d+$/, '').toLowerCase()
+    if (host === wwwHost) return res.redirect(301, `${canonicalUrl.origin}${req.originalUrl}`)
     next()
   })
 
@@ -97,6 +141,9 @@ export function createApp({
           objectSrc: ["'none'"],
         },
       },
+      // No includeSubDomains until every subdomain is confirmed to serve HTTPS
+      // (revisit after the cutover); no preload.
+      strictTransportSecurity: { maxAge: 31536000, includeSubDomains: false },
       frameguard: { action: 'deny' },
       referrerPolicy: { policy: 'strict-origin-when-cross-origin' },
     }),
@@ -115,8 +162,8 @@ export function createApp({
   app.use((req, res, next) => {
     if (req.method !== 'POST') return next()
     const length = req.get('content-length')
-    if (length === undefined) return res.status(411).type('text/plain').send('Length required.\n')
-    if (Number(length) > MAX_POST_BYTES) return res.status(413).type('text/plain').send('Too large.\n')
+    if (length === undefined) return refuse(res, 411, 'Length required.')
+    if (Number(length) > MAX_POST_BYTES) return refuse(res, 413, 'Too large.')
     next()
   })
   const postLimiter = rateLimit({

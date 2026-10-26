@@ -1,6 +1,7 @@
 // Handles one contact form submission: rate limit, honeypot, validation, send.
 
 import {
+  CONTACT_FIELDS,
   type ContactResult,
   type ContactValues,
   hasErrors,
@@ -40,15 +41,27 @@ export function buildMessage(values: ContactValues, mail: { to: string; from: st
   }
 }
 
+// `form` may be a function that reads the request body, so a rate-limited
+// request is answered without reading it.
 export async function handleContact(
-  form: FormData,
+  form: FormData | (() => Promise<FormData>),
   deps: ContactDeps,
 ): Promise<{ result: ContactResult; status: number }> {
   const log = deps.log ?? console
 
   if (deps.rateLimited) return { result: { status: 'rate_limited' }, status: 429 }
 
-  const { values, honeypot } = readContactForm(form)
+  let fields: FormData
+  try {
+    fields = typeof form === 'function' ? await form() : form
+  } catch {
+    // Not a form submission (JSON, a malformed multipart body, ...): treat it
+    // as an empty form so the visitor sees the usual field errors.
+    const values = Object.fromEntries(CONTACT_FIELDS.map((f) => [f, ''])) as ContactValues
+    return { result: { status: 'invalid', errors: validateContact(values), values }, status: 400 }
+  }
+
+  const { values, honeypot } = readContactForm(fields)
 
   // Honeypot: bots fill every field. Report success so they move on, send nothing.
   if (honeypot) return { result: { status: 'sent' }, status: 200 }

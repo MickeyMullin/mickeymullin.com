@@ -8,9 +8,13 @@ import {
   isRouteErrorResponse,
   ServerRouter,
 } from 'react-router'
+import { SITE } from './content/site'
 import { NonceContext } from './lib/nonce'
 
 export const streamTimeout = 5_000
+
+// Read by server/app.js (as build.entry.module.canonicalOrigin) for the www redirect
+export const canonicalOrigin = SITE.origin
 
 // Unknown paths are routine (bots probing for /wp-login.php and the like):
 // answer 404 without logging a stack trace for each one.

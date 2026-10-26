@@ -2,8 +2,9 @@
 // against the build and checks what a browser or crawler would get.
 
 import { afterAll, beforeAll, describe, expect, test } from 'bun:test'
+import { createHash } from 'node:crypto'
 import fs from 'node:fs'
-import type { AddressInfo } from 'node:net'
+import net, { type AddressInfo } from 'node:net'
 import path from 'node:path'
 import type { Server } from 'node:http'
 import type { ServerBuild } from 'react-router'
@@ -12,8 +13,6 @@ import { PAGES } from '../app/content/pages'
 import type { MailMessage, MailSetup } from '../app/lib/mailer.server'
 // @ts-expect-error plain JS module without type declarations
 import { createApp } from '../server/app.js'
-// @ts-expect-error plain JS module without type declarations
-import { inlineScriptHashes } from '../server/prerendered.js'
 
 const ROOT = path.resolve(import.meta.dir, '..')
 const CLIENT = path.join(ROOT, 'build/client')
@@ -37,20 +36,57 @@ afterAll(() => {
   for (const s of servers) s.close()
 })
 
-type Started = { url: string; sent: MailMessage[] }
+type Started = { url: string; port: number; sent: MailMessage[] }
 
-async function start(options: { mail?: MailSetup | null; limit?: number } = {}): Promise<Started> {
+async function start(
+  options: { mail?: MailSetup | null; limit?: number; logClientIp?: (line: string) => void } = {},
+): Promise<Started> {
   const sent: MailMessage[] = []
   const mail =
     options.mail !== undefined
       ? options.mail
       : { mailer: { send: async (m: MailMessage) => void sent.push(m) }, to: 'to@example.com', from: 'from@example.com' }
-  const app = createApp({ build, mail, rateLimit: { limit: options.limit ?? 5 } })
+  const app = createApp({ build, mail, rateLimit: { limit: options.limit ?? 5 }, logClientIp: options.logClientIp })
   const server: Server = await new Promise((resolve) => {
     const s = app.listen(0, '127.0.0.1', () => resolve(s))
   })
   servers.push(server)
-  return { url: `http://127.0.0.1:${(server.address() as AddressInfo).port}`, sent }
+  const port = (server.address() as AddressInfo).port
+  return { url: `http://127.0.0.1:${port}`, port, sent }
+}
+
+// Sends a raw HTTP/1.1 request (for bodies fetch won't send, such as chunked
+// uploads without Content-Length) and resolves with the status code.
+function rawStatus(port: number, head: string, body: string | Buffer = ''): Promise<number> {
+  return new Promise((resolve, reject) => {
+    const socket = net.connect(port, '127.0.0.1', () => {
+      socket.write(head)
+      if (body.length) socket.write(body)
+    })
+    let data = ''
+    socket.on('data', (chunk) => {
+      data += chunk.toString('latin1')
+      const m = data.match(/^HTTP\/1\.1 (\d{3})/)
+      if (m) {
+        socket.destroy()
+        resolve(Number(m[1]))
+      }
+    })
+    socket.on('error', (e: NodeJS.ErrnoException) => (e.code === 'EPIPE' || e.code === 'ECONNRESET' ? undefined : reject(e)))
+  })
+}
+
+function chunked(payload: string) {
+  return `${payload.length.toString(16)}\r\n${payload}\r\n0\r\n\r\n`
+}
+
+// Every pre-rendered HTML file in build/client
+function prerenderedHtmlFiles(dir = CLIENT): string[] {
+  return fs.readdirSync(dir, { withFileTypes: true }).flatMap((e) => {
+    const full = path.join(dir, e.name)
+    if (e.isDirectory()) return e.name === 'assets' ? [] : prerenderedHtmlFiles(full)
+    return e.name.endsWith('.html') ? [full] : []
+  })
 }
 
 function post(url: string, fields: Record<string, string>) {
@@ -112,7 +148,8 @@ describe('pre-rendered home page', () => {
 
   test('security headers are present', () => {
     const h = res.headers
-    expect(h.get('strict-transport-security')).toContain('max-age=31536000')
+    // No includeSubDomains until every subdomain is confirmed HTTPS; no preload
+    expect(h.get('strict-transport-security')).toBe('max-age=31536000')
     expect(h.get('x-content-type-options')).toBe('nosniff')
     expect(h.get('referrer-policy')).toBe('strict-origin-when-cross-origin')
     expect(h.get('x-frame-options')).toBe('DENY')
@@ -126,12 +163,28 @@ describe('pre-rendered home page', () => {
     expect(csp).not.toContain('unsafe-eval')
   })
 
-  test('the CSP allows every inline script on the page by hash', () => {
-    const csp = res.headers.get('content-security-policy') ?? ''
-    const scriptSrc = csp.split(';').find((d) => d.startsWith('script-src ')) ?? ''
-    const hashes: Set<string> = inlineScriptHashes(html)
-    expect(hashes.size).toBeGreaterThan(0)
-    for (const h of hashes) expect(scriptSrc).toContain(h)
+  test('the served CSP allows every inline script of every pre-rendered page by hash', async () => {
+    const files = prerenderedHtmlFiles()
+    expect(files.length).toBeGreaterThan(0)
+    const { url } = await start()
+    for (const file of files) {
+      const urlPath = `/${path.relative(CLIENT, file).split(path.sep).join('/')}`.replace(/index\.html$/, '')
+      const served = await fetch(`${url}${urlPath}`)
+      expect(served.status).toBe(200)
+      const scriptSrc =
+        (served.headers.get('content-security-policy') ?? '').split(';').find((d) => d.startsWith('script-src ')) ?? ''
+      // Independent of server/prerendered.js: every <script> without src that
+      // isn't a JSON-LD data block, hashed exactly as written in the file.
+      const html = fs.readFileSync(file, 'utf8')
+      const inline = [...html.matchAll(/<script([^>]*)>([\s\S]*?)<\/script>/g)].filter(
+        ([, attrs, body]) => body.length > 0 && !attrs.includes(' src=') && !attrs.includes('application/ld+json'),
+      )
+      expect(inline.length).toBeGreaterThan(0)
+      for (const [, , body] of inline) {
+        const hash = `'sha256-${createHash('sha256').update(body).digest('base64')}'`
+        expect(scriptSrc.split(' ')).toContain(hash)
+      }
+    }
   })
 
   test('HTML revalidates; hashed assets are immutable', async () => {
@@ -282,10 +335,204 @@ describe('contact form with JavaScript (fetcher request)', () => {
 })
 
 describe('canonical host', () => {
-  test('www redirects to the bare domain', async () => {
+  test('www.mickeymullin.com redirects to the bare domain', async () => {
     const { url } = await start()
-    const res = await fetch(`${url}/llms.txt?x=1`, { headers: { Host: 'www.mickeymullin.com' }, redirect: 'manual' })
-    expect(res.status).toBe(301)
-    expect(res.headers.get('location')).toBe('https://mickeymullin.com/llms.txt?x=1')
+    for (const host of ['www.mickeymullin.com', 'WWW.MickeyMullin.com:443']) {
+      const res = await fetch(`${url}/llms.txt?x=1`, { headers: { Host: host }, redirect: 'manual' })
+      expect(res.status).toBe(301)
+      expect(res.headers.get('location')).toBe('https://mickeymullin.com/llms.txt?x=1')
+    }
   })
+
+  test('other www hosts are served, never redirected', async () => {
+    const { url } = await start()
+    const viaHost = await fetch(`${url}/llms.txt`, { headers: { Host: 'www.evil.example' }, redirect: 'manual' })
+    expect(viaHost.status).toBe(200)
+    const viaForwarded = await fetch(`${url}/llms.txt`, {
+      headers: { 'X-Forwarded-Host': 'www.evil.example' },
+      redirect: 'manual',
+    })
+    expect(viaForwarded.status).toBe(200)
+    expect(viaForwarded.headers.get('location')).toBeNull()
+  })
+
+  test('X-Forwarded-Host cannot trigger the redirect either', async () => {
+    const { url } = await start()
+    const res = await fetch(`${url}/llms.txt`, {
+      headers: { 'X-Forwarded-Host': 'www.mickeymullin.com' },
+      redirect: 'manual',
+    })
+    expect(res.status).toBe(200)
+  })
+})
+
+describe('methods other than GET, HEAD and POST', () => {
+  for (const method of ['PUT', 'PATCH', 'DELETE']) {
+    for (const target of ['/?index', '/_root.data?index']) {
+      test(`${method} ${target} gets 405 and never reaches the mailer`, async () => {
+        const { url, sent } = await start()
+        const res = await fetch(`${url}${target}`, {
+          method,
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams(valid).toString(),
+        })
+        expect(res.status).toBe(405)
+        expect(res.headers.get('allow')).toBe('GET, HEAD, POST')
+        expect(sent).toHaveLength(0)
+      })
+    }
+  }
+
+  test('still 405 after the visitor is rate limited', async () => {
+    const { url, sent } = await start({ limit: 1 })
+    await post(`${url}/?index`, valid)
+    expect((await post(`${url}/?index`, valid)).status).toBe(429)
+    for (const method of ['PUT', 'PATCH', 'DELETE']) {
+      const res = await fetch(`${url}/?index`, { method, body: new URLSearchParams(valid).toString() })
+      expect(res.status).toBe(405)
+    }
+    expect(sent).toHaveLength(1)
+  })
+
+  test('OPTIONS gets 405 too', async () => {
+    const { url } = await start()
+    const res = await fetch(`${url}/`, { method: 'OPTIONS' })
+    expect(res.status).toBe(405)
+    expect(res.headers.get('allow')).toBe('GET, HEAD, POST')
+  })
+
+  test('large PUT bodies are refused without being read, with or without Content-Length', async () => {
+    const { port, sent } = await start()
+    const big = new URLSearchParams({ ...valid, message: 'x'.repeat(3_000_000) }).toString()
+    const withLength = await rawStatus(
+      port,
+      `PUT /?index HTTP/1.1\r\nHost: 127.0.0.1\r\nContent-Type: application/x-www-form-urlencoded\r\nContent-Length: ${big.length}\r\nConnection: close\r\n\r\n`,
+      big,
+    )
+    expect(withLength).toBe(405)
+    const noLength = await rawStatus(
+      port,
+      'PUT /?index HTTP/1.1\r\nHost: 127.0.0.1\r\nContent-Type: application/x-www-form-urlencoded\r\nTransfer-Encoding: chunked\r\nConnection: close\r\n\r\n',
+      chunked(big),
+    )
+    expect(noLength).toBe(405)
+    expect(sent).toHaveLength(0)
+  })
+
+  test('the contact action itself also refuses anything but POST', async () => {
+    const home = build.routes['routes/home']?.module
+    expect(typeof home?.action).toBe('function')
+    const sent: MailMessage[] = []
+    const mail = { mailer: { send: async (m: MailMessage) => void sent.push(m) }, to: 'a@example.com', from: 'b@example.com' }
+    for (const method of ['PUT', 'PATCH', 'DELETE']) {
+      const request = new Request('http://localhost/?index', {
+        method,
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: new URLSearchParams(valid).toString(),
+      })
+      const result: any = await home!.action!({ request, params: {}, context: { mail } } as any)
+      expect(result.init?.status).toBe(405)
+    }
+    expect(sent).toHaveLength(0)
+  })
+})
+
+describe('POST edge cases', () => {
+  test('a POST without Content-Length gets 411', async () => {
+    const { port, sent } = await start()
+    const body = new URLSearchParams(valid).toString()
+    const status = await rawStatus(
+      port,
+      'POST /?index HTTP/1.1\r\nHost: 127.0.0.1\r\nContent-Type: application/x-www-form-urlencoded\r\nTransfer-Encoding: chunked\r\nConnection: close\r\n\r\n',
+      chunked(body),
+    )
+    expect(status).toBe(411)
+    expect(sent).toHaveLength(0)
+  })
+
+  test('a non-form body gets 400 invalid, not a 500 page', async () => {
+    const { url, sent } = await start()
+    for (const target of ['/?index', '/_root.data?index']) {
+      const res = await fetch(`${url}${target}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(valid),
+      })
+      expect(res.status).toBe(400)
+      expect(await res.text()).toContain('invalid')
+    }
+    const malformed = await fetch(`${url}/?index`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'multipart/form-data; boundary=nope' },
+      body: 'not multipart at all',
+    })
+    expect(malformed.status).toBe(400)
+    expect(sent).toHaveLength(0)
+  })
+
+  test('rate limiting is decided before the body is parsed', async () => {
+    const { url } = await start({ limit: 1 })
+    await post(`${url}/?index`, valid)
+    const res = await fetch(`${url}/?index`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: '{not json',
+    })
+    expect(res.status).toBe(429)
+  })
+})
+
+describe('fetcher path ordering', () => {
+  test('honeypot on /_root.data?index reports success and sends nothing', async () => {
+    const { url, sent } = await start()
+    const res = await post(`${url}/_root.data?index`, { ...valid, company_url: 'https://spam.example' })
+    expect(res.status).toBe(200)
+    expect(await res.text()).toContain('sent')
+    expect(sent).toHaveLength(0)
+  })
+
+  test('over the limit, even honeypot and invalid posts get 429 on /_root.data?index', async () => {
+    const { url, sent } = await start({ limit: 1 })
+    expect((await post(`${url}/_root.data?index`, valid)).status).toBe(200)
+    const honeypot = await post(`${url}/_root.data?index`, { ...valid, company_url: 'x' })
+    expect(honeypot.status).toBe(429)
+    expect(await honeypot.text()).toContain('rate_limited')
+    const invalid = await post(`${url}/_root.data?index`, { name: '' })
+    expect(invalid.status).toBe(429)
+    expect(sent).toHaveLength(1)
+  })
+})
+
+describe('LOG_CLIENT_IP diagnostics', () => {
+  test('logs req.ip and the raw X-Forwarded-For when enabled', async () => {
+    const lines: string[] = []
+    const { url } = await start({ logClientIp: (line) => lines.push(line) })
+    await fetch(`${url}/llms.txt`, { headers: { 'X-Forwarded-For': '198.51.100.7, 203.0.113.9' } })
+    expect(lines).toHaveLength(1)
+    expect(lines[0]).toContain('req.ip=203.0.113.9')
+    expect(lines[0]).toContain('x-forwarded-for="198.51.100.7, 203.0.113.9"')
+    expect(lines[0]).toContain('remote=127.0.0.1')
+  })
+
+  test('logs nothing by default', async () => {
+    const orig = console.info
+    const lines: unknown[] = []
+    console.info = (...args: unknown[]) => void lines.push(args)
+    try {
+      const { url } = await start()
+      await fetch(`${url}/llms.txt`, { headers: { 'X-Forwarded-For': '198.51.100.7' } })
+    } finally {
+      console.info = orig
+    }
+    expect(lines.filter((l) => String(l).includes('x-forwarded-for'))).toHaveLength(0)
+  })
+})
+
+describe('npm run smoke', () => {
+  test('passes against the build and exits 0', () => {
+    const result = Bun.spawnSync(['node', 'scripts/smoke.mjs'], { cwd: ROOT, stdout: 'pipe', stderr: 'pipe' })
+    const out = result.stdout.toString()
+    expect(out).toContain('smoke: all 4 checks passed')
+    expect(result.exitCode).toBe(0)
+  }, 30_000)
 })

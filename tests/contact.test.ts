@@ -132,6 +132,33 @@ describe('handleContact', () => {
     expect(sent).toHaveLength(0)
   })
 
+  test('rate limited: the request body is never read', async () => {
+    let read = false
+    const out = await handleContact(
+      async () => {
+        read = true
+        return form(valid)
+      },
+      { mail: null, rateLimited: true, ip: '' },
+    )
+    expect(out.status).toBe(429)
+    expect(read).toBe(false)
+  })
+
+  test('an unreadable body is a 400 invalid result, not an exception', async () => {
+    const { sent, setup } = fakeMail()
+    const out = await handleContact(() => Promise.reject(new TypeError('not form data')), {
+      mail: setup,
+      rateLimited: false,
+      ip: '',
+    })
+    expect(out.status).toBe(400)
+    expect(out.result.status).toBe('invalid')
+    if (out.result.status !== 'invalid') throw new Error('unreachable')
+    expect(Object.keys(out.result.errors).sort()).toEqual(['email', 'message', 'name'])
+    expect(sent).toHaveLength(0)
+  })
+
   test('SMTP not configured: warns, does not crash, tells the visitor to email', async () => {
     const log = { warn: mock(() => {}), error: mock(() => {}) }
     const out = await handleContact(form(valid), { mail: null, rateLimited: false, ip: '', log })
