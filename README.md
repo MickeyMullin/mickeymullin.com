@@ -19,7 +19,7 @@ tools/
 TODO.md          everything left to launch and grow the site
 ```
 
-**Status:** `site/` is the design and content prototype (plain HTML/CSS/JS). The target stack is Bun + React (Vite, prerendered) + Elysia on Node, deployed as a Hostinger Node.js Web App. `contact.php` goes away in that re-platform. See TODO.md.
+**Status:** `site/` is the design and content prototype (plain HTML/CSS/JS). The target stack is React Router v7 (framework mode, pages pre-rendered at build time) on Express via `@react-router/express`, with Bun for local dev and tests, deployed as a Hostinger Node.js Web App (application type `react-router`, entry `server.js`). `contact.php` goes away in that re-platform. See TODO.md.
 
 ## Local preview
 
