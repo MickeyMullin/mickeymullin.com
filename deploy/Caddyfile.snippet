@@ -5,7 +5,9 @@
 mm.home.vorheim.com {
     tls /Users/mickey/.config/caddy/certs/home.vorheim.com.fullchain.pem /Users/mickey/.config/caddy/certs/home.vorheim.com.key
 
+    # defer: apply after the proxied response, so these replace the app's own values
     header {
+        defer
         X-Robots-Tag "noindex, nofollow"
         Cache-Control "no-store"
     }
