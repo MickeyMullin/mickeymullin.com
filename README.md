@@ -8,7 +8,7 @@ The previous DocPad site is archived on the [`docpad`](../../tree/docpad) branch
 
 - [React Router v7](https://reactrouter.com/) in framework mode (Vite, TypeScript, React 19). Every page is pre-rendered to static HTML at build time, so the full content, meta tags and JSON-LD ship without JavaScript.
 - [Express](https://expressjs.com/) (`server.js`) serves the build through `@react-router/express`, with helmet (security headers and CSP), compression and express-rate-limit.
-- The contact form is a route action on the home page, sending mail with nodemailer over SMTP (Google Workspace). It works without JavaScript.
+- The contact form is a route action on the home page. It sends through the Gmail API (Google Workspace) with a send-only OAuth token, composing the message with nodemailer; SMTP stays as a fallback. It works without JavaScript. Setup: `docs/gmail-oauth.md`.
 - Bun for local package management, dev and tests. Hostinger builds and runs it with npm on Node 22, so runtime code uses nothing Bun-specific.
 - Hosted as a Hostinger Node.js Web App. Deploy steps, who does what, and rollback: [docs/deploy-hostinger.md](docs/deploy-hostinger.md).
 
@@ -94,22 +94,25 @@ The build tools (`@react-router/dev`, `vite`) are in `dependencies`, not `devDep
 
 ### Environment variables
 
-Set these in hPanel, never in the repo. All are optional; without the SMTP group the form shows the email address instead of sending.
+Set these in hPanel, never in the repo. All are optional. Without `CONTACT_TO`, `CONTACT_FROM`, and a complete sending group (Gmail API or SMTP), the form shows the email address instead of sending.
 
 | Variable | Purpose |
 | --- | --- |
 | `CONTACT_TO` | where form messages go, e.g. `info@mickeymullin.com` |
-| `CONTACT_FROM` | the sending mailbox (must be allowed to send through the SMTP account) |
-| `SMTP_HOST` | `smtp.gmail.com` for Google Workspace |
+| `CONTACT_FROM` | the From address, e.g. `info@mickeymullin.com` (must be the Google user's address or a "Send mail as" alias) |
+| `GMAIL_CLIENT_ID` | Gmail API group (preferred): the Desktop OAuth client's ID. See `docs/gmail-oauth.md` |
+| `GMAIL_CLIENT_SECRET` | that client's secret |
+| `GMAIL_REFRESH_TOKEN` | refresh token with only the `gmail.send` scope, from `bun scripts/gmail-oauth.ts authorize`. If any `GMAIL_*` is set, all three must be, and SMTP is ignored |
+| `SMTP_HOST` | SMTP fallback group: `smtp.gmail.com` for Google Workspace |
 | `SMTP_PORT` | `465` (implicit TLS, the default) or `587` (STARTTLS) |
-| `SMTP_USER` | the SMTP login, usually the sending address |
-| `SMTP_PASS` | a Google app password for that login |
+| `SMTP_USER` | the SMTP login |
+| `SMTP_PASS` | an app password for that login (opens the whole mailbox; prefer the Gmail API group) |
 | `TRUST_PROXY` | Express "trust proxy" setting. Default `1` (one reverse proxy in front, which is how Hostinger runs Node apps) |
 | `LOG_CLIENT_IP` | `1` logs each request's `req.ip`, raw `X-Forwarded-For` and socket address, to confirm the `TRUST_PROXY` hop count after a deploy. Leave unset otherwise |
 | `PORT` | set by Hostinger |
 | `LISTEN_HOST` | leave unset on Hostinger (listens on every interface). The local preview sets `127.0.0.1`. |
 
-SMTP settings are read when the app starts, so changing one needs a restart or redeploy.
+Mail settings are read when the app starts, so changing one needs a restart or redeploy.
 
 ## Contact form
 

@@ -12,7 +12,7 @@ import {
 import type { MailMessage, MailSetup } from './mailer.server'
 
 export type ContactDeps = {
-  // null when SMTP is not configured
+  // null when mail sending is not configured
   mail: MailSetup | null
   // set by the express-rate-limit middleware in server.js
   rateLimited: boolean
@@ -70,7 +70,7 @@ export async function handleContact(
   if (hasErrors(errors)) return { result: { status: 'invalid', errors, values }, status: 400 }
 
   if (!deps.mail) {
-    log.warn('[contact] SMTP is not configured (CONTACT_TO, CONTACT_FROM, SMTP_*); message not sent')
+    log.warn('[contact] mail is not configured (CONTACT_TO, CONTACT_FROM, and GMAIL_* or SMTP_*); message not sent')
     return { result: { status: 'unconfigured' }, status: 503 }
   }
 

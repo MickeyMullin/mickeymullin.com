@@ -35,7 +35,7 @@ Optional: a Hostinger API token stored in the browser vault (not in chat) would 
 - MX → Google (`aspmx.l.google.com`).
 - SPF is still `v=spf1 include:mailgun.org ~all`; Mailgun was only WordPress's mailer (WP Mail SMTP). It should become `v=spf1 include:_spf.google.com ~all`, plus Google DKIM and DMARC `p=none` (#686).
 - TXT records already present: `google-site-verification=…` (Search Console is verified by DNS, so it survived WordPress and Site Kit going away), `ahrefs-site-verification_…`, `openai-domain-verification=…`.
-- The contact form answers 503 with the email fallback until the SMTP environment variables are set (step 5).
+- The contact form answers 503 with the email fallback until the mail environment variables are set (step 5; Gmail API with a send-only OAuth token, see `docs/gmail-oauth.md`).
 
 ## Stage 1: deploy to a temporary domain
 
@@ -125,13 +125,12 @@ Prerequisites: stage 1 verified; the business name (#675) and prices (#676) are 
    | Variable | Value |
    | --- | --- |
    | `CONTACT_TO` | `info@mickeymullin.com` |
-   | `CONTACT_FROM` | the sending address from #686 |
-   | `SMTP_HOST` | `smtp.gmail.com` |
-   | `SMTP_PORT` | `465` |
-   | `SMTP_USER` | the sending address |
-   | `SMTP_PASS` | a Google **app password** for that address (entered in hPanel only) |
+   | `CONTACT_FROM` | `info@mickeymullin.com` (an alias of `mickey@`, listed under Gmail's "Send mail as") |
+   | `GMAIL_CLIENT_ID` | the Desktop OAuth client's ID |
+   | `GMAIL_CLIENT_SECRET` | that client's secret (entered in hPanel only) |
+   | `GMAIL_REFRESH_TOKEN` | the send-only refresh token (entered in hPanel only) |
 
-   The SMTP variables are read when the app starts, so changing one needs a restart (a redeploy also restarts it). Analytics variables (`GA4_ID`, `UMAMI_SRC`, `UMAMI_WEBSITE_ID`, `CLARITY_ID`) get added later by #682/#692/#695; those will be baked into the pre-rendered pages, so changing one needs a redeploy.
+   The OAuth client and token come from `docs/gmail-oauth.md`; `bun scripts/gmail-oauth.ts copy …` puts each value on the clipboard for pasting. No `SMTP_*` variables: an app password would open the whole mailbox. The mail variables are read when the app starts, so changing one needs a restart (a redeploy also restarts it). Analytics variables (`GA4_ID`, `UMAMI_SRC`, `UMAMI_WEBSITE_ID`, `CLARITY_ID`) get added later by #682/#692/#695; those will be baked into the pre-rendered pages, so changing one needs a redeploy.
 6. **Redeploy** from hPanel (or push to `master`).
 
 Luci verifies with the stage 1 checks against `https://mickeymullin.com`, plus:
@@ -154,7 +153,7 @@ Luci verifies with the stage 1 checks against `https://mickeymullin.com`, plus:
 - Umami: `data-domains` was cut to `mickeymullin.com` only. A real browser visit got `/api/send` 200.
 - Old WordPress URLs (posts, `/feed/`, `/wp-admin/`) return 404, as intended.
 - Before deleting WordPress, disconnect what it used: the Kit (ConvertKit) WordPress app, Site Kit's Google access (it only ever linked Search Console), and the Mailgun mailer.
-- Still open at the time of writing: step 5 (SMTP variables), the real contact submission with SPF, DKIM, and DMARC passing, the trust-proxy recheck on the real domain (set `LOG_CLIENT_IP=1` at the same time as the SMTP variables), and the sitemap submission.
+- Still open at the time of writing: step 5 (mail variables; switched from an app password to a send-only Gmail API token, `docs/gmail-oauth.md`), the real contact submission with SPF, DKIM, and DMARC passing, the trust-proxy recheck on the real domain (set `LOG_CLIENT_IP=1` at the same time as the SMTP variables), and the sitemap submission.
 
 ## Rollback
 
