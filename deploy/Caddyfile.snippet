@@ -1,0 +1,14 @@
+# MickeyMullin.com local preview: the Node server from ~/dev/mickeymullin.com, run by
+# ~/Library/LaunchAgents/com.mickey.mickeymullin-preview.plist on 127.0.0.1:4310.
+# Installed by hand in /opt/homebrew/etc/Caddyfile; deploy/deploy.sh never touches Caddy.
+# Update the preview with: ~/dev/mickeymullin.com/deploy/deploy.sh deploy
+mm.home.vorheim.com {
+    tls /Users/mickey/.config/caddy/certs/home.vorheim.com.fullchain.pem /Users/mickey/.config/caddy/certs/home.vorheim.com.key
+
+    header {
+        X-Robots-Tag "noindex, nofollow"
+        Cache-Control "no-store"
+    }
+
+    reverse_proxy 127.0.0.1:4310
+}

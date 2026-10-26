@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!-- Template for deploy/deploy.sh: __HOME__ and __NODE__ are filled in at render time.
+     Local preview only (mm.home.vorheim.com via Caddy). The contact form logs instead of sending. -->
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.mickey.mickeymullin-preview</string>
+  <key>ProgramArguments</key>
+  <array>
+    <string>__NODE__</string>
+    <string>server.js</string>
+  </array>
+  <key>WorkingDirectory</key>
+  <string>__HOME__/dev/mickeymullin.com</string>
+  <key>EnvironmentVariables</key>
+  <dict>
+    <key>NODE_ENV</key>
+    <string>production</string>
+    <key>LISTEN_HOST</key>
+    <string>127.0.0.1</string>
+    <key>PORT</key>
+    <string>4310</string>
+    <key>CONTACT_TRANSPORT</key>
+    <string>log</string>
+  </dict>
+  <key>RunAtLoad</key>
+  <true/>
+  <key>KeepAlive</key>
+  <true/>
+  <key>ThrottleInterval</key>
+  <integer>10</integer>
+  <key>StandardOutPath</key>
+  <string>__HOME__/Library/Logs/mickeymullin-preview.log</string>
+  <key>StandardErrorPath</key>
+  <string>__HOME__/Library/Logs/mickeymullin-preview.err.log</string>
+</dict>
+</plist>
