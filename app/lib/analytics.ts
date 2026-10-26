@@ -1,15 +1,11 @@
-// Analytics bootstrap and event tracking (browser only). Each tool loads only
-// when its ID is filled in, so the site ships clean until the accounts exist.
-// TODO(analytics): fill these from build-time env vars (GA4_ID, UMAMI_SRC,
-// UMAMI_WEBSITE_ID, CLARITY_ID; Dispatch #682/#692/#695) and add each tool's
-// hosts to the CSP in server/app.js.
+// Analytics bootstrap and event tracking (browser only). The IDs live in
+// server/analytics.js, which the server also reads to build the CSP. Umami's tag
+// is rendered into <head> by app/root.tsx (so its install check can see it); GA4
+// and Clarity load from here once their IDs are set (#692).
 
-export const ANALYTICS = {
-  ga4: '', // e.g. "G-XXXXXXXXXX"
-  umamiSrc: '', // e.g. "https://umami.mickeymullin.com/script.js"
-  umamiId: '', // Umami website ID (UUID)
-  clarity: '', // optional Microsoft Clarity project ID
-}
+import { ANALYTICS } from '../../server/analytics.js'
+
+export { ANALYTICS }
 
 type Params = Record<string, string>
 
@@ -46,9 +42,6 @@ export function startAnalytics() {
     window.gtag('js', new Date())
     window.gtag('config', cfg.ga4)
     addScript(`https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(cfg.ga4)}`)
-  }
-  if (cfg.umamiSrc && cfg.umamiId) {
-    addScript(cfg.umamiSrc, { 'data-website-id': cfg.umamiId, defer: '' })
   }
   if (cfg.clarity) {
     const clarity = ((...args: unknown[]) => {

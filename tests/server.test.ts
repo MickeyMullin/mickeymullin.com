@@ -167,6 +167,26 @@ describe('pre-rendered home page', () => {
     expect(csp).not.toContain('unsafe-eval')
   })
 
+  test('the CSP allows the Umami script and collector, and nothing else off-site', () => {
+    const csp = res.headers.get('content-security-policy') ?? ''
+    const directive = (name: string) => csp.split(';').map((d) => d.trim()).find((d) => d.startsWith(`${name} `)) ?? ''
+    expect(directive('script-src')).toContain('https://cloud.umami.is')
+    expect(directive('connect-src')).toBe("connect-src 'self' https://gateway.umami.is")
+    expect(directive('img-src')).toBe("img-src 'self' data:")
+  })
+
+  test('every page carries the Umami tag in <head>, limited to the real and temporary domains', () => {
+    for (const file of prerenderedHtmlFiles()) {
+      const html = fs.readFileSync(file, 'utf8')
+      const head = html.slice(0, html.indexOf('</head>'))
+      const tags = head.match(/<script[^>]*cloud\.umami\.is[^>]*>/g) ?? []
+      expect(tags).toHaveLength(1)
+      expect(tags[0]).toContain('defer')
+      expect(tags[0]).toContain('data-website-id="7052ef9d-7fe6-4ea4-98b7-31f2943a1f5f"')
+      expect(tags[0]).toContain('data-domains="mickeymullin.com,palegoldenrod-sardine-733559.hostingersite.com"')
+    }
+  })
+
   test('the served CSP allows every inline script of every pre-rendered page by hash', async () => {
     const files = prerenderedHtmlFiles()
     expect(files.length).toBeGreaterThan(0)

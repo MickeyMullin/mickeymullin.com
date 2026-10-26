@@ -4,7 +4,7 @@ import type { Route } from './+types/root'
 import { SiteFooter } from './components/SiteFooter'
 import { SiteHeader } from './components/SiteHeader'
 import { SITE } from './content/site'
-import { startAnalytics } from './lib/analytics'
+import { ANALYTICS, startAnalytics } from './lib/analytics'
 import { useNonce } from './lib/nonce'
 import plexSans400Url from './fonts/ibm-plex-sans-latin-400-normal.woff2?url'
 import stylesUrl from './styles.css?url'
@@ -39,6 +39,14 @@ export function Layout({ children }: { children: ReactNode }) {
         <Meta />
         <meta name="theme-color" content={SITE.themeColor} />
         <Links />
+        {ANALYTICS.umamiSrc && ANALYTICS.umamiId ? (
+          <script
+            defer
+            src={ANALYTICS.umamiSrc}
+            data-website-id={ANALYTICS.umamiId}
+            data-domains={ANALYTICS.umamiDomains || undefined}
+          />
+        ) : null}
       </head>
       <body>
         {children}

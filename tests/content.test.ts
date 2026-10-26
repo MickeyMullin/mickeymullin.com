@@ -9,6 +9,7 @@ import { llmsTxt, robotsTxt, sitemapXml } from '../app/content/text-files'
 import { TOWNS } from '../app/content/towns'
 import { LEGAL_NAME, SITE, legalLine } from '../app/content/site'
 import { ANALYTICS } from '../app/lib/analytics'
+import { analyticsCsp } from '../server/analytics.js'
 
 describe('structured data', () => {
   const blocks = homeJsonLd()
@@ -88,7 +89,7 @@ describe('privacy page analytics disclosures', () => {
 
   test('every tool startAnalytics can load has a disclosure that turns on with it', () => {
     // If a new key is added to ANALYTICS, this fails until the privacy page covers it.
-    expect(Object.keys(ANALYTICS).sort()).toEqual(['clarity', 'ga4', 'umamiId', 'umamiSrc'])
+    expect(Object.keys(ANALYTICS).sort()).toEqual(['clarity', 'ga4', 'umamiDomains', 'umamiId', 'umamiSrc'])
     const all = analyticsDisclosures({ ga4: 'G-TEST', umamiSrc: 'https://u.example/s.js', umamiId: 'id', clarity: 'c' })
     expect(all.map((d) => d.key)).toEqual(['ga4', 'umami', 'clarity'])
     for (const d of all) {
@@ -103,6 +104,37 @@ describe('privacy page analytics disclosures', () => {
     expect(analyticsDisclosures({ ...none, umamiSrc: 'https://u.example/s.js' })).toEqual([])
     expect(analyticsDisclosures({ ...none, umamiId: 'id' })).toEqual([])
     expect(analyticsDisclosures({ ...none, umamiSrc: 'https://u.example/s.js', umamiId: 'id' }).map((d) => d.key)).toEqual(['umami'])
+  })
+})
+
+describe('analytics CSP sources', () => {
+  const none = { ga4: '', umamiSrc: '', umamiId: '', umamiDomains: '', clarity: '' }
+
+  test('nothing configured adds nothing', () => {
+    expect(analyticsCsp(none)).toEqual({ scriptSrc: [], connectSrc: [] })
+  })
+
+  test('Umami Cloud: script from cloud.umami.is, visits sent to gateway.umami.is', () => {
+    const cloud = { ...none, umamiSrc: 'https://cloud.umami.is/script.js', umamiId: 'id' }
+    expect(analyticsCsp(cloud)).toEqual({ scriptSrc: ['https://cloud.umami.is'], connectSrc: ['https://gateway.umami.is'] })
+  })
+
+  test('self-hosted Umami: script and visits on its own host', () => {
+    const own = { ...none, umamiSrc: 'https://umami.example.com/script.js', umamiId: 'id' }
+    expect(analyticsCsp(own)).toEqual({ scriptSrc: ['https://umami.example.com'], connectSrc: ['https://umami.example.com'] })
+  })
+
+  test('GA4 or Clarity without checked hosts fails loudly instead of being blocked silently', () => {
+    expect(() => analyticsCsp({ ...none, ga4: 'G-TEST' })).toThrow('#692')
+    expect(() => analyticsCsp({ ...none, clarity: 'c' })).toThrow('Clarity')
+  })
+
+  test('the committed config is Umami Cloud on the real and temporary domains only', () => {
+    expect(ANALYTICS.umamiSrc).toBe('https://cloud.umami.is/script.js')
+    expect(ANALYTICS.umamiId).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)
+    expect(ANALYTICS.umamiDomains.split(',')).toContain('mickeymullin.com')
+    expect(ANALYTICS.umamiDomains).not.toContain('localhost')
+    expect(ANALYTICS.umamiDomains).not.toContain('home.vorheim.com')
   })
 })
 

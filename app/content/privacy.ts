@@ -8,7 +8,7 @@ import { ANALYTICS } from '../lib/analytics'
 // and bump it whenever the policy's substance changes.
 export const PRIVACY_UPDATED = '2026-10-26'
 
-export type AnalyticsConfig = typeof ANALYTICS
+export type AnalyticsConfig = Pick<typeof ANALYTICS, 'ga4' | 'umamiSrc' | 'umamiId' | 'clarity'>
 
 export type Disclosure = {
   key: 'ga4' | 'umami' | 'clarity'

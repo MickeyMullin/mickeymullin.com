@@ -9,6 +9,7 @@ import compression from 'compression'
 import express from 'express'
 import rateLimit from 'express-rate-limit'
 import helmet from 'helmet'
+import { analyticsCsp } from './analytics.js'
 import { loadPrerendered } from './prerendered.js'
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
@@ -74,6 +75,7 @@ export function createApp({
   logClientIp = process.env.LOG_CLIENT_IP === '1' ? (line) => console.info(line) : undefined,
 }) {
   const prerendered = loadPrerendered(clientDir)
+  const analytics = analyticsCsp()
   const canonicalUrl = new URL(canonicalOrigin)
   const wwwHost = `www.${canonicalUrl.hostname}`
   const app = express()
@@ -127,12 +129,13 @@ export function createApp({
             "'self'",
             ...prerendered.scriptHashes,
             (req, res) => `'nonce-${/** @type {any} */ (res).locals.cspNonce}'`,
+            ...analytics.scriptSrc,
           ],
           scriptSrcAttr: ["'none'"],
           styleSrc: ["'self'"],
           fontSrc: ["'self'"],
           imgSrc: ["'self'", 'data:'],
-          connectSrc: ["'self'"],
+          connectSrc: ["'self'", ...analytics.connectSrc],
           manifestSrc: ["'self'"],
           formAction: ["'self'"],
           frameAncestors: ["'none'"],
