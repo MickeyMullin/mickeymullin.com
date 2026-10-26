@@ -2,7 +2,7 @@
 
 import { FAQ } from './faq'
 import { OFFERS } from './services'
-import { SITE } from './site'
+import { LEGAL_NAME, SITE } from './site'
 import { REGION, STATE, TOWNS } from './towns'
 
 const BUSINESS_ID = `${SITE.url}#business`
@@ -17,6 +17,7 @@ export function homeJsonLd() {
       '@id': BUSINESS_ID,
       name: SITE.name,
       alternateName: SITE.alternateName,
+      ...(LEGAL_NAME ? { legalName: LEGAL_NAME } : {}),
       url: SITE.url,
       description:
         'Wi-Fi, UniFi networking, network cabling, troubleshooting, and custom software for small offices and homes in southern New Hampshire.',

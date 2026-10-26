@@ -1,7 +1,7 @@
 import type { Route } from './+types/privacy'
 import { getPage } from '../content/pages'
 import { PRIVACY_UPDATED, analyticsDisclosures } from '../content/privacy'
-import { SITE, absoluteUrl } from '../content/site'
+import { LEGAL_NAME, SITE, absoluteUrl } from '../content/site'
 
 const page = getPage('/privacy')
 
@@ -50,10 +50,10 @@ export default function Privacy() {
         </p>
 
         <h2>Who runs this site</h2>
-        {/* TODO(#730/#675): name the LLC here once it is formed and the public name is decided. */}
         <p>
-          I'm {SITE.name}, an independent network installer and software developer in {SITE.locality}. Questions about
-          this page, or about anything you've sent me, go to {email}.
+          I'm {SITE.name}, an independent network installer and software developer in {SITE.locality}.
+          {LEGAL_NAME ? ` I do business as ${SITE.name} through ${LEGAL_NAME}, a New Hampshire company I own.` : ''}{' '}
+          Questions about this page, or about anything you've sent me, go to {email}.
         </p>
 
         <h2>The contact form</h2>

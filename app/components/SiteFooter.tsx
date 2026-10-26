@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { SITE } from '../content/site'
+import { SITE, legalLine } from '../content/site'
 
 export function SiteFooter() {
   // Pre-rendered with the build year, then updated in the browser (as the old
@@ -20,7 +20,7 @@ export function SiteFooter() {
           <a href="/privacy">Privacy</a>
         </p>
         <p className="foot-small">
-          © <span id="yr">{year}</span> {SITE.name}. Independent installer, not affiliated with Ubiquiti.
+          © <span id="yr">{year}</span> {legalLine() ?? SITE.name}. Independent installer, not affiliated with Ubiquiti.
         </p>
       </div>
     </footer>

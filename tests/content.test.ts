@@ -7,6 +7,7 @@ import { OFFERS } from '../app/content/services'
 import { homeJsonLd } from '../app/content/structured-data'
 import { llmsTxt, robotsTxt, sitemapXml } from '../app/content/text-files'
 import { TOWNS } from '../app/content/towns'
+import { LEGAL_NAME, legalLine } from '../app/content/site'
 import { ANALYTICS } from '../app/lib/analytics'
 
 describe('structured data', () => {
@@ -95,5 +96,19 @@ describe('privacy page analytics disclosures', () => {
     expect(analyticsDisclosures({ ...none, umamiSrc: 'https://u.example/s.js' })).toEqual([])
     expect(analyticsDisclosures({ ...none, umamiId: 'id' })).toEqual([])
     expect(analyticsDisclosures({ ...none, umamiSrc: 'https://u.example/s.js', umamiId: 'id' }).map((d) => d.key)).toEqual(['umami'])
+  })
+})
+
+describe('legal name (the LLC behind the public name)', () => {
+  test('reads "<LLC>, doing business as Mickey Mullin" once set', () => {
+    expect(legalLine('Mullinovations LLC')).toBe('Mullinovations LLC, doing business as Mickey Mullin')
+  })
+
+  test('nothing names a company until LEGAL_NAME is set', () => {
+    expect(legalLine('')).toBeNull()
+    const business = homeJsonLd().find((b) => b['@type'] === 'ProfessionalService') as Record<string, unknown>
+    if (LEGAL_NAME) expect(business.legalName).toBe(LEGAL_NAME)
+    else expect(business).not.toHaveProperty('legalName')
+    expect(JSON.stringify(homeJsonLd())).not.toMatch(LEGAL_NAME ? /$^/ : /Mullinovations/)
   })
 })
