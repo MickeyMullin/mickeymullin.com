@@ -18,6 +18,12 @@ export function SiteHeader() {
           <a href="/#software">Software</a>
           <a href="/#pricing">Pricing</a>
           <a href="/#area">Service area</a>
+          <a className="nav-phone" href={`tel:${SITE.tel}`} aria-label={`Call ${SITE.phone}`}>
+            <span className="nav-phone-num">{SITE.phone}</span>
+            <span className="nav-phone-short" aria-hidden="true">
+              Call
+            </span>
+          </a>
           <a className="btn btn-sm" href="/#contact" data-cta="header">
             Get a quote
           </a>

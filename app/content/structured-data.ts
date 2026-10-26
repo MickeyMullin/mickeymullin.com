@@ -21,6 +21,7 @@ export function homeJsonLd() {
       description:
         'Wi-Fi, UniFi networking, network cabling, troubleshooting, and custom software for small offices and homes in southern New Hampshire.',
       email: SITE.email,
+      telephone: SITE.tel,
       image: SITE.ogImage,
       logo: SITE.logo,
       priceRange: '$$',

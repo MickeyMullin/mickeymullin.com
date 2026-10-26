@@ -23,7 +23,7 @@ const TOOLS: Disclosure[] = [
     key: 'ga4',
     name: 'Google Analytics',
     what:
-      'counts visits: which pages are viewed, how visitors found the site, and general device, browser, and location (city or region, not street address). It also records when someone clicks the email link or sends the contact form, but never what the form says.',
+      'counts visits: which pages are viewed, how visitors found the site, and general device, browser, and location (city or region, not street address). It also records when someone clicks the email or phone link or sends the contact form, but never what the form says.',
     cookies: 'Sets first-party cookies (_ga and _ga_*) to tell a returning visitor from a new one.',
     optOut: { label: 'Google Analytics opt-out add-on', href: 'https://tools.google.com/dlpage/gaoptout' },
   },

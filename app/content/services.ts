@@ -160,7 +160,7 @@ export const FIRST_CALLS: { quote: string; answer: string }[] = [
 export const STEPS: { title: string; body: string }[] = [
   {
     title: "Talk it through",
-    body: "Send a note through the form or by email. If it needs eyes on site, I'll come look before quoting.",
+    body: "Send a note or call. If it needs eyes on site, I'll come look before quoting.",
   },
   {
     title: "Written quote",

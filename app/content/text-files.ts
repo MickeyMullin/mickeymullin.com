@@ -45,6 +45,7 @@ export function llmsTxt() {
 - Builds software with AI-assisted development, reviewed and tested to production standards; clients own their code
 - Based in: ${SITE.locality} (service area: ${TOWNS.join(', ')}, and nearby towns)
 - Email: ${SITE.email}
+- Phone: ${SITE.phone}
 - Website: ${SITE.url}
 - Hours: by appointment; evenings and Saturdays available
 - Model: written quotes; hardware at cost plus a small markup with a 50% hardware deposit; clients receive admin logins, a labeled port map, and a written setup summary (no lock-in)

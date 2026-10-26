@@ -7,7 +7,7 @@ import { OFFERS } from '../app/content/services'
 import { homeJsonLd } from '../app/content/structured-data'
 import { llmsTxt, robotsTxt, sitemapXml } from '../app/content/text-files'
 import { TOWNS } from '../app/content/towns'
-import { LEGAL_NAME, legalLine } from '../app/content/site'
+import { LEGAL_NAME, SITE, legalLine } from '../app/content/site'
 import { ANALYTICS } from '../app/lib/analytics'
 
 describe('structured data', () => {
@@ -38,6 +38,13 @@ describe('structured data', () => {
       'Small-business websites',
     ])
     expect(items).toHaveLength(OFFERS.length)
+  })
+
+  test('the business carries the same phone number as the page and llms.txt', () => {
+    expect(SITE.tel).toMatch(/^\+1\d{10}$/)
+    expect(SITE.tel.slice(2)).toBe(SITE.phone.replace(/\D/g, ''))
+    expect(byType('ProfessionalService').telephone).toBe(SITE.tel)
+    expect(llmsTxt()).toContain(`- Phone: ${SITE.phone}`)
   })
 
   test('areaServed covers every town in the service area', () => {

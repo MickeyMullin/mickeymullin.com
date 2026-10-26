@@ -31,7 +31,12 @@ export function Contact() {
                 {SITE.email}
               </a>
             </li>
-            {/* TODO(phone): <li><span>Phone</span> <a href="tel:+16035550000" data-track="call">(603) 555-0000</a></li> */}
+            <li>
+              <span>Phone</span>{' '}
+              <a href={`tel:${SITE.tel}`} data-track="call">
+                {SITE.phone}
+              </a>
+            </li>
             <li>
               <span>Hours</span> By appointment. Evenings and Saturdays available.
             </li>

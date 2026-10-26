@@ -14,7 +14,7 @@ export function SiteFooter() {
           <b>{SITE.name}</b> · {SITE.tagline} · {SITE.locality}
         </p>
         <p>
-          <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
+          <a href={`mailto:${SITE.email}`}>{SITE.email}</a> · <a href={`tel:${SITE.tel}`}>{SITE.phone}</a>
         </p>
         <p>
           <a href="/privacy">Privacy</a>
