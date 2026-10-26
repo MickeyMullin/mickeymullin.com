@@ -73,7 +73,7 @@ Without SMTP settings the contact form answers with its "please email me" fallba
 | Output directory | `build` |
 | Entry file | `server.js` |
 
-Hostinger detects the app type from `react-router` and `@react-router/express` in `package.json`. `server.js` listens on `process.env.PORT`. `engines.node` is `>=22.12`, which Vite 7 requires.
+Hostinger detects the app type from `react-router` and `@react-router/express` in `package.json`. `server.js` listens on `process.env.PORT`, on every interface unless `HOST` is set. `engines.node` is `>=22.12`, which Vite 7 requires.
 
 The build tools (`@react-router/dev`, `vite`) are in `dependencies`, not `devDependencies`, so the build still works if Hostinger installs with `--omit=dev` or `NODE_ENV=production`. Only TypeScript and the type packages are dev-only; the build doesn't need them.
 
@@ -92,6 +92,7 @@ Set these in hPanel, never in the repo. All are optional; without the SMTP group
 | `TRUST_PROXY` | Express "trust proxy" setting. Default `1` (one reverse proxy in front, which is how Hostinger runs Node apps) |
 | `LOG_CLIENT_IP` | `1` logs each request's `req.ip`, raw `X-Forwarded-For` and socket address, to confirm the `TRUST_PROXY` hop count after a deploy. Leave unset otherwise |
 | `PORT` | set by Hostinger |
+| `HOST` | not set on Hostinger (listens on every interface). The local preview sets `127.0.0.1`. |
 
 SMTP settings are read when the app starts, so changing one needs a restart or redeploy.
 
