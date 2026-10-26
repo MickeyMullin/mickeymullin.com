@@ -175,7 +175,7 @@ describe('pre-rendered home page', () => {
     expect(directive('img-src')).toBe("img-src 'self' data:")
   })
 
-  test('every page carries the Umami tag in <head>, limited to the real and temporary domains', () => {
+  test('every page carries the Umami tag in <head>, limited to the real domain', () => {
     for (const file of prerenderedHtmlFiles()) {
       const html = fs.readFileSync(file, 'utf8')
       const head = html.slice(0, html.indexOf('</head>'))
@@ -183,7 +183,7 @@ describe('pre-rendered home page', () => {
       expect(tags).toHaveLength(1)
       expect(tags[0]).toContain('defer')
       expect(tags[0]).toContain('data-website-id="7052ef9d-7fe6-4ea4-98b7-31f2943a1f5f"')
-      expect(tags[0]).toContain('data-domains="mickeymullin.com,palegoldenrod-sardine-733559.hostingersite.com"')
+      expect(tags[0]).toContain('data-domains="mickeymullin.com"')
     }
   })
 
