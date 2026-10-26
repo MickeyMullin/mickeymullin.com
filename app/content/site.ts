@@ -2,7 +2,6 @@
 
 export const SITE = {
   name: 'Mickey Mullin',
-  alternateName: 'Mickey Mullin Networks & Software',
   tagline: 'Networks & Software',
   origin: 'https://mickeymullin.com',
   url: 'https://mickeymullin.com/',

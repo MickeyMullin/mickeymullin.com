@@ -16,7 +16,6 @@ export function homeJsonLd() {
       '@type': 'ProfessionalService',
       '@id': BUSINESS_ID,
       name: SITE.name,
-      alternateName: SITE.alternateName,
       ...(LEGAL_NAME ? { legalName: LEGAL_NAME } : {}),
       url: SITE.url,
       description:
@@ -66,7 +65,7 @@ export function homeJsonLd() {
       name: SITE.name,
       jobTitle: 'Software developer and network installer',
       description:
-        'Software developer with 30 years of experience, including engineering and management roles at Microsoft and Yahoo, now building enterprise software as a consultant and running networks and custom software for small businesses in southern New Hampshire.',
+        'Software developer with 30 years of experience, including engineering and management roles at Microsoft and Yahoo, now building custom enterprise software as a consultant and running networks and custom software for small businesses in southern New Hampshire.',
       knowsAbout: [
         'Software development',
         'AI-assisted software development',
