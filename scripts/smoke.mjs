@@ -1,13 +1,24 @@
 // Smoke test for a built app, in plain Node: starts `node server.js` on a free
 // port (CONTACT_TRANSPORT=log, so nothing is sent), checks a few requests, then
 // stops the server. Exits non-zero on any failure. Run `npm run build` first.
+//
+// The server runs from a throwaway directory laid out like Hostinger's running
+// copy: server.js, package.json, build/ and node_modules, and nothing else from
+// the repo. An import of anything outside build/ fails here, not on Hostinger.
 
 import { spawn } from 'node:child_process'
+import fs from 'node:fs'
 import net from 'node:net'
+import os from 'node:os'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 
-const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..')
+const ROOT = fs.mkdtempSync(path.join(os.tmpdir(), 'mm-smoke-'))
+for (const name of ['server.js', 'package.json']) fs.copyFileSync(path.join(REPO, name), path.join(ROOT, name))
+fs.cpSync(path.join(REPO, 'build'), path.join(ROOT, 'build'), { recursive: true })
+fs.symlinkSync(path.join(REPO, 'node_modules'), path.join(ROOT, 'node_modules'), 'dir')
+process.on('exit', () => fs.rmSync(ROOT, { recursive: true, force: true }))
 
 function freePort() {
   return new Promise((resolve, reject) => {

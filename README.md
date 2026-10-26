@@ -26,10 +26,11 @@ app/
   entry.server.tsx   server rendering with the CSP nonce
   styles.css         the single global stylesheet (Mint Dark theme)
 public/              favicons, app icons, images (copied to build/client as-is)
-server.js            entry file: loads the build and starts Express
+server.js            entry file: loads the build and starts Express (imports only from build/)
 server/app.js        the Express app (middleware, static files, React Router handler)
 server/prerendered.js  finds pre-rendered pages and hashes their inline scripts for the CSP
-scripts/smoke.mjs    npm run smoke: plain-Node smoke test of a build
+scripts/copy-runtime.mjs  second half of npm run build: copies server/*.js to build/runtime/
+scripts/smoke.mjs    npm run smoke: plain-Node smoke test of a build, laid out like Hostinger
 tests/               bun test suites
 tools/og-image.html  source for public/images/og-image.png (render at 1200×630)
 assets/              original photos
@@ -55,7 +56,9 @@ npm run build
 PORT=4317 npm start   # or: PORT=4317 node server.js
 ```
 
-`npm run smoke` checks a build in plain Node (no Bun): it starts `node server.js` on a free port with `CONTACT_TRANSPORT=log`, requests `/` (expects 200 and the H1), `/no-such-page` (404), a form POST to `/?index` (200) and a PUT to `/?index` (405), then stops the server. It exits non-zero if any check fails. Run `npm run build` first.
+Hostinger runs the app from a copy holding only `server.js`, `build/`, `package.json` and `node_modules`; the rest of the repo is not there. So `server.js` must import only from `build/`, and `npm run build` copies the Express app (`server/*.js`) into `build/runtime/` after `react-router build`. Edit `server/`, never `build/runtime/`.
+
+`npm run smoke` checks a build in plain Node (no Bun). It copies `server.js`, `package.json` and `build/` into an empty temporary directory (with `node_modules` linked), the same layout Hostinger runs, and starts `node server.js` there on a free port with `CONTACT_TRANSPORT=log`, requests `/` (expects 200 and the H1), `/no-such-page` (404), a form POST to `/?index` (200) and a PUT to `/?index` (405), then stops the server. It exits non-zero if any check fails. Run `npm run build` first.
 
 Without SMTP settings the contact form answers with its "please email me" fallback. To see the full success path locally, start with `CONTACT_TRANSPORT=log`, which prints each message to the server log instead of sending it. Don't set that on Hostinger.
 

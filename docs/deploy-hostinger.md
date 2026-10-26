@@ -59,6 +59,10 @@ Mickey, in hPanel:
 
    The build tools (`vite`, `@react-router/dev`) are regular dependencies, so the build works whether or not Hostinger installs devDependencies. `npm ci --omit=dev && npm run build && npm run smoke` was checked locally on Node 22 with npm 10.
 
+   **What Hostinger actually runs** (first deploy, 2026-10-25): it runs `npm install` and `npm run build` in a staging copy of the repo, then copies only the entry file and the output directory (with `package.json` and `node_modules`) into `hbuilds/versions/<build>/nodejs/`, and points `hbuilds/current` at it. Passenger starts the app through Hostinger's own wrapper (`PassengerStartupFile react-router-server.cjs` in `public_html/.htaccess`), which loads `server.js`. Nothing else from the repo is there. The first deploy crashed on every start with `ERR_MODULE_NOT_FOUND` for `server/app.js`, because `server.js` imported it from outside `build/`. Since then `npm run build` copies `server/*.js` into `build/runtime/`, `server.js` imports only from `build/`, and `npm run smoke` runs the server from a directory laid out the same way, so the mistake fails locally first.
+
+   Runtime errors land in the app's runtime log in hPanel and in `domains/<domain>/hbuilds/current/nodejs/stderr.log`. With the Claude Code Hostinger plugin signed in, the read-only operations `hosting_nodejs_build-logs`, `hosting_nodejs_runtime-logs`, `hosting_nodejs_build-settings` and `hosting_nodejs_list-builds` return the same information without hPanel.
+
 5. Environment variables: none are required for stage 1. Without the SMTP settings, the contact form answers HTTP 503 and shows the email address as a fallback instead of sending.
 6. **Deploy**, then send Luci the temporary URL. If detection picked anything other than `react-router`, send a screenshot of the settings screen.
 

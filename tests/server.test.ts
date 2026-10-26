@@ -29,6 +29,9 @@ beforeAll(async () => {
     stderr: 'pipe',
   })
   if (result.exitCode !== 0) throw new Error(`build failed:\n${result.stderr.toString()}`)
+  // the second half of `npm run build`, which server.js and the smoke test need
+  const copy = Bun.spawnSync(['node', 'scripts/copy-runtime.mjs'], { cwd: ROOT, stdout: 'pipe', stderr: 'pipe' })
+  if (copy.exitCode !== 0) throw new Error(`copy-runtime failed:\n${copy.stderr.toString()}`)
   build = await import(path.join(ROOT, 'build/server/index.js'))
 }, 180_000)
 
