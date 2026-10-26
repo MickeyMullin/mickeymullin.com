@@ -86,14 +86,23 @@ for i in 1 2 3 4; do curl -s -o /dev/null -w '%{http_code} ' -d 'name=T&email=t%
 The rate limit is per visitor IP, read from the `X-Forwarded-For` header Hostinger's proxy adds (Express `trust proxy` = 1 hop, the default). Confirm the hop count once, without exposing anything publicly:
 
 1. Mickey adds the env var `LOG_CLIENT_IP=1` in hPanel and restarts the app.
-2. From a machine whose public IP you know (`curl -s https://ifconfig.me`), request `curl -s -o /dev/null $U/robots.txt`.
-3. In the app's runtime log, find the line `[client-ip] GET /robots.txt req.ip=… x-forwarded-for="…" remote=…`. The log is only visible in hPanel; nothing is added to any response.
+2. From a machine whose public IP you know (`curl -4 -s https://ifconfig.me`), request a made-up path: `curl -4 -s -o /dev/null $U/ipcheck-plain` (it 404s, but is logged first). Don't use `/robots.txt`: on the free temporary domain Hostinger's CDN answers it itself, so the request never reaches the app.
+3. In the app's runtime log, find the line `[client-ip] GET /ipcheck-plain req.ip=… x-forwarded-for="…" remote=…`. The log is visible in hPanel, or through the Claude Code Hostinger plugin's read-only `hosting_nodejs_runtime-logs`; nothing is added to any response.
 4. Read it:
    - `req.ip` is your public IP: one hop is right. Leave `TRUST_PROXY` unset.
    - `req.ip` is a Hostinger or CDN address and your IP is further left in `x-forwarded-for`: count the addresses to the right of yours, add one, and set `TRUST_PROXY` to that number (for example `x-forwarded-for="<you>, 10.0.0.5"` means `TRUST_PROXY=2`). Restart and repeat step 2 until `req.ip` is your IP.
    - `x-forwarded-for` is empty: the proxy doesn't send it. Set `TRUST_PROXY=false` right away and restart (otherwise a visitor could pick their own rate-limit bucket by sending the header), then file a task: every visitor now shares one rate limit.
-5. Check the proxy can't be fooled. Repeat step 2 with a made-up address: `curl -s -o /dev/null -H 'X-Forwarded-For: 203.0.113.1' $U/robots.txt`. `req.ip` must still be your real IP, with `203.0.113.1` further left in `x-forwarded-for`. If `req.ip` is `203.0.113.1`, the proxy passes the header through instead of adding to it, and anyone can dodge the rate limit: set `TRUST_PROXY=false` right away, restart, and file a task.
+5. Check the proxy can't be fooled. Repeat step 2 with a made-up address: `curl -4 -s -o /dev/null -H 'X-Forwarded-For: 203.0.113.1' $U/ipcheck-spoof`. `req.ip` must still be your real IP, with `203.0.113.1` further left in `x-forwarded-for`. If `req.ip` is `203.0.113.1`, the proxy passes the header through instead of adding to it, and anyone can dodge the rate limit: set `TRUST_PROXY=false` right away, restart, and file a task.
 6. Remove `LOG_CLIENT_IP` and restart. While it's set, every request is logged with the visitor's IP.
+
+**Result on 2026-10-25 (temporary domain):** one hop is right; `TRUST_PROXY` stays unset. From `70.8.175.180`:
+
+```
+[client-ip] GET /ipcheck-plain req.ip=70.8.175.180 x-forwarded-for="70.8.175.180, 70.8.175.180,70.8.175.180" remote=127.0.0.1
+[client-ip] GET /ipcheck-spoof req.ip=70.8.175.180 x-forwarded-for="203.0.113.1, 70.8.175.180, 203.0.113.1, 70.8.175.180,70.8.175.180" remote=127.0.0.1
+```
+
+Hostinger's proxies keep whatever the client sent and append the real address on the right (the chain repeats because the request passes more than one Hostinger layer), so the rightmost entry is always the address Hostinger saw. Requests Hostinger makes itself right after a deploy come from its own IPv6 range (`2a02:4780:…`). Repeat this check after cutover, since the custom domain may sit behind a different CDN path.
 
 Then in a browser: desktop and phone layouts, the form with JavaScript off (the fallback message), and Lighthouse mobile (SEO and Accessibility at least 95).
 
@@ -129,6 +138,8 @@ Luci verifies with the stage 1 checks against `https://mickeymullin.com`, plus:
 - `dig +short mickeymullin.com A` and `dig +short www.mickeymullin.com A` return only the new IP.
 - HTTPS certificate is valid for both names, and `www` redirects to the apex. The app itself answers a `Host` of exactly `www.mickeymullin.com` (any case, any port) with a 301 to the bare domain; other hosts are served as is.
 - `http://` redirects to `https://`. The app doesn't do this redirect itself (the old `.htaccess` did), so it has to come from Hostinger's proxy. If it doesn't, file a task.
+- `curl -s https://mickeymullin.com/robots.txt` is ours (starts with `# mickeymullin.com`, ends with the `Sitemap:` line), not Hostinger's stock `User-agent: Googlebot / Disallow: /`, which the CDN serves on the temporary domain. If the stock file shows up on the real domain, stop: it blocks Google. Purge the CDN cache and check hPanel's CDN settings.
+- The trust-proxy check from stage 1 (`LOG_CLIENT_IP=1`, plain and spoofed requests, then remove it).
 - A real contact submission arrives in the inbox, and its headers show SPF, DKIM and DMARC passing.
 - Search Console: submit `/sitemap.xml` and request indexing of `/` (#693). Then ping IndexNow (#691).
 
