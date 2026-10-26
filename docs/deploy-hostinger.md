@@ -27,14 +27,15 @@ Hostinger, GitHub authorization, Namecheap and Google Workspace all need Mickey'
 
 Optional: a Hostinger API token stored in the browser vault (not in chat) would let Luci read deploy status and logs instead of asking for screenshots.
 
-## Current state (checked 2026-10-25)
+## Current state (checked 2026-10-26, after cutover)
 
+- The new app serves `https://mickeymullin.com`. WordPress is deleted (#687); its backup is in `~/backup/mickeymullin.com-wordpress-2026-10-26/` and on the NAS.
 - DNS is hosted at **Namecheap** (`dns1/dns2.registrar-servers.com`).
-- `mickeymullin.com` A → `46.202.183.215` (Hostinger, the WordPress site).
-- `www.mickeymullin.com` has **two** A records: `46.202.183.215` and `192.64.119.234` (a Namecheap parking/redirect address). About half of `www` visitors may not reach the site. Fix at cutover.
+- `mickeymullin.com` A → `46.202.183.215`, and `www` A → `46.202.183.215` only. Hostinger kept the same IP for the Node.js app, so the A records didn't change.
 - MX → Google (`aspmx.l.google.com`).
-- SPF is `v=spf1 include:mailgun.org ~all`. It does **not** authorize Google, so mail sent through Workspace can fail SPF. No DMARC record. Fixed in #686.
-- TXT records already present: `google-site-verification=…` (Search Console is likely already verified for the domain), `ahrefs-site-verification_…`, `openai-domain-verification=…`.
+- SPF is still `v=spf1 include:mailgun.org ~all`; Mailgun was only WordPress's mailer (WP Mail SMTP). It should become `v=spf1 include:_spf.google.com ~all`, plus Google DKIM and DMARC `p=none` (#686).
+- TXT records already present: `google-site-verification=…` (Search Console is verified by DNS, so it survived WordPress and Site Kit going away), `ahrefs-site-verification_…`, `openai-domain-verification=…`.
+- The contact form answers 503 with the email fallback until the SMTP environment variables are set (step 5).
 
 ## Stage 1: deploy to a temporary domain
 
@@ -117,7 +118,7 @@ Prerequisites: stage 1 verified; the business name (#675) and prices (#676) are 
 3. **Connect the domain (Mickey).** On the Node.js app: **Connect domain** → `mickeymullin.com`. hPanel then shows the IP to point at.
 4. **DNS at Namecheap (Mickey; Luci provides the exact values).**
    - `@` A → the IP from step 3 (it may still be `46.202.183.215`).
-   - `www`: delete **both** existing A records and create one A record to the same IP. Or use a CNAME to `mickeymullin.com` if hPanel suggests one.
+   - `www`: exactly one A record to the same IP (or a CNAME to `mickeymullin.com` if hPanel suggests one). If `dig` shows an extra `www` address that isn't in Advanced DNS, it's a Namecheap redirect: delete the redirect.
    - Leave MX and the verification TXT records alone.
 5. **Email and secrets (Mickey).** In hPanel → the app → Environment variables:
 
@@ -143,6 +144,17 @@ Luci verifies with the stage 1 checks against `https://mickeymullin.com`, plus:
 - A real contact submission arrives in the inbox (`info@mickeymullin.com`), and its headers show SPF, DKIM, and DMARC passing.
 - `/privacy` names each analytics tool the site loads (GA4 at least, #692). The page says the site uses analytics, and its tool list is generated from the analytics IDs baked into the build, so an empty list means the IDs are missing from this build: fix that before announcing the site. Set `PRIVACY_UPDATED` in `app/content/privacy.ts` to the launch date.
 - Search Console: submit `/sitemap.xml` and request indexing of `/` (#693). Then ping IndexNow (#691).
+
+**What actually happened (2026-10-26):**
+
+- Steps 1–3 went as written. Mickey downloaded the hPanel files and database backups. Luci verified them before deletion: the archives open cleanly, all posts, pages, and media match a public REST export taken first, and there's a second copy on the NAS.
+- Step 4 was nearly a no-op. After **Connect domain**, the apex already worked, because the app got the same IP (`46.202.183.215`). The stray `www` address `192.64.119.234` was not a DNS record: it was a Namecheap **redirect** for `www`, set outside the DNS records, which shows up externally as an A record. Deleting the redirect fixed it. While it existed, HTTPS to that address timed out, so about half of `https://www` visits hung.
+- `http://` → `https://` and `www` → apex both come from Hostinger and the app with 301s. The certificate is Let's Encrypt, and HSTS is `max-age=31536000`.
+- Robots: ours is served on the real domain, not the stock file.
+- Umami: `data-domains` was cut to `mickeymullin.com` only. A real browser visit got `/api/send` 200.
+- Old WordPress URLs (posts, `/feed/`, `/wp-admin/`) return 404, as intended.
+- Before deleting WordPress, disconnect what it used: the Kit (ConvertKit) WordPress app, Site Kit's Google access (it only ever linked Search Console), and the Mailgun mailer.
+- Still open at the time of writing: step 5 (SMTP variables), the real contact submission with SPF, DKIM, and DMARC passing, the trust-proxy recheck on the real domain (set `LOG_CLIENT_IP=1` at the same time as the SMTP variables), and the sitemap submission.
 
 ## Rollback
 
