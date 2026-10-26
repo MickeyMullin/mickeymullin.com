@@ -27,7 +27,7 @@ export const SITE = {
 // TODO(#730): set to the filed name after NH accepts Form LLC-1.
 export const LEGAL_NAME: string = ''
 
-// "Mullinovations LLC, doing business as Mickey Mullin", or null before the LLC exists.
+// "Mullinnovations LLC, doing business as Mickey Mullin", or null before the LLC exists.
 export function legalLine(legalName: string = LEGAL_NAME): string | null {
   return legalName ? `${legalName}, doing business as ${SITE.name}` : null
 }
