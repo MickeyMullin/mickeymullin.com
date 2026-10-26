@@ -87,8 +87,9 @@ The rate limit is per visitor IP, read from the `X-Forwarded-For` header Hosting
 4. Read it:
    - `req.ip` is your public IP: one hop is right. Leave `TRUST_PROXY` unset.
    - `req.ip` is a Hostinger or CDN address and your IP is further left in `x-forwarded-for`: count the addresses to the right of yours, add one, and set `TRUST_PROXY` to that number (for example `x-forwarded-for="<you>, 10.0.0.5"` means `TRUST_PROXY=2`). Restart and repeat step 2 until `req.ip` is your IP.
-   - `x-forwarded-for` is empty: the proxy doesn't send it, so every visitor shares one rate limit. File a task.
-5. Remove `LOG_CLIENT_IP` and restart. While it's set, every request is logged with the visitor's IP.
+   - `x-forwarded-for` is empty: the proxy doesn't send it. Set `TRUST_PROXY=false` right away and restart (otherwise a visitor could pick their own rate-limit bucket by sending the header), then file a task: every visitor now shares one rate limit.
+5. Check the proxy can't be fooled. Repeat step 2 with a made-up address: `curl -s -o /dev/null -H 'X-Forwarded-For: 203.0.113.1' $U/robots.txt`. `req.ip` must still be your real IP, with `203.0.113.1` further left in `x-forwarded-for`. If `req.ip` is `203.0.113.1`, the proxy passes the header through instead of adding to it, and anyone can dodge the rate limit: set `TRUST_PROXY=false` right away, restart, and file a task.
+6. Remove `LOG_CLIENT_IP` and restart. While it's set, every request is logged with the visitor's IP.
 
 Then in a browser: desktop and phone layouts, the form with JavaScript off (the fallback message), and Lighthouse mobile (SEO and Accessibility at least 95).
 
@@ -122,7 +123,7 @@ Prerequisites: stage 1 verified; the business name (#675) and prices (#676) are 
 Luci verifies with the stage 1 checks against `https://mickeymullin.com`, plus:
 
 - `dig +short mickeymullin.com A` and `dig +short www.mickeymullin.com A` return only the new IP.
-- HTTPS certificate is valid for both names, and `www` redirects to the apex. The app itself answers any `www.` host with a 301 to the bare domain.
+- HTTPS certificate is valid for both names, and `www` redirects to the apex. The app itself answers a `Host` of exactly `www.mickeymullin.com` (any case, any port) with a 301 to the bare domain; other hosts are served as is.
 - `http://` redirects to `https://`. The app doesn't do this redirect itself (the old `.htaccess` did), so it has to come from Hostinger's proxy. If it doesn't, file a task.
 - A real contact submission arrives in the inbox, and its headers show SPF, DKIM and DMARC passing.
 - Search Console: submit `/sitemap.xml` and request indexing of `/` (#693). Then ping IndexNow (#691).
@@ -136,4 +137,4 @@ Luci verifies with the stage 1 checks against `https://mickeymullin.com`, plus:
 
 ## Later deploys
 
-Push to `master`. Hostinger installs, builds and restarts. After each deploy that changes URLs, ping IndexNow (#691).
+Push to `master`. Hostinger installs, builds and restarts. The restart matters: the server reads the inline-script hashes for its Content-Security-Policy from the built pages once, at startup, so a build without a restart would serve new pages under old hashes and block their scripts. If a deploy ever looks broken in that way, restart the app in hPanel. After each deploy that changes URLs, ping IndexNow (#691).

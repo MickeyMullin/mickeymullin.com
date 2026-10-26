@@ -16,7 +16,10 @@ export type FieldErrors = Partial<Record<ContactField, string>>
 export const HONEYPOT_FIELD = 'company_url'
 export const CONTACT_FIELDS = Object.keys(FIELD_LIMITS) as ContactField[]
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+// One plain address. The excluded characters are the ones an address parser reads as a list
+// (,;), a group (:), angle brackets, a comment, a quoted part or an escape, so the Reply-To header
+// built from it can only ever hold the one address.
+const EMAIL_RE = /^[^\s@<>,;:"()[\]\\]+@[^\s@<>,;:"()[\]\\]+\.[^\s@<>,;:"()[\]\\]+$/
 
 export type ContactResult =
   | { status: 'sent' }

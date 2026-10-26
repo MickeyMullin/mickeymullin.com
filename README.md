@@ -33,7 +33,8 @@ scripts/smoke.mjs    npm run smoke: plain-Node smoke test of a build
 tests/               bun test suites
 tools/og-image.html  source for public/images/og-image.png (render at 1200×630)
 assets/              original photos
-docs/                deploy runbook
+docs/                Hostinger deploy runbook
+deploy/              local preview at mm.home.vorheim.com: deploy.sh, launchd template, Caddy block
 ```
 
 To add a page: create the route in `app/routes/`, register it in `app/routes.ts`, and add it to `PAGES` in `app/content/pages.ts`. That list drives pre-rendering, `sitemap.xml` and `llms.txt`.
@@ -58,6 +59,17 @@ PORT=4317 npm start   # or: PORT=4317 node server.js
 
 Without SMTP settings the contact form answers with its "please email me" fallback. To see the full success path locally, start with `CONTACT_TRANSPORT=log`, which prints each message to the server log instead of sending it. Don't set that on Hostinger.
 
+### Local preview (`mm.home.vorheim.com`)
+
+The preview runs `server.js` from this checkout under launchd, behind Caddy. It serves the built pages, so it never picks up edits on its own. After you edit the site:
+
+```sh
+deploy/deploy.sh deploy   # npm ci if the lockfile changed, build, smoke test, restart, check
+deploy/deploy.sh check    # dry run: shows what deploy would do, changes nothing
+```
+
+It builds whatever is on disk, uncommitted edits included, and contact-form messages go to `~/Library/Logs/mickeymullin-preview.log` instead of being sent. Details, setup and removal: [`deploy/README.md`](deploy/README.md).
+
 ### Lockfile
 
 `package-lock.json` is the only committed lockfile, because Hostinger installs with `npm ci`. `bun install` reads it (and writes a `bun.lock`, which is gitignored). To add or upgrade a dependency, use `npm install <package>` so `package-lock.json` changes, then run `bun install` again.
@@ -73,7 +85,7 @@ Without SMTP settings the contact form answers with its "please email me" fallba
 | Output directory | `build` |
 | Entry file | `server.js` |
 
-Hostinger detects the app type from `react-router` and `@react-router/express` in `package.json`. `server.js` listens on `process.env.PORT`, on every interface unless `HOST` is set. `engines.node` is `>=22.12`, which Vite 7 requires.
+Hostinger detects the app type from `react-router` and `@react-router/express` in `package.json`. `server.js` listens on `process.env.PORT`, on every interface unless `LISTEN_HOST` is set. `engines.node` is `>=22.12`, which Vite 7 requires.
 
 The build tools (`@react-router/dev`, `vite`) are in `dependencies`, not `devDependencies`, so the build still works if Hostinger installs with `--omit=dev` or `NODE_ENV=production`. Only TypeScript and the type packages are dev-only; the build doesn't need them.
 
@@ -92,7 +104,7 @@ Set these in hPanel, never in the repo. All are optional; without the SMTP group
 | `TRUST_PROXY` | Express "trust proxy" setting. Default `1` (one reverse proxy in front, which is how Hostinger runs Node apps) |
 | `LOG_CLIENT_IP` | `1` logs each request's `req.ip`, raw `X-Forwarded-For` and socket address, to confirm the `TRUST_PROXY` hop count after a deploy. Leave unset otherwise |
 | `PORT` | set by Hostinger |
-| `HOST` | not set on Hostinger (listens on every interface). The local preview sets `127.0.0.1`. |
+| `LISTEN_HOST` | leave unset on Hostinger (listens on every interface). The local preview sets `127.0.0.1`. |
 
 SMTP settings are read when the app starts, so changing one needs a restart or redeploy.
 

@@ -1,7 +1,7 @@
 import { expect, test } from 'bun:test'
 import pkg from '../package.json'
 
-test('the build tools are runtime dependencies, so `npm ci --omit=dev && npm run build` works', () => {
+test('the build tools are in dependencies, not devDependencies (so an --omit=dev install can still build)', () => {
   for (const name of ['react-router', '@react-router/express', '@react-router/node', '@react-router/dev', 'vite']) {
     expect(pkg.dependencies).toHaveProperty(name)
   }

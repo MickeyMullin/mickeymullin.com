@@ -10,9 +10,10 @@ const build = await import('./build/server/index.js')
 const app = createApp({ build })
 
 const port = process.env.PORT || 3000
-// HOST is optional. Hostinger doesn't set it, so production listens on every
-// interface as before; the local preview sets HOST=127.0.0.1 to stay off the LAN.
-const host = process.env.HOST || undefined
+// LISTEN_HOST is optional. Hostinger doesn't set it, so production listens on every
+// interface; the local preview sets LISTEN_HOST=127.0.0.1 to stay off the LAN. Deliberately not
+// HOST, which some shells and platforms set to a hostname on their own.
+const host = process.env.LISTEN_HOST || undefined
 const server = app.listen(port, host, () => {
   console.log(`mickeymullin.com listening on ${host ?? 'all interfaces'}, port ${port}`)
 })

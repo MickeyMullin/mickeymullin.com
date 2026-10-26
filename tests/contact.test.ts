@@ -61,6 +61,18 @@ describe('header injection', () => {
     expect(singleLine('a\u0000b c\td')).toBe('a b c d')
   })
 
+  test('rejects anything that could become more than one Reply-To address', () => {
+    for (const email of ['a@b.co,bcc@evil.com', 'x@evil.com>,<y.z', 'a;b@example.com', 'pat@exa"mple.com', 'pat@(x)example.com', 'p:t@example.com', 'p[t]@example.com', 'p\\t@example.com']) {
+      expect(validateContact(readContactForm(form({ ...valid, email })).values).email).toBeString()
+    }
+  })
+
+  test('still accepts ordinary addresses with dots, plus tags, apostrophes and subdomains', () => {
+    for (const email of ['pat.doe+wifi@example.com', "o'brien@example.ie", 'it@sub.example.co.uk', 'x_y-z@example.org']) {
+      expect(validateContact(readContactForm(form({ ...valid, email })).values).email).toBeUndefined()
+    }
+  })
+
   test('an email address with an injected header is rejected', () => {
     const { values } = readContactForm(form({ ...valid, email: 'pat@example.com\r\nBcc: victim@example.com' }))
     expect(values.email).not.toMatch(/[\r\n]/)
