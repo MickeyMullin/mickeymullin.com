@@ -19,12 +19,12 @@ export function About() {
           <p>
             Today I build enterprise software as a consultant, for clients that include a national property-management
             company and a drayage and shipping company. I use AI coding tools every day, and three decades of reading,
-            reviewing and running production code keeps that output clean and consistent. For a small business, that
+            reviewing, and running production code keeps that output clean and consistent. For a small business, that
             puts custom software within reach.
           </p>
           <p>The same habits make networks dependable: plan it, build it cleanly, test it, write down how it works.</p>
           <p>
-            You work directly with me. The person who scopes the job is the one who pulls the cable, configures the gear
+            You work directly with me. The person who scopes the job is the one who pulls the cable, configures the gear,
             and answers the phone afterward. No account managers, no hand-offs to someone you've never met.
           </p>
         </div>

@@ -21,10 +21,10 @@ export const PAGES: Page[] = [
     summary: 'services, pricing, service area, contact',
     title: 'Mickey Mullin — Wi-Fi, Networking & Custom Software | Manchester, NH',
     description:
-      'Business and home Wi-Fi, UniFi networks, network cabling and troubleshooting around Manchester and southern New Hampshire — plus custom software and integrations. One person, start to finish.',
+      'Business and home Wi-Fi, UniFi networks, network cabling, and troubleshooting around Manchester and southern New Hampshire — plus custom software and integrations. One person, start to finish.',
     ogTitle: 'Mickey Mullin — Networks that hold up. Software that fits.',
     ogDescription:
-      'Wi-Fi, UniFi, cabling and troubleshooting for small offices and homes in southern NH, plus custom software and integrations.',
+      'Wi-Fi, UniFi, cabling, and troubleshooting for small offices and homes in southern NH, plus custom software and integrations.',
     lastmod: '2026-10-25',
   },
   {

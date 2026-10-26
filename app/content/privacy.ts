@@ -23,7 +23,7 @@ const TOOLS: Disclosure[] = [
     key: 'ga4',
     name: 'Google Analytics',
     what:
-      'counts visits: which pages are viewed, how visitors found the site, and general device, browser and location (city or region, not street address). It also records when someone clicks the email link or sends the contact form, but never what the form says.',
+      'counts visits: which pages are viewed, how visitors found the site, and general device, browser, and location (city or region, not street address). It also records when someone clicks the email link or sends the contact form, but never what the form says.',
     cookies: 'Sets first-party cookies (_ga and _ga_*) to tell a returning visitor from a new one.',
     optOut: { label: 'Google Analytics opt-out add-on', href: 'https://tools.google.com/dlpage/gaoptout' },
   },
@@ -37,7 +37,7 @@ const TOOLS: Disclosure[] = [
     key: 'clarity',
     name: 'Microsoft Clarity',
     what:
-      'shows how pages are used (clicks, scrolling and anonymized replays of visits) so layout problems can be found and fixed. Anything typed into a form is masked and never recorded.',
+      'shows how pages are used (clicks, scrolling, and anonymized replays of visits) so layout problems can be found and fixed. Anything typed into a form is masked and never recorded.',
     cookies: 'Sets cookies (_clck and _clsk) to group the pages of one visit.',
     optOut: { label: 'Microsoft privacy statement', href: 'https://privacy.microsoft.com/privacystatement' },
   },

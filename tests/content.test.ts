@@ -59,11 +59,11 @@ describe('generated text files', () => {
     for (const p of PAGES) expect(xml).toContain(`<loc>https://mickeymullin.com${p.path}</loc>`)
   })
 
-  test('llms.txt lists every page, the prices and the service area', () => {
+  test('llms.txt lists every page, the prices, and the service area', () => {
     const txt = llmsTxt()
     for (const p of PAGES) expect(txt).toContain(`(https://mickeymullin.com${p.path})`)
     for (const row of PRICES) expect(txt).toContain(`- ${row.plain}`)
-    expect(txt).toContain(`${TOWNS.join(', ')} and nearby towns`)
+    expect(txt).toContain(`${TOWNS.join(', ')}, and nearby towns`)
   })
 
   test('every dollar price in the table also appears in its llms.txt line', () => {

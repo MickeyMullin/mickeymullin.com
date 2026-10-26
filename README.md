@@ -98,7 +98,7 @@ Set these in hPanel, never in the repo. All are optional; without the SMTP group
 
 | Variable | Purpose |
 | --- | --- |
-| `CONTACT_TO` | where form messages go, e.g. `hello@mickeymullin.com` |
+| `CONTACT_TO` | where form messages go, e.g. `info@mickeymullin.com` |
 | `CONTACT_FROM` | the sending mailbox (must be allowed to send through the SMTP account) |
 | `SMTP_HOST` | `smtp.gmail.com` for Google Workspace |
 | `SMTP_PORT` | `465` (implicit TLS, the default) or `587` (STARTTLS) |

@@ -57,7 +57,7 @@ export function mailSetupFromEnv(env: Env = process.env): MailSetup | null {
   const from = get('CONTACT_FROM')
 
   if (get('CONTACT_TRANSPORT') === 'log') {
-    return { mailer: logMailer, to: to || 'hello@mickeymullin.com', from: from || 'website@mickeymullin.com' }
+    return { mailer: logMailer, to: to || 'info@mickeymullin.com', from: from || 'website@mickeymullin.com' }
   }
 
   const host = get('SMTP_HOST')

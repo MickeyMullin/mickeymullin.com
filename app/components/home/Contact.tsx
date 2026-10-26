@@ -167,7 +167,7 @@ export function ContactForm() {
         {message}
       </p>
       <p className="form-note">
-        I use what you send only to reply. <a href="/privacy">How I handle it</a>.
+        I use what you send to reply. <a href="/privacy">How I handle it</a>.
       </p>
     </fetcher.Form>
   )

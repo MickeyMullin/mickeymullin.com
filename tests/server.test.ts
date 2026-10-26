@@ -279,13 +279,14 @@ describe('privacy page', () => {
     expect(res.headers.get('cache-control')).toBe('no-cache')
     expect(html).toContain('<h1>What this site collects, and what I do with it</h1>')
     expect(html).toContain('<link rel="canonical" href="https://mickeymullin.com/privacy"/>')
-    expect(html).toContain('hello@mickeymullin.com')
+    expect(html).toContain('info@mickeymullin.com')
   })
 
   test('discloses exactly the analytics tools that are configured', () => {
     const shown = [...html.matchAll(/data-analytics="([a-z0-9]+)"/g)].map((m) => m[1])
     const configured = analyticsDisclosures().map((d) => d.key)
-    expect(shown).toEqual(configured.length ? configured : ['none'])
+    expect(shown).toEqual(configured)
+    expect(html).not.toContain('no analytics')
   })
 
   test('the footer and the contact form link to it, and the header anchors work from it', async () => {
@@ -393,7 +394,7 @@ describe('contact form without JavaScript', () => {
     const res = await post(`${url}/?index`, valid)
     console.warn = orig
     expect(res.status).toBe(503)
-    expect(await res.text()).toContain('Please email <a href="mailto:hello@mickeymullin.com">')
+    expect(await res.text()).toContain('Please email <a href="mailto:info@mickeymullin.com">')
   })
 
   test('repeat POSTs are rate limited with a readable 429 page', async () => {

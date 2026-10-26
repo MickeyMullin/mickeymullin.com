@@ -11,7 +11,7 @@ export const FAQ: FaqItem[] = [
   {
     question: 'Will I be locked in to you?',
     answer:
-      'No. You get the admin logins, a labeled port map and a short written summary of how the network is set up, so anyone competent can pick it up later.',
+      'No. You get the admin logins, a labeled port map, and a short written summary of how the network is set up, so anyone competent can pick it up later.',
   },
   {
     question: 'Do you work evenings and Saturdays?',
@@ -21,12 +21,12 @@ export const FAQ: FaqItem[] = [
   {
     question: 'Do you use AI to write the software?',
     answer:
-      "Yes, as a tool. AI-assisted development lets one experienced developer build in weeks what used to take a small team months. Every line still goes through the review, testing and design judgment that 30 years of production software taught me, and you own all of the code when we're done.",
+      "Yes, as a tool. AI-assisted development lets one experienced developer build in weeks what used to take a small team months. Every line still goes through the review, testing, and design judgment that 30 years of production software taught me, and you own all of the code when we're done.",
   },
   {
     question: 'I built an app with AI. Can you make it work for real?',
     answer:
-      'Usually, yes. I start with a free review of what you have: what works, what is risky, and what is missing, such as the domain, hosting, logins, email, CRM and security. Then you get a fixed quote to finish it. Sometimes rebuilding one piece costs less than patching it, and I will tell you when that is the case. You keep the code, and every account is in your name.',
+      'Usually, yes. I start with a free review of what you have: what works, what is risky, and what is missing, such as the domain, hosting, logins, email, CRM, and security. Then you get a fixed quote to finish it. Sometimes rebuilding one piece costs less than patching it, and I will tell you when that is the case. You keep the code, and every account is in your name.',
   },
   {
     question: 'Do you do electrical work?',

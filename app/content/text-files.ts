@@ -38,16 +38,16 @@ export function llmsTxt() {
   const pages = PAGES.map((p) => `- [${p.label}](${absoluteUrl(p.path)}): ${p.summary}`).join('\n')
   return `# ${SITE.name}: ${SITE.tagline}
 
-> Local networking, Wi-Fi and custom software business in Manchester, New Hampshire, serving southern NH. On-site work: network troubleshooting, business and home Wi-Fi, Ubiquiti UniFi installation, small-office networks (1–20 people), Cat6 network cabling, wireless bridges and internet failover, and low-voltage network subcontracting for general contractors. Software: custom internal tools, taking AI-built prototypes to production ("last mile": custom domain and DNS, hosting, logins, Gmail / Google Workspace or Microsoft 365 email, CRM integration, security review, backups), integrations and automation, small-business websites, and MVPs. One person scopes, installs and supports every job.
+> Local networking, Wi-Fi, and custom software business in Manchester, New Hampshire, serving southern NH. On-site work: network troubleshooting, business and home Wi-Fi, Ubiquiti UniFi installation, small-office networks (1–20 people), Cat6 network cabling, wireless bridges and internet failover, and low-voltage network subcontracting for general contractors. Software: custom internal tools, taking AI-built prototypes to production ("last mile": custom domain and DNS, hosting, logins, Gmail / Google Workspace or Microsoft 365 email, CRM integration, security review, backups), integrations and automation, small-business websites, and MVPs. One person scopes, installs, and supports every job.
 
 ## About
 - Owner: Mickey Mullin, software developer with 30 years of experience (network administrator, IT certification instructor, software company co-founder; engineer and engineering manager at Microsoft and Yahoo, 2013–2023), now an enterprise software consultant
 - Builds software with AI-assisted development, reviewed and tested to production standards; clients own their code
-- Based in: ${SITE.locality} (service area: ${TOWNS.join(', ')} and nearby towns)
+- Based in: ${SITE.locality} (service area: ${TOWNS.join(', ')}, and nearby towns)
 - Email: ${SITE.email}
 - Website: ${SITE.url}
 - Hours: by appointment; evenings and Saturdays available
-- Model: written quotes; hardware at cost plus a small markup with a 50% hardware deposit; clients receive admin logins, a labeled port map and a written setup summary (no lock-in)
+- Model: written quotes; hardware at cost plus a small markup with a 50% hardware deposit; clients receive admin logins, a labeled port map, and a written setup summary (no lock-in)
 - Does not do electrical/power work (subcontracted to a licensed electrician). Independent installer, not affiliated with Ubiquiti.
 
 ## Typical labor pricing

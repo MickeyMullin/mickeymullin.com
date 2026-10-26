@@ -6,7 +6,7 @@ export const SITE = {
   tagline: 'Networks & Software',
   origin: 'https://mickeymullin.com',
   url: 'https://mickeymullin.com/',
-  email: 'hello@mickeymullin.com',
+  email: 'info@mickeymullin.com',
   locality: 'Manchester, NH',
   twitter: '@MickeyMullin',
   themeColor: '#140A1F',

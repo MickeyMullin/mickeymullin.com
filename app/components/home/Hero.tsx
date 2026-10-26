@@ -6,7 +6,7 @@ export function Hero() {
           <p className="eyebrow">Manchester &amp; southern New Hampshire</p>
           <h1>Networks that hold&nbsp;up. Software that&nbsp;fits.</h1>
           <p className="lede">
-            <strong>Hi, I'm Mickey.</strong> I set up Wi-Fi, UniFi networks and cabling for small offices and homes,
+            <strong>Hi, I'm Mickey.</strong> I set up Wi-Fi, UniFi networks, and cabling for small offices and homes,
             and I build the custom software and integrations that run on top of them. You deal with me from the first
             call to the hand-off.
           </p>

@@ -191,7 +191,7 @@ describe('handleContact', () => {
 
 describe('mailSetupFromEnv', () => {
   const full = {
-    CONTACT_TO: 'hello@mickeymullin.com',
+    CONTACT_TO: 'info@mickeymullin.com',
     CONTACT_FROM: 'website@mickeymullin.com',
     SMTP_HOST: 'smtp.gmail.com',
     SMTP_PORT: '465',
@@ -208,7 +208,7 @@ describe('mailSetupFromEnv', () => {
 
   test('builds an SMTP mailer when fully configured', () => {
     const setup = mailSetupFromEnv(full)
-    expect(setup?.to).toBe('hello@mickeymullin.com')
+    expect(setup?.to).toBe('info@mickeymullin.com')
     expect(setup?.from).toBe('website@mickeymullin.com')
     expect(typeof setup?.mailer.send).toBe('function')
   })

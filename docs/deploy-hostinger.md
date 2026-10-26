@@ -123,7 +123,7 @@ Prerequisites: stage 1 verified; the business name (#675) and prices (#676) are 
 
    | Variable | Value |
    | --- | --- |
-   | `CONTACT_TO` | `hello@mickeymullin.com` |
+   | `CONTACT_TO` | `info@mickeymullin.com` |
    | `CONTACT_FROM` | the sending address from #686 |
    | `SMTP_HOST` | `smtp.gmail.com` |
    | `SMTP_PORT` | `465` |
@@ -140,7 +140,8 @@ Luci verifies with the stage 1 checks against `https://mickeymullin.com`, plus:
 - `http://` redirects to `https://`. The app doesn't do this redirect itself (the old `.htaccess` did), so it has to come from Hostinger's proxy. If it doesn't, file a task.
 - `curl -s https://mickeymullin.com/robots.txt` is ours (starts with `# mickeymullin.com`, ends with the `Sitemap:` line), not Hostinger's stock `User-agent: Googlebot / Disallow: /`, which the CDN serves on the temporary domain. If the stock file shows up on the real domain, stop: it blocks Google. Purge the CDN cache and check hPanel's CDN settings.
 - The trust-proxy check from stage 1 (`LOG_CLIENT_IP=1`, plain and spoofed requests, then remove it).
-- A real contact submission arrives in the inbox, and its headers show SPF, DKIM and DMARC passing.
+- A real contact submission arrives in the inbox (`info@mickeymullin.com`), and its headers show SPF, DKIM, and DMARC passing.
+- `/privacy` names each analytics tool the site loads (GA4 at least, #692). The page says the site uses analytics, and its tool list is generated from the analytics IDs baked into the build, so an empty list means the IDs are missing from this build: fix that before announcing the site. Set `PRIVACY_UPDATED` in `app/content/privacy.ts` to the launch date.
 - Search Console: submit `/sitemap.xml` and request indexing of `/` (#693). Then ping IndexNow (#691).
 
 ## Rollback
