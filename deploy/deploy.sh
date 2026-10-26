@@ -38,30 +38,31 @@ EOF
 log() { print -r -- "mm-preview: $*" }
 fail() { print -r -- "mm-preview: $*" >&2; exit 1 }
 
-# launchd and non-login shells may not have /opt/homebrew/bin on PATH, and the plist needs an
-# absolute path anyway. The Homebrew symlink is kept as is (not resolved into the Cellar), so a
-# `brew upgrade node` does not leave the plist pointing at a deleted version.
+# The plist needs an absolute path, and launchd has no useful PATH. Homebrew's node comes first:
+# whatever `node` is first on an interactive PATH may be a copy bundled with some other tool (Hermes
+# links its own into ~/.local/bin), which can move or change version when that tool updates. The
+# Homebrew symlink is kept as is (not resolved into the Cellar), so `brew upgrade node` does not
+# leave the plist pointing at a deleted version. MM_PREVIEW_NODE overrides both.
 resolve_node() {
   local found
-  found="$(command -v node 2>/dev/null || true)"
-  if [[ -n "$found" && -x "$found" ]]; then
-    print -r -- "$found"
-  elif [[ -x /opt/homebrew/bin/node ]]; then
-    print -r -- /opt/homebrew/bin/node
-  else
-    fail "node not found on PATH or at /opt/homebrew/bin/node"
-  fi
-}
-
-resolve_npm() {
-  local found node
-  found="$(command -v npm 2>/dev/null || true)"
-  if [[ -n "$found" && -x "$found" ]]; then
-    print -r -- "$found"
+  if [[ -n "${MM_PREVIEW_NODE:-}" ]]; then
+    [[ -x "$MM_PREVIEW_NODE" ]] || fail "MM_PREVIEW_NODE=$MM_PREVIEW_NODE is not executable"
+    print -r -- "$MM_PREVIEW_NODE"
     return
   fi
-  node="$(resolve_node)"
-  [[ -x "${node:h}/npm" ]] || fail "npm not found on PATH or next to $node"
+  if [[ -x /opt/homebrew/bin/node ]]; then
+    print -r -- /opt/homebrew/bin/node
+    return
+  fi
+  found="$(command -v node 2>/dev/null || true)"
+  [[ -n "$found" && -x "$found" ]] || fail "node not found at /opt/homebrew/bin/node or on PATH"
+  print -r -- "$found"
+}
+
+# The npm that ships with that node, so install, build and smoke run on the same Node as the service.
+resolve_npm() {
+  local node="$1"
+  [[ -x "${node:h}/npm" ]] || fail "no npm next to $node"
   print -r -- "${node:h}/npm"
 }
 
@@ -258,8 +259,10 @@ cmd_deploy() {
   preflight
   local node npm version previous template
   node="$(resolve_node)"
-  npm="$(resolve_npm)"
+  npm="$(resolve_npm "$node")"
   version="$(check_node_version "$node")"
+  # npm and the build tools start with `#!/usr/bin/env node`; make that the same node
+  path=("${node:h}" $path)
   describe_checkout
   check_port
   previous="$(job_pid)"

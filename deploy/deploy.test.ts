@@ -65,7 +65,7 @@ type Sandbox = Awaited<ReturnType<typeof makeSandbox>>
 const run = (box: Sandbox, args: string[]) => {
   const script = existsSync(join(box.app, 'deploy/deploy.sh')) ? join(box.app, 'deploy/deploy.sh') : SCRIPT
   const result = Bun.spawnSync(['/bin/zsh', script, ...args], {
-    env: { HOME: box.home, PATH: `${box.stubs}:${SYSTEM_PATH}` },
+    env: { HOME: box.home, PATH: `${box.stubs}:${SYSTEM_PATH}`, MM_PREVIEW_NODE: box.node },
     stdout: 'pipe',
     stderr: 'pipe'
   })
@@ -131,6 +131,7 @@ describe('deploy/deploy.sh static validation', () => {
   })
 
   test('does not use zsh read-only specials as variable names', async () => {
+    // `path` is assigned on purpose (it is tied to PATH); declaring any of these local would break
     expect(await codeOnly()).not.toMatch(/\blocal\b[^\n]*\b(status|path|pipestatus)\b/)
   })
 
@@ -172,6 +173,23 @@ describe('deploy/deploy.sh render', () => {
       StandardErrorPath: `${box.home}/Library/Logs/mickeymullin-preview.err.log`
     })
     expect(await recordedCalls(box)).toBe('')
+  })
+
+  test('refuses an MM_PREVIEW_NODE that is not executable', async () => {
+    const box = await makeSandbox()
+    const result = Bun.spawnSync(['/bin/zsh', join(box.app, 'deploy/deploy.sh'), 'render'], {
+      env: { HOME: box.home, PATH: `${box.stubs}:${SYSTEM_PATH}`, MM_PREVIEW_NODE: join(box.home, 'no-such-node') },
+      stdout: 'pipe',
+      stderr: 'pipe'
+    })
+    expect(result.exitCode).toBe(1)
+    expect(result.stderr.toString()).toContain('is not executable')
+  })
+
+  test('prefers Homebrew node over whatever node is first on PATH', async () => {
+    const code = await codeOnly()
+    expect(code.indexOf('/opt/homebrew/bin/node')).toBeLessThan(code.indexOf('command -v node'))
+    expect(code).toContain('path=("${node:h}" $path)')
   })
 
   test('never renders SMTP settings or anything that would send mail', async () => {

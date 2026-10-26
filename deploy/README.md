@@ -27,7 +27,7 @@ To see what it would do without changing anything:
 
 `deploy` runs these steps and stops at the first failure:
 
-1. Preflight: `~/dev/mickeymullin.com` is its own git checkout with `package-lock.json` and `server.js`; Node is at least 22.12; nothing other than the preview job is listening on port 4310. The branch, commit and any uncommitted changes are printed, never touched.
+1. Preflight: `~/dev/mickeymullin.com` is its own git checkout with `package-lock.json` and `server.js`; Node is at least 22.12 (Homebrew's `/opt/homebrew/bin/node`, or `MM_PREVIEW_NODE` if set; install, build, smoke test and the service all use that one Node); nothing other than the preview job is listening on port 4310. The branch, commit and any uncommitted changes are printed, never touched.
 1. `npm ci`, only when `package-lock.json` has changed since the last deploy (a hash is kept in `node_modules/.preview-deploy-lock.sha256`). `deploy --reinstall` forces it.
 1. `npm run build`, then `npm run smoke`, which checks the new build on a throwaway server and port. The running preview is restarted only if the smoke test passes.
 1. Render the plist template into a temporary file and lint it. If it matches the installed plist, `launchctl kickstart -k`; otherwise copy it to `~/Library/LaunchAgents/` and reload the job (`bootout`, wait, `bootstrap` with retries).
