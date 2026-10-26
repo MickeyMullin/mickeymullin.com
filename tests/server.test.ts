@@ -201,6 +201,66 @@ describe('pre-rendered home page', () => {
   })
 })
 
+describe('self-hosted fonts', () => {
+  let url: string
+  let html: string
+  let css: string
+
+  beforeAll(async () => {
+    ;({ url } = await start())
+    html = await (await fetch(`${url}/`)).text()
+    const cssHref = html.match(/href="(\/assets\/[^"]+\.css)"/)?.[1]
+    css = await (await fetch(`${url}${cssHref}`)).text()
+  })
+
+  test('the CSP allows styles and fonts from this origin only', async () => {
+    const res = await fetch(`${url}/`)
+    const directives = (res.headers.get('content-security-policy') ?? '').split(';').map((d) => d.trim())
+    expect(directives).toContain("style-src 'self'")
+    expect(directives).toContain("font-src 'self'")
+  })
+
+  test('no page or stylesheet asks Google Fonts (or any other host) for styles or fonts', () => {
+    for (const file of prerenderedHtmlFiles()) {
+      const page = fs.readFileSync(file, 'utf8')
+      expect(page).not.toMatch(/fonts\.(googleapis|gstatic)\.com/)
+      for (const [tag] of page.matchAll(/<link [^>]*>/g)) {
+        if (/rel="(stylesheet|preload|preconnect)"/.test(tag)) expect(tag).not.toMatch(/href="(https?:)?\/\//)
+      }
+    }
+    expect(css).not.toMatch(/fonts\.(googleapis|gstatic)\.com/)
+    expect(css).not.toMatch(/@import/)
+  })
+
+  test('every @font-face is a swap-displayed woff2 file in /assets, never inlined', async () => {
+    const faces = [...css.matchAll(/@font-face\s*{([^}]*)}/g)].map((m) => m[1])
+    const got = faces.map((f) => `${f.match(/font-family:\s*"?([^";]+)"?/)?.[1]} ${f.match(/font-weight:\s*(\d+)/)?.[1]}`)
+    expect(got.sort()).toEqual(
+      ['IBM Plex Mono 400', 'IBM Plex Mono 500', 'IBM Plex Sans 400', 'IBM Plex Sans 500', 'IBM Plex Sans 600', 'IBM Plex Sans 700'],
+    )
+    for (const face of faces) {
+      expect(face).toMatch(/font-display:\s*swap/)
+      const src = face.match(/url\(([^)]+)\)/)?.[1]?.replace(/["']/g, '') ?? ''
+      expect(src).toMatch(/^\/assets\/[^/]+\.woff2$/)
+      const res = await fetch(`${url}${src}`)
+      expect(res.status).toBe(200)
+      expect(res.headers.get('content-type')).toBe('font/woff2')
+      expect(res.headers.get('cache-control')).toBe('public, max-age=31536000, immutable')
+    }
+  })
+
+  test('the body weight is preloaded with crossorigin, using the same file the stylesheet loads', () => {
+    const preloads = [...html.matchAll(/<link [^>]*rel="preload"[^>]*as="font"[^>]*>/g)].map((m) => m[0])
+    expect(preloads).toHaveLength(1)
+    const href = preloads[0].match(/href="([^"]+)"/)?.[1] ?? ''
+    expect(href).toMatch(/^\/assets\/ibm-plex-sans-latin-400-normal-[^/]+\.woff2$/)
+    expect(preloads[0]).toContain('crossorigin="anonymous"')
+    expect(preloads[0]).toContain('type="font/woff2"')
+    // a different URL than the stylesheet's would download the font twice
+    expect(css).toContain(href)
+  })
+})
+
 describe('static files', () => {
   test('robots.txt, sitemap.xml and llms.txt are built as files and list the routes', async () => {
     const { url } = await start()

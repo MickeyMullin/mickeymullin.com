@@ -20,10 +20,6 @@ export const SITE = {
   ],
 } as const
 
-// Fonts (TODO: self-host to drop the third-party request; Dispatch #685)
-export const FONTS_CSS =
-  'https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap'
-
 export function absoluteUrl(path: string) {
   return new URL(path, SITE.origin).href
 }

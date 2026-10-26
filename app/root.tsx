@@ -3,18 +3,19 @@ import { isRouteErrorResponse, Links, Meta, Outlet, Scripts, ScrollRestoration }
 import type { Route } from './+types/root'
 import { SiteFooter } from './components/SiteFooter'
 import { SiteHeader } from './components/SiteHeader'
-import { FONTS_CSS, SITE } from './content/site'
+import { SITE } from './content/site'
 import { startAnalytics } from './lib/analytics'
 import { useNonce } from './lib/nonce'
+import plexSans400Url from './fonts/ibm-plex-sans-latin-400-normal.woff2?url'
 import stylesUrl from './styles.css?url'
 
 export const links: Route.LinksFunction = () => [
   { rel: 'icon', href: '/favicon.ico', sizes: '48x48' },
   { rel: 'icon', href: '/favicon.svg', type: 'image/svg+xml' },
   { rel: 'apple-touch-icon', href: '/apple-touch-icon.png' },
-  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
-  { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossOrigin: 'anonymous' },
-  { rel: 'stylesheet', href: FONTS_CSS },
+  // Body text weight; the other weights load on demand from styles.css.
+  // Font preloads need crossOrigin even on the same origin, or the browser fetches twice.
+  { rel: 'preload', href: plexSans400Url, as: 'font', type: 'font/woff2', crossOrigin: 'anonymous' },
   { rel: 'stylesheet', href: stylesUrl },
 ]
 

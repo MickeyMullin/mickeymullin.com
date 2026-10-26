@@ -130,7 +130,7 @@ helmet sets HSTS (`max-age=31536000` without `includeSubDomains` or preload, bec
 - **Pre-rendered pages** are static files, so a per-request nonce can't be written into them. They contain a few inline scripts from React Router (hydration data, the module loader, scroll restoration), whose content is fixed at build time. At startup `server/prerendered.js` reads every pre-rendered HTML file in `build/client` and adds the sha256 hash of each inline script to `script-src`. The hashes always match the files actually served, and a rebuild updates them on the next start.
 - **Pages rendered per request** (the contact form result, the 404 page) get a fresh random nonce in the CSP header, which React Router and React put on their inline scripts.
 - JSON-LD blocks are data, not scripts, and CSP doesn't apply to them.
-- Styles come only from `/assets` and Google Fonts. The logo SVG uses presentation attributes instead of `style` attributes so no inline styles are needed. Fonts come from `fonts.gstatic.com` until they are self-hosted (Dispatch #685).
+- Styles and fonts come only from the site itself (`style-src 'self'`, `font-src 'self'`). The logo SVG uses presentation attributes instead of `style` attributes so no inline styles are needed. IBM Plex is self-hosted from `app/fonts/` (latin subset, SIL OFL 1.1); Vite fingerprints the files into `/assets/`.
 
 When analytics is turned on, each tool's script and beacon hosts have to be added to the CSP in `server/app.js`.
 

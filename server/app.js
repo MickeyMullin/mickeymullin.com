@@ -129,9 +129,8 @@ export function createApp({
             (req, res) => `'nonce-${/** @type {any} */ (res).locals.cspNonce}'`,
           ],
           scriptSrcAttr: ["'none'"],
-          // Google Fonts until the fonts are self-hosted (Dispatch #685)
-          styleSrc: ["'self'", 'https://fonts.googleapis.com'],
-          fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+          styleSrc: ["'self'"],
+          fontSrc: ["'self'"],
           imgSrc: ["'self'", 'data:'],
           connectSrc: ["'self'"],
           manifestSrc: ["'self'"],
