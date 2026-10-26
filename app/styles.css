@@ -292,6 +292,21 @@ a:hover { color: var(--ink); }
 .form-status { min-height: 1.5em; margin: 0; color: var(--on-deep-2); }
 .form-status.ok { color: var(--mint); }
 .form-status.err { color: #FF9AA2; }
+.form-note { margin: 0; font-size: .85rem; color: var(--on-deep-2); }
+.form-note a { color: var(--on-deep); }
+
+/* Legal pages (privacy): one readable column */
+.legal { border-top: 0; }
+.prose { max-width: 46rem; }
+.prose h1 { font-size: clamp(2rem, 4.2vw, 2.9rem); font-weight: 700; margin-bottom: .6rem; }
+.prose h2 { font-size: 1.35rem; font-weight: 600; margin: 2.4rem 0 .6rem; }
+.prose p, .prose li { color: var(--ink-2); line-height: 1.7; }
+.prose p { margin: 0 0 1rem; }
+.prose ul { padding-left: 1.2rem; margin: 0 0 1rem; }
+.prose li { margin-bottom: .6rem; }
+.prose b { color: var(--ink); }
+.prose .lead { font-size: 1.15rem; color: var(--ink); }
+.legal-date { font-family: var(--mono); font-size: .8rem; letter-spacing: .04em; color: var(--ink-3); }
 
 /* Footer */
 .site-foot { background: var(--foot); color: var(--on-deep-2); padding: 2rem 0; font-size: .92rem; }

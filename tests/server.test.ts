@@ -10,6 +10,7 @@ import type { Server } from 'node:http'
 import type { ServerBuild } from 'react-router'
 import { FAQ } from '../app/content/faq'
 import { PAGES } from '../app/content/pages'
+import { analyticsDisclosures } from '../app/content/privacy'
 import type { MailMessage, MailSetup } from '../app/lib/mailer.server'
 // @ts-expect-error plain JS module without type declarations
 import { createApp } from '../server/app.js'
@@ -258,6 +259,42 @@ describe('self-hosted fonts', () => {
     expect(preloads[0]).toContain('type="font/woff2"')
     // a different URL than the stylesheet's would download the font twice
     expect(css).toContain(href)
+  })
+})
+
+describe('privacy page', () => {
+  let url: string
+  let res: Response
+  let html: string
+
+  beforeAll(async () => {
+    ;({ url } = await start())
+    res = await fetch(`${url}/privacy`)
+    html = await res.text()
+  })
+
+  test('is pre-rendered and served as a real page', () => {
+    expect(fs.existsSync(path.join(CLIENT, 'privacy/index.html'))).toBe(true)
+    expect(res.status).toBe(200)
+    expect(res.headers.get('cache-control')).toBe('no-cache')
+    expect(html).toContain('<h1>What this site collects, and what I do with it</h1>')
+    expect(html).toContain('<link rel="canonical" href="https://mickeymullin.com/privacy"/>')
+    expect(html).toContain('hello@mickeymullin.com')
+  })
+
+  test('discloses exactly the analytics tools that are configured', () => {
+    const shown = [...html.matchAll(/data-analytics="([a-z0-9]+)"/g)].map((m) => m[1])
+    const configured = analyticsDisclosures().map((d) => d.key)
+    expect(shown).toEqual(configured.length ? configured : ['none'])
+  })
+
+  test('the footer and the contact form link to it, and the header anchors work from it', async () => {
+    const home = await (await fetch(`${url}/`)).text()
+    expect(home.match(/<footer[\s\S]*<\/footer>/)?.[0]).toContain('href="/privacy"')
+    expect(home.match(/<form[\s\S]*<\/form>/)?.[0]).toContain('href="/privacy"')
+    const header = html.match(/<header[\s\S]*<\/header>/)?.[0] ?? ''
+    expect(header).toContain('href="/#contact"')
+    expect(header).not.toMatch(/href="#/)
   })
 })
 

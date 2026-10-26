@@ -27,6 +27,17 @@ export const PAGES: Page[] = [
       'Wi-Fi, UniFi, cabling and troubleshooting for small offices and homes in southern NH, plus custom software and integrations.',
     lastmod: '2026-10-25',
   },
+  {
+    path: '/privacy',
+    label: 'Privacy',
+    summary: 'what the contact form collects, analytics and cookies, and how to ask for deletion',
+    title: `Privacy | Mickey Mullin`,
+    description:
+      'What mickeymullin.com collects (the contact form, server logs, any analytics), what Mickey Mullin does with it, and how to ask for it to be deleted.',
+    ogTitle: 'Privacy | Mickey Mullin',
+    ogDescription: 'What this site collects, and what I do with it.',
+    lastmod: '2026-10-26',
+  },
 ]
 
 // Generated text files, pre-rendered alongside the pages.

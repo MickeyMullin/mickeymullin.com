@@ -16,6 +16,9 @@ export function SiteFooter() {
         <p>
           <a href={`mailto:${SITE.email}`}>{SITE.email}</a>
         </p>
+        <p>
+          <a href="/privacy">Privacy</a>
+        </p>
         <p className="foot-small">
           © <span id="yr">{year}</span> {SITE.name}. Independent installer, not affiliated with Ubiquiti.
         </p>

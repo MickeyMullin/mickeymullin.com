@@ -13,12 +13,12 @@ export function SiteHeader() {
           </span>
         </a>
         <nav className="nav" aria-label="Primary">
-          <a href="#about">About</a>
-          <a href="#networking">Networking</a>
-          <a href="#software">Software</a>
-          <a href="#pricing">Pricing</a>
-          <a href="#area">Service area</a>
-          <a className="btn btn-sm" href="#contact" data-cta="header">
+          <a href="/#about">About</a>
+          <a href="/#networking">Networking</a>
+          <a href="/#software">Software</a>
+          <a href="/#pricing">Pricing</a>
+          <a href="/#area">Service area</a>
+          <a className="btn btn-sm" href="/#contact" data-cta="header">
             Get a quote
           </a>
         </nav>

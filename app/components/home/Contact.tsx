@@ -166,6 +166,9 @@ export function ContactForm() {
       <p className={kind ? `form-status ${kind}` : 'form-status'} role="status" aria-live="polite">
         {message}
       </p>
+      <p className="form-note">
+        I use what you send only to reply. <a href="/privacy">How I handle it</a>.
+      </p>
     </fetcher.Form>
   )
 }

@@ -2,10 +2,12 @@ import { describe, expect, test } from 'bun:test'
 import { FAQ } from '../app/content/faq'
 import { PAGES } from '../app/content/pages'
 import { PRICES } from '../app/content/pricing'
+import { analyticsDisclosures } from '../app/content/privacy'
 import { OFFERS } from '../app/content/services'
 import { homeJsonLd } from '../app/content/structured-data'
 import { llmsTxt, robotsTxt, sitemapXml } from '../app/content/text-files'
 import { TOWNS } from '../app/content/towns'
+import { ANALYTICS } from '../app/lib/analytics'
 
 describe('structured data', () => {
   const blocks = homeJsonLd()
@@ -66,5 +68,32 @@ describe('generated text files', () => {
 
   test('every dollar price in the table also appears in its llms.txt line', () => {
     for (const row of PRICES.filter((r) => r.price.startsWith('$'))) expect(row.plain).toEndWith(row.price)
+  })
+})
+
+describe('privacy page analytics disclosures', () => {
+  const none = { ga4: '', umamiSrc: '', umamiId: '', clarity: '' }
+
+  test('no tools configured means nothing to disclose', () => {
+    expect(analyticsDisclosures(none)).toEqual([])
+  })
+
+  test('every tool startAnalytics can load has a disclosure that turns on with it', () => {
+    // If a new key is added to ANALYTICS, this fails until the privacy page covers it.
+    expect(Object.keys(ANALYTICS).sort()).toEqual(['clarity', 'ga4', 'umamiId', 'umamiSrc'])
+    const all = analyticsDisclosures({ ga4: 'G-TEST', umamiSrc: 'https://u.example/s.js', umamiId: 'id', clarity: 'c' })
+    expect(all.map((d) => d.key)).toEqual(['ga4', 'umami', 'clarity'])
+    for (const d of all) {
+      expect(d.what.length).toBeGreaterThan(20)
+      expect(d.cookies.length).toBeGreaterThan(10)
+    }
+    expect(analyticsDisclosures({ ...none, ga4: 'G-TEST' }).map((d) => d.key)).toEqual(['ga4'])
+    expect(analyticsDisclosures({ ...none, clarity: 'c' }).map((d) => d.key)).toEqual(['clarity'])
+  })
+
+  test('Umami is disclosed only when it would actually load (script and site ID)', () => {
+    expect(analyticsDisclosures({ ...none, umamiSrc: 'https://u.example/s.js' })).toEqual([])
+    expect(analyticsDisclosures({ ...none, umamiId: 'id' })).toEqual([])
+    expect(analyticsDisclosures({ ...none, umamiSrc: 'https://u.example/s.js', umamiId: 'id' }).map((d) => d.key)).toEqual(['umami'])
   })
 })
