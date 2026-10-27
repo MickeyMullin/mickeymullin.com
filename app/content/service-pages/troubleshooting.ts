@@ -13,7 +13,7 @@ export const TROUBLESHOOTING: ServicePageContent = {
   onSite: true,
   eyebrow: 'Network troubleshooting · Manchester, NH',
   h1: "Wi-Fi dropping? Internet slow? I'll find out why.",
-  intro: `I come to you, measure what the network is actually doing, find the cause, and fix what can be fixed on the spot. Either way, you get written findings: what I found, what I fixed, and what's left. A visit runs ${visit.detail} and costs ${visit.price}.`,
+  intro: `I come to you, measure what the network is actually doing, find the cause, and fix what can be fixed on the spot. Fixed or not, you get written findings: what I found, what I fixed, and what's left. A visit runs ${visit.detail} and costs ${visit.price}.`,
   sections: [
     {
       id: 'causes',
@@ -27,11 +27,11 @@ export const TROUBLESHOOTING: ServicePageContent = {
         { lead: 'One router for too much space.', text: "A single box in a corner can't cover a whole floor, let alone two." },
         {
           lead: 'Double NAT.',
-          text: "The internet provider's combo box and a second router both act as the router, which breaks video calls, VPNs, game consoles, and remote access in odd ways.",
+          text: "The internet provider's combo box and a second router both act as the router, which can break VPNs, game consoles, port forwarding, and remote access in odd ways.",
         },
         {
           lead: 'Bad cable or a bad termination.',
-          text: 'A crushed run, a loose jack, or a badly crimped connector can drop a link to a fraction of its speed, or drop it entirely.',
+          text: 'A crushed run, a loose jack, or a badly crimped connector can cut a link to a fraction of its speed, or drop it entirely.',
         },
         { lead: 'A dying switch or power supply.', text: 'Hardware that fails a little at a time, so the problem comes and goes.' },
         {
@@ -115,7 +115,7 @@ export const TROUBLESHOOTING: ServicePageContent = {
     {
       question: 'Will you work on a network someone else installed?',
       answer:
-        'Yes. Whoever set it up and whatever brand it is, the approach is the same: measure, find the cause, and fix it.',
+        'Yes. Whoever set it up and whatever brand it is, the approach is the same: measure, find the cause, and fix what can be fixed.',
     },
   ],
   cta: {

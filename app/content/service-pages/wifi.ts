@@ -23,7 +23,7 @@ export const WIFI: ServicePageContent = {
       heading: "Why isn't my internet provider's router enough?",
       body: [
         "The box your internet provider hands you is a modem, router, and Wi-Fi radio in one case, built to a price and installed wherever the cable comes into the building. That's usually a closet, a basement corner, or the far end of the office.",
-        "One radio in one corner can't cover a two-story house or a long office, and every wall and floor in between takes a cut. Older buildings are harder still: brick and plaster walls, common in the Millyard and in older buildings around Manchester, block far more signal than drywall does.",
+        "One radio in one corner can't cover a two-story house or a long office, and every wall and floor in between takes a cut. Older buildings are harder still: the brick and plaster walls common in the Millyard and around downtown Manchester block far more signal than drywall does.",
         "The usual fix keeps the provider's box as the modem and lets proper equipment do the routing and the Wi-Fi. Where the provider allows it, I put their box in bridge mode, so the two aren't both trying to be the router.",
       ],
     },
@@ -46,7 +46,7 @@ export const WIFI: ServicePageContent = {
         },
         {
           lead: 'Wired access points',
-          text: "each get their own Ethernet cable, which also powers them (PoE), so there's no outlet needed on the ceiling. Every one runs at full speed, and none depends on the one before it.",
+          text: "each get their own Ethernet cable, which also powers them (PoE), so there's no outlet needed on the ceiling. None of them loses speed relaying traffic for the others, and none depends on the one before it.",
         },
       ],
       after: [
