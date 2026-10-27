@@ -14,7 +14,7 @@ import { TOWNS } from '../app/content/towns'
 import { LEGAL_NAME, SITE, legalLine } from '../app/content/site'
 import { ANALYTICS } from '../app/lib/analytics'
 import { analyticsCsp, analyticsHostAllowed } from '../server/analytics.js'
-import { INDEXNOW_KEY, indexNowPayload } from '../scripts/indexnow'
+import { INDEXNOW_KEY, byteLength, cacheBustedUrl, firstDiffSummary, indexNowPayload } from '../scripts/indexnow'
 import { readFileSync } from 'node:fs'
 import { missingSerialCommas } from './text-checks'
 
@@ -338,5 +338,14 @@ describe('IndexNow (#691)', () => {
     expect(p.host).toBe(new URL(SITE.url).host)
     expect(p.keyLocation).toBe(`${SITE.url.replace(/\/$/, '')}/${INDEXNOW_KEY}.txt`)
     for (const u of p.urlList) expect(new URL(u).host).toBe(p.host)
+  })
+  test('cache-busts live checks without changing the resource path', () => {
+    const url = cacheBustedUrl('https://mickeymullin.com/sitemap.xml?format=xml', 'test-sha')
+    expect(url).toBe('https://mickeymullin.com/sitemap.xml?format=xml&v=test-sha')
+  })
+  test('summarizes the first differing sitemap line and counts UTF-8 bytes', () => {
+    expect(firstDiffSummary('one\ntwo\nthree', 'one\nchanged\nthree')).toContain('first differing line 2')
+    expect(firstDiffSummary('one', 'one')).toBe('no differing line')
+    expect(byteLength('café')).toBe(5)
   })
 })
