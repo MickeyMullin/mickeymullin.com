@@ -2,6 +2,8 @@
 // sitemap.xml and llms.txt, and app/lib/seo.ts builds its head tags from it.
 // Add service, town and blog pages here as they are built.
 
+import { priceRow } from './pricing'
+
 export type Page = {
   path: string
   // Link text in llms.txt, and the page's name in its breadcrumb
@@ -35,6 +37,16 @@ export const PAGES: Page[] = [
     ogTitle: 'Mickey Mullin — Networks that hold up. Software that fits.',
     ogDescription:
       'Wi-Fi, UniFi, cabling, and troubleshooting for small offices and homes in southern NH, plus custom software and integrations.',
+    lastmod: '2026-10-26',
+  },
+  {
+    path: '/networking/troubleshooting',
+    label: 'Network troubleshooting',
+    group: 'Services',
+    summary:
+      'on-site diagnosis of slow or dropping Wi-Fi and wired networks: the usual causes, telling an internet provider problem from an inside one, how a visit goes, written findings, when it needs new equipment, and pricing',
+    title: 'Network & Wi-Fi Troubleshooting | Manchester, NH',
+    description: `Wi-Fi keeps dropping or the office internet is slow? I find the cause on site, fix what I can that visit, and write up the rest. ${priceRow('troubleshooting').price}. Manchester, NH.`,
     lastmod: '2026-10-26',
   },
   {

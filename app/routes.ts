@@ -4,6 +4,7 @@ import { type RouteConfig, index, route } from '@react-router/dev/routes'
 // through to the root ErrorBoundary with a 404 status.
 export default [
   index('routes/home.tsx'),
+  route('networking/troubleshooting', 'routes/networking-troubleshooting.tsx'),
   route('networking/wifi', 'routes/networking-wifi.tsx'),
   route('privacy', 'routes/privacy.tsx'),
   route('robots.txt', 'routes/robots.ts'),

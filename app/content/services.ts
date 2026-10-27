@@ -13,6 +13,7 @@ export const AI_BUILDERS = ['ChatGPT', 'Claude', 'Lovable', 'Bolt', 'Replit', 'v
 export const NETWORKING_SERVICES: Service[] = [
   {
     name: "Network troubleshooting",
+    href: '/networking/troubleshooting',
     blurb:
       "Slow, dropping, or flaky networks found and fixed on site, not guessed at over the phone.",
     offer: {
