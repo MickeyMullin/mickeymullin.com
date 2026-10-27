@@ -139,6 +139,17 @@ export const PAGES: Page[] = [
     lastmod: '2026-10-27',
   },
   {
+    path: '/software/websites',
+    label: 'Small-business websites',
+    group: 'Services',
+    summary:
+      'small-business website design and redesign: what a site includes, what search engines read (and why nobody can promise rankings), editing the site yourself, moving a site off Wix or Squarespace, what to bring, who owns it, timing, and pricing by fixed quote',
+    title: 'Small Business Website Design | Manchester, NH',
+    description:
+      'Small business websites that load fast and read well on a phone, with the domain, hosting, and code in your name. Fixed quote per site. Manchester, NH.',
+    lastmod: '2026-10-27',
+  },
+  {
     path: '/privacy',
     label: 'Privacy',
     summary: 'what the contact form collects, analytics and cookies, and how to ask for deletion',

@@ -36,6 +36,7 @@ export const CUSTOM_SOFTWARE: ServicePageContent = {
         "They're web apps: they run in a browser on phones, tablets, and computers, with nothing to install. I don't build native apps for the App Store or Google Play.",
         'They can usually work with the tools you already use, if those tools have an API.',
       ],
+      more: { href: '/software/integrations-automation', text: 'More about connecting the tools you already use' },
     },
     // TODO(#717): real project example once one can be shown
     {
@@ -139,5 +140,5 @@ export const CUSTOM_SOFTWARE: ServicePageContent = {
     body: "What the spreadsheet, the whiteboard, or the inbox is doing now, and where it gets stuck. I'll get back to you within one business day.",
     button: 'Ask for a quote',
   },
-  related: ['/software/mockup-to-production', '/networking/small-office'],
+  related: ['/software/integrations-automation', '/software/websites', '/software/mockup-to-production'],
 }

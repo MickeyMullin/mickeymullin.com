@@ -10,6 +10,7 @@ import { SMALL_OFFICE } from './small-office'
 import { TROUBLESHOOTING } from './troubleshooting'
 import type { ServicePageContent } from './types'
 import { UNIFI } from './unifi'
+import { WEBSITES } from './websites'
 import { WIFI } from './wifi'
 
-export const SERVICE_PAGES: ServicePageContent[] = [TROUBLESHOOTING, WIFI, UNIFI, SMALL_OFFICE, CABLING, CONTRACTORS, MOCKUP_TO_PRODUCTION, CUSTOM_SOFTWARE, INTEGRATIONS]
+export const SERVICE_PAGES: ServicePageContent[] = [TROUBLESHOOTING, WIFI, UNIFI, SMALL_OFFICE, CABLING, CONTRACTORS, MOCKUP_TO_PRODUCTION, CUSTOM_SOFTWARE, INTEGRATIONS, WEBSITES]

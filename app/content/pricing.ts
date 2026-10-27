@@ -2,7 +2,7 @@
 // a test checks that every dollar price also appears in its `plain` line, and
 // that `range` (the numbers the service pages' JSON-LD offers use) matches `price`.
 
-export type PriceId = 'troubleshooting' | 'wifi' | 'cabling' | 'software' | 'mockup' | 'bid'
+export type PriceId = 'troubleshooting' | 'wifi' | 'cabling' | 'software' | 'mockup' | 'bid' | 'website'
 export type PriceRow = {
   id: PriceId
   job: string
@@ -61,6 +61,16 @@ export const CONTRACTOR_BID: PriceRow = {
   detail: 'from your plans',
   price: 'Itemized bid',
   plain: 'Low-voltage network subcontracting for general contractors: itemized bid from the plans',
+}
+
+// Websites are quoted per site. Shown on the websites page only, not in the
+// home page's table of typical ranges.
+export const WEBSITE_QUOTE: PriceRow = {
+  id: 'website',
+  job: 'Small-business website',
+  detail: 'scoped per site',
+  price: 'Fixed quote',
+  plain: 'Small-business websites: fixed quote per site',
 }
 
 export function priceRow(id: PriceId): PriceRow {

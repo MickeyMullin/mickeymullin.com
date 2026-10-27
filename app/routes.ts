@@ -13,6 +13,7 @@ export default [
   route('software/mockup-to-production', 'routes/software-mockup-to-production.tsx'),
   route('software/custom-software', 'routes/software-custom-software.tsx'),
   route('software/integrations-automation', 'routes/software-integrations-automation.tsx'),
+  route('software/websites', 'routes/software-websites.tsx'),
   route('privacy', 'routes/privacy.tsx'),
   route('robots.txt', 'routes/robots.ts'),
   route('sitemap.xml', 'routes/sitemap.ts'),

@@ -118,9 +118,14 @@ export const SOFTWARE_SERVICES: Service[] = [
   },
   {
     name: "Small-business websites",
+    href: '/software/websites',
     blurb:
       "Fast, clean sites that load quickly, show up in local search, and can be edited without calling anyone.",
-    offer: { name: "Small-business websites" },
+    offer: {
+      name: "Small-business websites",
+      description:
+        "Website design and redesign for small businesses: pages that load fast and read well on a phone, with a title, a description, and structured data on every page, and a sitemap for search engines. Includes moving existing sites off Wix, Squarespace, or WordPress with redirects. The domain, hosting, and code are in the client's name.",
+    },
   },
   {
     name: "MVPs & prototypes",

@@ -125,5 +125,5 @@ export const INTEGRATIONS: ServicePageContent = {
     body: "What gets typed twice, and which tools it moves between. I'll get back to you within one business day.",
     button: 'Ask for a quote',
   },
-  related: ['/software/custom-software', '/software/mockup-to-production'],
+  related: ['/software/custom-software', '/software/mockup-to-production', '/software/websites'],
 }
