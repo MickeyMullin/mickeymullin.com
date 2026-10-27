@@ -107,9 +107,14 @@ export const SOFTWARE_SERVICES: Service[] = [
   },
   {
     name: "Integrations & automation",
+    href: '/software/integrations-automation',
     blurb:
       "Connect your CRM, scheduling, invoicing, and email so data is entered once and the busywork stops.",
-    offer: { name: "Integrations and automation" },
+    offer: {
+      name: "Integrations and automation",
+      description:
+        'Connecting the CRM, scheduling, invoicing, and email a small business already uses, such as HubSpot, Salesforce, Zoho, Pipedrive, QuickBooks Online, Xero, Google Workspace, Microsoft 365, and other tools with an API. Built with Zapier or Make where they fit, or custom code where they do not, with alerts when a connection fails.',
+    },
   },
   {
     name: "Small-business websites",

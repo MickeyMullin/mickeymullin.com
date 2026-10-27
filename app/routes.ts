@@ -12,6 +12,7 @@ export default [
   route('networking/contractors', 'routes/networking-contractors.tsx'),
   route('software/mockup-to-production', 'routes/software-mockup-to-production.tsx'),
   route('software/custom-software', 'routes/software-custom-software.tsx'),
+  route('software/integrations-automation', 'routes/software-integrations-automation.tsx'),
   route('privacy', 'routes/privacy.tsx'),
   route('robots.txt', 'routes/robots.ts'),
   route('sitemap.xml', 'routes/sitemap.ts'),

@@ -128,6 +128,17 @@ export const PAGES: Page[] = [
     lastmod: '2026-10-27',
   },
   {
+    path: '/software/integrations-automation',
+    label: 'Integrations & automation',
+    group: 'Services',
+    summary:
+      'connecting the CRM, accounting, scheduling, email, web forms, and spreadsheets a small business already uses: what can be connected (and the API condition), examples, when custom code beats a Zapier or Make workflow, alerts when a connection breaks, who owns the accounts and keys, how it starts, and pricing by fixed quote',
+    title: 'Business Automation & CRM Integration | Manchester, NH',
+    description:
+      "Connect your CRM, QuickBooks, scheduling, and email so data is entered once. Zapier or Make where they fit, custom code where they don't. Manchester, NH.",
+    lastmod: '2026-10-27',
+  },
+  {
     path: '/privacy',
     label: 'Privacy',
     summary: 'what the contact form collects, analytics and cookies, and how to ask for deletion',
