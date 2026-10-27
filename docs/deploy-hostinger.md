@@ -153,7 +153,17 @@ Luci verifies with the stage 1 checks against `https://mickeymullin.com`, plus:
 - Umami: `data-domains` was cut to `mickeymullin.com` only. A real browser visit got `/api/send` 200.
 - Old WordPress URLs (posts, `/feed/`, `/wp-admin/`) return 404, as intended.
 - Before deleting WordPress, disconnect what it used: the Kit (ConvertKit) WordPress app, Site Kit's Google access (it only ever linked Search Console), and the Mailgun mailer.
-- Still open at the time of writing: step 5 (mail variables; switched from an app password to a send-only Gmail API token, `docs/gmail-oauth.md`), the real contact submission with SPF, DKIM, and DMARC passing, the trust-proxy recheck on the real domain (set `LOG_CLIENT_IP=1` at the same time as the SMTP variables), and the sitemap submission.
+- Step 5 used the send-only Gmail API token (`docs/gmail-oauth.md`) instead of an app password. hPanel's **Apply changes** on environment variables restarts the app by itself.
+- A real form submission (POST `/?index`) answered 200 with the success message and arrived from `Mickey Mullin website <info@mickeymullin.com>`. Gmail kept the alias and did not rewrite it to `mickey@`. Mail from `info@` to `info@` never leaves Google, so **Show original** shows no SPF, DKIM, or DMARC results. Check those on a copy sent to an outside mailbox instead. A copy to a gmail.com address showed SPF PASS, DMARC PASS, and DKIM PASS, but signed by `mickeymullin-com.20251104.gappssmtp.com` (Google's fallback key), not `mickeymullin.com`. DMARC passed through SPF alignment. Signing as the domain itself starts once Google Admin's **Authenticate email** status reads "Authenticating email" (up to 48 hours after **Start authentication**).
+- Trust-proxy recheck on the real domain (2026-10-26): one hop is still right, and `TRUST_PROXY` stays unset. From `70.8.175.180`:
+
+  ```
+  [client-ip] GET /ipcheck-plain req.ip=70.8.175.180 x-forwarded-for="70.8.175.180" remote=127.0.0.1
+  [client-ip] GET /ipcheck-spoof req.ip=70.8.175.180 x-forwarded-for="203.0.113.1, 203.0.113.1,70.8.175.180" remote=127.0.0.1
+  ```
+
+  On the real domain the request passes through fewer Hostinger layers than on the temporary domain, but the spoofed entry still stays on the left. `LOG_CLIENT_IP` was then set to `0`. Anything other than `1` turns logging off.
+- Still open: the sitemap submission (#693).
 
 ## Rollback
 
