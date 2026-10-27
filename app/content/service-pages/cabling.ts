@@ -38,7 +38,7 @@ export const CABLING: ServicePageContent = {
       points: [
         {
           lead: 'The right cable for the space.',
-          text: 'Plenum-rated cable where code requires it, such as a ceiling space used for air return, and riser-rated cable everywhere else.',
+          text: 'Plenum-rated cable where code requires it, such as a ceiling space used for air return, and cable rated for the route everywhere else.',
         },
         {
           lead: 'Firestopping.',
@@ -54,7 +54,7 @@ export const CABLING: ServicePageContent = {
       id: 'testing',
       heading: 'How do I know it works?',
       body: [
-        "Every run is tested for wire map and length before I call it done. The wire map shows all eight wires land on the right pins at both ends; the length shows the run is within Ethernet's 100-meter limit.",
+        "Every run is tested for wire map and length before I call it done. The wire map shows all eight wires land on the right pins at both ends. The length check makes sure the run leaves room for patch cords inside Ethernet's 100-meter limit.",
         'Then each run is labeled at both ends, with the same label on the port map, along with the room and the jack it goes to.',
       ],
     },
@@ -76,7 +76,7 @@ export const CABLING: ServicePageContent = {
       id: 'older-buildings',
       heading: 'Can you run cable in an older building?',
       body: [
-        "Yes, with more planning. The brick, plaster, and finished walls of older buildings around downtown Manchester and the Millyard don't have the open ceilings and hollow walls of new construction. I plan the routes before quoting: basements, attics, closets, and any existing chases.",
+        "Yes, with more planning. Brick, plaster, and finished walls in older Manchester and Millyard buildings make routes harder to plan than open walls and ceilings. I plan the routes before quoting: basements, attics, closets, and any existing chases.",
         'In a finished wall, an old-work low-voltage bracket holds the new jack in a small cutout, without opening up the wall.',
       ],
     },

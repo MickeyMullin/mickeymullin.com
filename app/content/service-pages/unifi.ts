@@ -15,7 +15,7 @@ export const UNIFI: ServicePageContent = {
   eyebrow: 'UniFi installs · Manchester, NH',
   h1: 'UniFi network setup for small businesses and homes',
   intro:
-    "I install and set up a Ubiquiti UniFi network: a gateway, a PoE switch, and wired access points, all managed from one console that runs on the gateway. Staff, guests, and devices each get their own network, and you get the UniFi account and every login in your name. I'm an independent installer, not affiliated with Ubiquiti.",
+    "I install and set up a Ubiquiti UniFi network: a gateway, a PoE switch, and wired access points, all managed from one console. I use a UniFi cloud gateway, which has that console built in. Staff, guests, and devices each get their own network, and you get the UniFi account and every login in your name. I'm an independent installer, not affiliated with Ubiquiti.",
   sections: [
     {
       id: 'what-you-get',
@@ -24,7 +24,7 @@ export const UNIFI: ServicePageContent = {
       points: [
         {
           lead: 'A gateway.',
-          text: "The router and firewall. It sits between your internet provider's modem and everything else, and it runs the console that manages the rest of the network.",
+          text: "The router and firewall. It sits between your internet provider's modem and everything else, and on a UniFi cloud gateway it also runs the console that manages the rest of the network.",
         },
         {
           lead: 'A PoE switch.',
@@ -129,7 +129,7 @@ export const UNIFI: ServicePageContent = {
     {
       question: 'Do I need a subscription or license for UniFi?',
       answer:
-        'No. You buy the hardware once, and the console runs on the gateway, so there are no license fees to keep the network running.',
+        'No. You buy the hardware once, and a UniFi cloud gateway has the console built in, so there are no license fees to keep the network running.',
     },
     {
       question: 'Is UniFi overkill for a home?',
@@ -139,7 +139,7 @@ export const UNIFI: ServicePageContent = {
     {
       question: 'Can you take over a UniFi network someone else installed?',
       answer:
-        "Yes. With the existing admin login, I can review the setup, fix what needs fixing, and move it to an account in your name. If nobody has the login, the equipment can be reset and set up again, which takes longer.",
+        "Usually. With the existing admin login, I review the setup, tell you what I'd fix, and move it to an account in your name. Moving the account can need the current owner's help. If nobody has the login, the equipment can be reset and set up again. That takes longer, with some downtime.",
     },
     HARDWARE_FAQ,
     LOCK_IN_FAQ,

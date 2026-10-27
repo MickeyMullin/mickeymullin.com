@@ -61,8 +61,8 @@ export const SMALL_OFFICE: ServicePageContent = {
       heading: 'Do you do ongoing IT support?',
       body: [
         "Not the monthly kind. I set the network up, document it, and come back when you call. I don't sell monthly managed IT.",
-        "If your office has 30 or more people, or you want one company looking after every computer, account, and password reset on a monthly plan, a managed IT firm is the better fit. Larger firms in the area do exactly that.",
-        "For a smaller office, the hand-off is built so you don't need anyone day to day. When something does go wrong, a troubleshooting visit finds the cause.",
+        "If your office has 30 or more people, or you want one company looking after every computer, account, and password reset on a monthly plan, a managed IT firm is probably the better fit. Larger firms in the area do exactly that.",
+        "For a smaller office, the hand-off is built so you don't need anyone day to day. When something does go wrong, a troubleshooting visit is how I track down the cause.",
       ],
       more: { href: '/networking/troubleshooting', text: 'How a troubleshooting visit works' },
     },
