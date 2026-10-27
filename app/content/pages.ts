@@ -63,6 +63,17 @@ export const PAGES: Page[] = [
     lastmod: '2026-10-26',
   },
   {
+    path: '/networking/unifi',
+    label: 'UniFi installs',
+    group: 'Services',
+    summary:
+      'Ubiquiti UniFi installs for small offices and homes: the gateway, PoE switch, and access points, why UniFi over an ISP router or a mesh kit, when it is overkill, how it is set up (VLANs and firewall rules), whose account it is, buying the hardware yourself, and pricing',
+    title: 'UniFi Installer: Ubiquiti Network Setup | Manchester, NH',
+    description:
+      'UniFi installer for offices and homes: a gateway, PoE switch, and access points, set up with VLANs and handed over in your name. Manchester and southern NH.',
+    lastmod: '2026-10-27',
+  },
+  {
     path: '/software/mockup-to-production',
     label: 'Mockup to production',
     group: 'Services',

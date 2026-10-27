@@ -4,6 +4,7 @@
 import { MOCKUP_TO_PRODUCTION } from './mockup-to-production'
 import { TROUBLESHOOTING } from './troubleshooting'
 import type { ServicePageContent } from './types'
+import { UNIFI } from './unifi'
 import { WIFI } from './wifi'
 
-export const SERVICE_PAGES: ServicePageContent[] = [TROUBLESHOOTING, WIFI, MOCKUP_TO_PRODUCTION]
+export const SERVICE_PAGES: ServicePageContent[] = [TROUBLESHOOTING, WIFI, UNIFI, MOCKUP_TO_PRODUCTION]

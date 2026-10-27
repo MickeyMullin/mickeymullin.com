@@ -77,7 +77,7 @@ export const WIFI: ServicePageContent = {
         "Usually Ubiquiti UniFi: a gateway, PoE switches, and access points, all managed from one app. It's business-grade gear priced for a small office or a home, and there are no license fees to keep it running.",
         "If some of what you already have is still good, I'll say so and keep it. I'm an independent installer, not affiliated with Ubiquiti.",
       ],
-      more: { href: '/#networking', text: 'More about UniFi installs' },
+      more: { href: '/networking/unifi', text: 'More about UniFi installs' },
     },
     {
       id: 'hand-off',
@@ -131,5 +131,5 @@ export const WIFI: ServicePageContent = {
     body: "How big it is, how many floors, and where the Wi-Fi gives out. I'll get back to you within one business day.",
     button: 'Get a quote',
   },
-  related: ['/networking/troubleshooting', '/software/mockup-to-production'],
+  related: ['/networking/unifi', '/networking/troubleshooting'],
 }

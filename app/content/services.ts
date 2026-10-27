@@ -35,9 +35,14 @@ export const NETWORKING_SERVICES: Service[] = [
   },
   {
     name: "UniFi installs",
+    href: '/networking/unifi',
     blurb:
       "Ubiquiti UniFi gateways, PoE switches, and access points, set up with sensible VLANs and handed over with your own logins.",
-    offer: { name: "UniFi network installation" },
+    offer: {
+      name: "UniFi network installation",
+      description:
+        "Ubiquiti UniFi installation for small offices and homes: a gateway, PoE switches, and wired access points managed from one console, with separate VLANs for staff, guests, and devices, and every account in the client's name.",
+    },
   },
   {
     name: "Small-office networks",
