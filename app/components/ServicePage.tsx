@@ -18,6 +18,19 @@ function PointItem({ point }: { point: Point }) {
   )
 }
 
+// Keeps "Wi-Fi" on one line in a heading instead of breaking at its hyphen
+function keepWiFiWhole(text: string) {
+  return text.split(/(Wi-Fi)/).map((part, i) =>
+    part === 'Wi-Fi' ? (
+      <span key={i} className="nowrap">
+        {part}
+      </span>
+    ) : (
+      part
+    ),
+  )
+}
+
 export function ServicePage({ content }: { content: ServicePageContent }) {
   const { page, cta } = content
   const related = relatedServices(page.path)
@@ -35,7 +48,7 @@ export function ServicePage({ content }: { content: ServicePageContent }) {
             </ol>
           </nav>
           <p className="eyebrow">{content.eyebrow}</p>
-          <h1>{content.h1}</h1>
+          <h1>{keepWiFiWhole(content.h1)}</h1>
           <p className="lede">{content.intro}</p>
           <div className="hero-actions">
             <a className="btn" href="/#contact" data-cta={`${content.id}-hero`}>

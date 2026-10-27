@@ -281,7 +281,7 @@ describe('service pages (#706, #705, #724)', () => {
   test('the H1, the meta description, and the Service, FAQPage, and BreadcrumbList JSON-LD', () => {
     for (const c of SERVICE_PAGES) {
       const html = served.get(c.page.path)!
-      expect(html).toContain(`<h1>${escape(c.h1)}</h1>`)
+      expect(html.match(/<h1>[\s\S]*?<\/h1>/g)?.map(visibleText)).toEqual([c.h1])
       expect(html).toContain(`<meta name="description" content="${escape(c.page.description)}"/>`)
       const types = jsonLdBlocks(html).flatMap((b) => [JSON.parse(b)].flat()).map((e) => e['@type'])
       expect(types.sort()).toEqual(['BreadcrumbList', 'FAQPage', 'Service'])
