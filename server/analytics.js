@@ -8,7 +8,7 @@
 
 export const ANALYTICS = {
   // Google Analytics 4 measurement ID, e.g. "G-XXXXXXXXXX" (#692)
-  ga4: '',
+  ga4: 'G-SFEFD4XDKT',
   // Umami Cloud (#678, #682, #695)
   umamiSrc: 'https://cloud.umami.is/script.js',
   umamiId: '7052ef9d-7fe6-4ea4-98b7-31f2943a1f5f',

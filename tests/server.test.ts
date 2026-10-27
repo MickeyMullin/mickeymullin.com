@@ -167,12 +167,15 @@ describe('pre-rendered home page', () => {
     expect(csp).not.toContain('unsafe-eval')
   })
 
-  test('the CSP allows the Umami script and collector, and nothing else off-site', () => {
+  test('the CSP allows Umami and GA4, and nothing else off-site', () => {
     const csp = res.headers.get('content-security-policy') ?? ''
     const directive = (name: string) => csp.split(';').map((d) => d.trim()).find((d) => d.startsWith(`${name} `)) ?? ''
     expect(directive('script-src')).toContain('https://cloud.umami.is')
-    expect(directive('connect-src')).toBe("connect-src 'self' https://gateway.umami.is")
-    expect(directive('img-src')).toBe("img-src 'self' data:")
+    expect(directive('script-src')).toContain('https://www.googletagmanager.com')
+    expect(directive('connect-src')).toBe(
+      "connect-src 'self' https://gateway.umami.is https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com",
+    )
+    expect(directive('img-src')).toBe("img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com")
   })
 
   test('every page carries the Umami tag in <head>, limited to the real domain', () => {
