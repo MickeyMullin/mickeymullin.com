@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { FAQ } from '../app/content/faq'
 import { PAGES } from '../app/content/pages'
-import { CONTRACTOR_BID, PRICES, WEBSITE_QUOTE } from '../app/content/pricing'
+import { CONTRACTOR_BID, PRICES, WEBSITE_PACKAGES, priceRow } from '../app/content/pricing'
 import { analyticsDisclosures } from '../app/content/privacy'
 import { NETWORKING_SERVICES, OFFERS, SOFTWARE_SERVICES } from '../app/content/services'
 import { homeJsonLd } from '../app/content/structured-data'
@@ -162,7 +162,7 @@ describe('service pages', () => {
       expect(service.name).toBe(c.service.offer!.name)
       if (c.onSite) expect(service.areaServed.filter((a: any) => a['@type'] === 'City').map((a: any) => a.name)).toEqual([...TOWNS])
       else expect(service).not.toHaveProperty('areaServed')
-      const price = c.price.rows[0]
+      const price = c.price.offer ?? c.price.rows[0]
       if (price.range && !c.price.parts) expect(service.offers.priceSpecification).toMatchObject({ minPrice: price.range[0], maxPrice: price.range[1], priceCurrency: 'USD' })
       else expect(service).not.toHaveProperty('offers')
       expect(faq['@type']).toBe('FAQPage')
@@ -184,7 +184,17 @@ describe('service pages', () => {
   })
 
   test('prices come from the pricing table', () => {
-    for (const c of SERVICE_PAGES) for (const row of c.price.rows) expect([...PRICES, CONTRACTOR_BID, WEBSITE_QUOTE]).toContain(row)
+    const rows = [...PRICES, CONTRACTOR_BID, ...WEBSITE_PACKAGES]
+    for (const c of SERVICE_PAGES) for (const row of [...c.price.rows, ...(c.price.offer ? [c.price.offer] : [])]) expect(rows).toContain(row)
+  })
+
+  test('the website packages agree with the website row on the home page and in llms.txt', () => {
+    const website = priceRow('website')
+    const [starter, standard, page] = WEBSITE_PACKAGES
+    expect(`${starter.price}–${standard.price.slice(1)}`).toBe(website.price)
+    for (const text of [`${starter.price} for up to 4 pages`, `${standard.price} for up to 6`, `${page.price.replace(' each', '')} per extra page`])
+      expect(website.plain).toContain(text)
+    for (const row of WEBSITE_PACKAGES) expect(row.plain).toEndWith(row.price)
   })
 })
 
@@ -228,7 +238,7 @@ describe('generated text files', () => {
 
   test('every dollar price has a matching numeric range, for the JSON-LD offers', () => {
     const usd = (n: number) => n.toLocaleString('en-US')
-    for (const row of [...PRICES, CONTRACTOR_BID, WEBSITE_QUOTE]) {
+    for (const row of [...PRICES, CONTRACTOR_BID]) {
       if (row.price.startsWith('$')) expect(`$${usd(row.range![0])}–${usd(row.range![1])}`).toBe(row.price)
       else expect(row.range).toBeUndefined()
     }

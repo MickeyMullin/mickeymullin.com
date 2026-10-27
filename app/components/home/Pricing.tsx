@@ -20,14 +20,14 @@ export function Pricing() {
   )
 }
 
-export function PriceTable({ rows }: { rows: PriceRow[] }) {
+export function PriceTable({ rows, column }: { rows: PriceRow[]; column?: string }) {
   return (
     <table className="prices">
-      <caption className="sr-only">Typical labor price ranges</caption>
+      <caption className="sr-only">{column ? `${column}s` : 'Typical labor price ranges'}</caption>
       <thead>
         <tr>
           <th scope="col">Job</th>
-          <th scope="col">Typical labor</th>
+          <th scope="col">{column ?? 'Typical labor'}</th>
         </tr>
       </thead>
       <tbody>

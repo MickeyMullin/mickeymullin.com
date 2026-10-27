@@ -15,7 +15,7 @@ export const INTEGRATIONS: ServicePageContent = {
   onSite: false,
   eyebrow: 'Software · Integrations & automation',
   h1: 'CRM integration and workflow automation for small businesses',
-  intro: `${service.blurb} I connect the tools you already pay for. Where Zapier or Make does the job, I use them; where they don't, I write custom code. Every account and subscription stays in your name.`,
+  intro: `${service.blurb} I connect the tools you already pay for, where they allow it. Where Zapier or Make does the job, I use them; where they don't, I write custom code. Every account and subscription stays in your name.`,
   sections: [
     {
       id: 'connect',
@@ -23,6 +23,7 @@ export const INTEGRATIONS: ServicePageContent = {
       heading: 'What can you connect?',
       body: [
         "The condition first: if a tool has an API or webhooks, I can usually connect it. If it only has an export, sometimes. If it has neither, I'll tell you before you spend anything.",
+        'Some tools only let data out, not back in, so a connection may only run one way. I find out which while scoping, before you get a quote.',
         'Many business tools offer an API or webhooks, including these:',
       ],
       points: [

@@ -2,7 +2,17 @@
 // a test checks that every dollar price also appears in its `plain` line, and
 // that `range` (the numbers the service pages' JSON-LD offers use) matches `price`.
 
-export type PriceId = 'troubleshooting' | 'wifi' | 'cabling' | 'software' | 'mockup' | 'bid' | 'website'
+export type PriceId =
+  | 'troubleshooting'
+  | 'wifi'
+  | 'cabling'
+  | 'software'
+  | 'mockup'
+  | 'website'
+  | 'bid'
+  | 'website-starter'
+  | 'website-standard'
+  | 'website-page'
 export type PriceRow = {
   id: PriceId
   job: string
@@ -51,6 +61,15 @@ export const PRICES: PriceRow[] = [
     price: 'Review free',
     plain: 'AI prototype to production: free review, then a fixed quote to finish',
   },
+  {
+    id: 'website',
+    job: 'Small-business website',
+    detail: 'up to 4 or 6 pages; extra pages $250',
+    price: '$1,500–2,200',
+    plain:
+      'Small-business website, fixed package price ($1,500 for up to 4 pages, $2,200 for up to 6, and $250 per extra page): $1,500–2,200',
+    range: [1500, 2200],
+  },
 ]
 
 // General contractor work is bid per job from the plans. Shown on the contractors
@@ -63,15 +82,31 @@ export const CONTRACTOR_BID: PriceRow = {
   plain: 'Low-voltage network subcontracting for general contractors: itemized bid from the plans',
 }
 
-// Websites are quoted per site. Shown on the websites page only, not in the
-// home page's table of typical ranges.
-export const WEBSITE_QUOTE: PriceRow = {
-  id: 'website',
-  job: 'Small-business website',
-  detail: 'scoped per site',
-  price: 'Fixed quote',
-  plain: 'Small-business websites: fixed quote per site',
-}
+// The website packages behind the 'website' row, shown on the websites page only.
+// A test checks that they agree with that row.
+export const WEBSITE_PACKAGES: PriceRow[] = [
+  {
+    id: 'website-starter',
+    job: 'Starter',
+    detail: 'up to 4 pages: Home, Services, Areas, and Contact',
+    price: '$1,500',
+    plain: 'Starter website, up to 4 pages (Home, Services, Areas, and Contact): $1,500',
+  },
+  {
+    id: 'website-standard',
+    job: 'Standard',
+    detail: 'up to 6 pages: Starter plus 2 more',
+    price: '$2,200',
+    plain: 'Standard website, up to 6 pages (Starter plus 2 more): $2,200',
+  },
+  {
+    id: 'website-page',
+    job: 'Extra page',
+    detail: 'quoted before work starts',
+    price: '$250 each',
+    plain: 'Extra website page, quoted before work starts: $250 each',
+  },
+]
 
 export function priceRow(id: PriceId): PriceRow {
   const row = PRICES.find((r) => r.id === id)

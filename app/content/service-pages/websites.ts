@@ -1,9 +1,9 @@
-// /software/websites: small-business websites (#715). Quoted per site, so the
-// price row is WEBSITE_QUOTE, not a range, and there is no JSON-LD offer.
+// /software/websites: small-business websites (#715). Fixed package prices: the
+// table shows the packages, and the 'website' row's range is the JSON-LD offer.
 
 import { OUTSIDE_NH_FAQ } from '../faq'
 import { getPage } from '../pages'
-import { WEBSITE_QUOTE } from '../pricing'
+import { WEBSITE_PACKAGES, priceRow } from '../pricing'
 import { findService, type ServicePageContent } from './types'
 
 const service = findService('Small-business websites')
@@ -31,7 +31,7 @@ export const WEBSITES: ServicePageContent = {
         { lead: 'Analytics in your own account,', text: 'so the visitor numbers are yours.' },
       ],
       after: [
-        'How many pages depends on your business. We settle that in the scope, before the quote.',
+        'How many pages depends on your business: up to 4 for Starter, up to 6 for Standard, and more at $250 a page. The written scope lists the pages and what they include before the price is final.',
         'Before launch, I check every page on a phone, with only a keyboard, and with a screen reader.',
       ],
     },
@@ -52,13 +52,14 @@ export const WEBSITES: ServicePageContent = {
         "Rankings depend on many things I don't control, including relevance, your reviews, and your competition. Nobody can honestly promise page one, and I won't.",
       ],
     },
-    // TODO(decision): how clients edit their sites
+    // TODO(#743): name the editing platform once decided
     {
       id: 'editing',
       eyebrow: 'Updates',
       heading: 'Can I update it myself?',
       body: [
-        "Yes, for the things you change often: hours, services, prices, photos, and posts. We agree up front which parts you'll edit yourself, and I show you how before hand-off.",
+        "Yes, for the things you change often: hours, services, prices, and photos. We agree up front which parts you'll edit yourself, and I show you how before hand-off.",
+        "If you plan to post news, articles, or specials regularly, I'll suggest building the site on WordPress with a simple theme, because posting there is straightforward.",
       ],
     },
     {
@@ -103,10 +104,14 @@ export const WEBSITES: ServicePageContent = {
   ],
   price: {
     heading: 'What does it cost?',
-    rows: [WEBSITE_QUOTE],
+    rows: WEBSITE_PACKAGES,
+    offer: priceRow('website'),
+    column: 'Fixed price',
     notes: [
-      "Every site gets a fixed quote once we've agreed on the pages, so the price is settled before work starts.",
-      'The domain and hosting bill you directly, in your name.',
+      'Each package is a fixed price. Starter covers Home, Services, Areas, and Contact, plus everything under “What do I get?” above. Standard adds 2 more pages, such as About, a single service, or a second location.',
+      "Before I quote, the written scope lists the pages and what's included, so the price is settled before work starts.",
+      "Domain registration and hosting aren't part of the fixed price. They bill to you directly, in your name.",
+      'Also outside the fixed price: copywriting beyond light editing of the text you provide, photography, stock images beyond free sources, and ongoing updates after launch.',
     ],
     // TODO(#741): E&O insurance line once a policy is bound
   },
@@ -119,7 +124,7 @@ export const WEBSITES: ServicePageContent = {
     {
       question: 'Will I be able to edit it myself?',
       answer:
-        "Yes, for the things you change often, such as hours, services, prices, photos, and posts. We agree up front which parts you'll edit, and I show you how before hand-off.",
+        "Yes, for the things you change often, such as hours, services, prices, and photos. We agree up front which parts you'll edit, and I show you how before hand-off. If you plan to post news, articles, or specials regularly, I'll suggest building the site on WordPress with a simple theme, because posting there is straightforward.",
     },
     {
       question: "Do you guarantee I'll rank on Google?",
