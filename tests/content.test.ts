@@ -172,6 +172,17 @@ describe('service pages', () => {
     }
   })
 
+  test('related services: two or three other service pages, no repeats', () => {
+    const paths = SERVICE_PAGES.map((c) => c.page.path)
+    for (const c of SERVICE_PAGES) {
+      expect(c.related.length).toBeGreaterThanOrEqual(2)
+      expect(c.related.length).toBeLessThanOrEqual(3)
+      expect(new Set(c.related).size).toBe(c.related.length)
+      expect(c.related).not.toContain(c.page.path)
+      for (const path of c.related) expect(paths).toContain(path)
+    }
+  })
+
   test('prices come from the pricing table', () => {
     for (const c of SERVICE_PAGES) for (const row of c.price.rows) expect(PRICES).toContain(row)
   })

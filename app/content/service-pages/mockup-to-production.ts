@@ -133,4 +133,5 @@ export const MOCKUP_TO_PRODUCTION: ServicePageContent = {
     body: "A link to the app, or just a description of where it's stuck. I'll get back to you within one business day to set up the free review.",
     button: 'Ask for a free review',
   },
+  related: ['/networking/troubleshooting', '/networking/wifi'],
 }

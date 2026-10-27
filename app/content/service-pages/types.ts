@@ -40,6 +40,8 @@ export type ServicePageContent = {
   // Shown on the page and in the FAQPage JSON-LD
   faq: FaqItem[]
   cta: { heading: string; body: string; button: string }
+  // Paths of the two or three other service pages listed under "Related services"
+  related: string[]
 }
 
 export function findService(name: string): Service {
@@ -48,7 +50,11 @@ export function findService(name: string): Service {
   return service
 }
 
-// The other services that have their own page
-export function relatedServices(path: string): Service[] {
-  return [...NETWORKING_SERVICES, ...SOFTWARE_SERVICES].filter((s) => s.href && s.href !== path)
+// The services behind a page's `related` paths, in that order
+export function relatedServices(paths: string[]): Service[] {
+  return paths.map((path) => {
+    const service = [...NETWORKING_SERVICES, ...SOFTWARE_SERVICES].find((s) => s.href === path)
+    if (!service) throw new Error(`No service page at ${path}`)
+    return service
+  })
 }

@@ -33,7 +33,7 @@ function keepWiFiWhole(text: string) {
 
 export function ServicePage({ content }: { content: ServicePageContent }) {
   const { page, cta } = content
-  const related = relatedServices(page.path)
+  const related = relatedServices(content.related)
 
   return (
     <main id="main">

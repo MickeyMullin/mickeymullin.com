@@ -131,4 +131,5 @@ export const WIFI: ServicePageContent = {
     body: "How big it is, how many floors, and where the Wi-Fi gives out. I'll get back to you within one business day.",
     button: 'Get a quote',
   },
+  related: ['/networking/troubleshooting', '/software/mockup-to-production'],
 }

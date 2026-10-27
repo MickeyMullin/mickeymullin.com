@@ -313,12 +313,13 @@ describe('service pages (#706, #705, #724)', () => {
     }
   })
 
-  test('each links to the other service pages, and the home page links to all of them', () => {
+  test('each lists its related service pages, and the home page links to all of them', () => {
     const homeMain = home.match(/<main[\s\S]*<\/main>/)?.[0] ?? ''
     for (const c of SERVICE_PAGES) {
       expect(homeMain).toContain(`<a href="${c.page.path}">${escape(c.service.name)}</a>`)
       const main = served.get(c.page.path)!.match(/<main[\s\S]*<\/main>/)?.[0] ?? ''
-      for (const other of SERVICE_PAGES.filter((o) => o !== c)) expect(main).toContain(`href="${other.page.path}"`)
+      const related = main.match(/<section [^>]*aria-labelledby="related-h"[\s\S]*?<\/section>/)?.[0] ?? ''
+      expect([...related.matchAll(/<a href="([^"]+)"/g)].map((m) => m[1])).toEqual(c.related)
     }
   })
 
