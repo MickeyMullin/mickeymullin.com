@@ -10,6 +10,8 @@ on:
       - 'app/**'
       - 'public/**'
       - 'server/**'
+      - 'scripts/indexnow.ts'
+      - '.github/workflows/indexnow.yml'
   workflow_dispatch:
 
 permissions:

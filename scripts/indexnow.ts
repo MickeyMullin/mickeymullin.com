@@ -35,12 +35,18 @@ async function text(url: string) {
   return { status: res.status, body: await res.text() }
 }
 
+// The deploy counts as live once the served sitemap matches this checkout and
+// the key file is served (the key check covers the first deploy, and any deploy
+// whose sitemap didn't change).
 async function waitForDeploy() {
   const want = sitemapXml().trim()
+  const keyUrl = absoluteUrl(`/${INDEXNOW_KEY}.txt`)
   const deadline = Date.now() + WAIT_MS
+  const none = { status: 0, body: '' }
   for (;;) {
-    const live = await text(absoluteUrl('/sitemap.xml')).catch(() => ({ status: 0, body: '' }))
-    if (live.status === 200 && live.body.trim() === want) return true
+    const live = await text(absoluteUrl('/sitemap.xml')).catch(() => none)
+    const key = await text(keyUrl).catch(() => none)
+    if (live.status === 200 && live.body.trim() === want && key.status === 200 && key.body.trim() === INDEXNOW_KEY) return true
     if (Date.now() > deadline) return false
     await new Promise((r) => setTimeout(r, POLL_MS))
   }
