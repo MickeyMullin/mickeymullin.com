@@ -2,7 +2,9 @@
 // sitemap.xml and llms.txt, and app/lib/seo.ts builds its head tags from it.
 // Add service, town and blog pages here as they are built.
 
+import { listOf } from '../lib/text'
 import { priceRow } from './pricing'
+import { AI_BUILDERS } from './services'
 
 export type Page = {
   path: string
@@ -58,6 +60,16 @@ export const PAGES: Page[] = [
     title: 'Business & Home Wi-Fi Installation | Manchester, NH',
     description:
       'Wi-Fi that reaches every room, the warehouse, and the back deck: a site walk, wired access points, and a separate guest network. Manchester and southern NH.',
+    lastmod: '2026-10-26',
+  },
+  {
+    path: '/software/mockup-to-production',
+    label: 'Mockup to production',
+    group: 'Services',
+    summary: `taking apps built with ${listOf(AI_BUILDERS, 'or')} to production: domain and DNS, email, CRM, hosting, logins, security, reliability, and ownership, starting with a free review and then a fixed quote`,
+    title: 'Lovable, Bolt, or Replit App to Production | Mickey Mullin',
+    description:
+      'Built an app with Lovable, Bolt, Replit, v0, ChatGPT, or Claude? I connect your domain, email, CRM, and logins, and secure it. Free review, then a fixed quote.',
     lastmod: '2026-10-26',
   },
   {

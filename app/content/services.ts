@@ -75,6 +75,7 @@ export const SOFTWARE_SERVICES: Service[] = [
   },
   {
     name: "Mockup to production",
+    href: '/software/mockup-to-production',
     blurb: `You or your team built something with ${listOf(AI_BUILDERS, 'or')}, and it almost works. I take it the last mile: your domain, real hosting, logins, your email and CRM, backups, and a security check, so customers and staff can actually use it.`,
     offer: {
       name: "AI prototype to production",

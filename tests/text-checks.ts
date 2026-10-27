@@ -21,6 +21,12 @@ const REVIEWED = new Set([
   "good, I'll say so and keep",
   'quote, with labor and hardware',
   'Manchester, NH Business and home',
+  // Mockup to production page (#724)
+  'them, password resets and order',
+  'volume, under your domain and your',
+  'job, in your name and on',
+  'on, from the domain and hosting',
+  'software, including engineering and management',
 ])
 
 // "A, B and C" (no serial comma) in a list of three or more. A heuristic: it

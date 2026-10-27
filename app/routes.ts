@@ -6,6 +6,7 @@ export default [
   index('routes/home.tsx'),
   route('networking/troubleshooting', 'routes/networking-troubleshooting.tsx'),
   route('networking/wifi', 'routes/networking-wifi.tsx'),
+  route('software/mockup-to-production', 'routes/software-mockup-to-production.tsx'),
   route('privacy', 'routes/privacy.tsx'),
   route('robots.txt', 'routes/robots.ts'),
   route('sitemap.xml', 'routes/sitemap.ts'),
