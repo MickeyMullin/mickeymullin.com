@@ -35,7 +35,18 @@ export const PAGES: Page[] = [
     ogTitle: 'Mickey Mullin — Networks that hold up. Software that fits.',
     ogDescription:
       'Wi-Fi, UniFi, cabling, and troubleshooting for small offices and homes in southern NH, plus custom software and integrations.',
-    lastmod: '2026-10-25',
+    lastmod: '2026-10-26',
+  },
+  {
+    path: '/networking/wifi',
+    label: 'Business & home Wi-Fi',
+    group: 'Services',
+    summary:
+      'Wi-Fi design and installation for homes and small offices: why the ISP router falls short, the site walk and coverage plan, mesh vs. wired access points, guest networks on their own VLAN, outdoor and outbuilding coverage, UniFi, the hand-off, and pricing',
+    title: 'Business & Home Wi-Fi Installation | Manchester, NH',
+    description:
+      'Wi-Fi that reaches every room, the warehouse, and the back deck: a site walk, wired access points, and a separate guest network. Manchester and southern NH.',
+    lastmod: '2026-10-26',
   },
   {
     path: '/privacy',

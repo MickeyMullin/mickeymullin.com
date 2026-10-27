@@ -14,6 +14,13 @@ const REVIEWED = new Set([
   'bid, rough-in and trim-out',
   'logins, your email and CRM',
   'check, so customers and staff',
+  // Wi-Fi page (#706)
+  'short, the site walk and coverage',
+  'VLAN, outdoor and outbuilding',
+  'office, and every wall and floor',
+  "good, I'll say so and keep",
+  'quote, with labor and hardware',
+  'Manchester, NH Business and home',
 ])
 
 // "A, B and C" (no serial comma) in a list of three or more. A heuristic: it

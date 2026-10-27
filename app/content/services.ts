@@ -23,6 +23,7 @@ export const NETWORKING_SERVICES: Service[] = [
   },
   {
     name: "Business & home Wi-Fi",
+    href: '/networking/wifi',
     blurb:
       "Coverage that reaches every room, the warehouse floor, and the back deck. Guest networks done right.",
     offer: {

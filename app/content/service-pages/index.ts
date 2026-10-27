@@ -2,5 +2,6 @@
 // group 'Services', a route in app/routes.ts, and an `href` on its services.ts entry.
 
 import type { ServicePageContent } from './types'
+import { WIFI } from './wifi'
 
-export const SERVICE_PAGES: ServicePageContent[] = []
+export const SERVICE_PAGES: ServicePageContent[] = [WIFI]
