@@ -25,7 +25,7 @@ export const WEBSITES: ServicePageContent = {
       points: [
         { lead: 'Pages for what you do and where you do it,', text: 'built to read well on a phone.' },
         { lead: 'A contact form', text: 'that reaches your inbox.' },
-        { lead: 'Your domain,', text: 'with your existing email still working afterward.' },
+        { lead: 'Your domain,', text: 'with your email records checked before any change and your email tested afterward.' },
         { lead: 'Hosting in your name,', text: 'on your billing.' },
         { lead: 'A privacy page', text: 'that says what the site collects.' },
         { lead: 'Analytics in your own account,', text: 'so the visitor numbers are yours.' },
@@ -48,8 +48,8 @@ export const WEBSITES: ServicePageContent = {
         'Pages that load fast, on a phone as well as a computer.',
       ],
       after: [
-        "For local search, your Google Business Profile matters as much as the site. If you don't have one yet, I'll point you through setting it up.",
-        'Rankings depend on your reviews, your competition, and time. Nobody can honestly promise page one, and I won\'t.',
+        "For local search, your Google Business Profile counts too, not just the site. If you don't have one yet, I'll point you through setting it up.",
+        "Rankings depend on many things I don't control, including relevance, your reviews, and your competition. Nobody can honestly promise page one, and I won't.",
       ],
     },
     // TODO(decision): how clients edit their sites
@@ -69,7 +69,7 @@ export const WEBSITES: ServicePageContent = {
       points: [
         { lead: 'The content worth keeping', text: 'moves to the new site.' },
         { lead: 'Old addresses redirect', text: 'to the new pages, so links that people and search engines already use still land somewhere.' },
-        { lead: 'DNS and email records', text: 'are checked and written down before the switch, so your inbox keeps working.' },
+        { lead: 'DNS and email records', text: 'are checked and written down before the switch, and I test your email afterward.' },
       ],
       after: [
         "If the domain was registered through the old platform, or by whoever built the old site, moving it may need that account's login or that person's help. I check that first.",
@@ -114,7 +114,7 @@ export const WEBSITES: ServicePageContent = {
     {
       question: 'Can you move my site off Wix or Squarespace?',
       answer:
-        "Yes. I move the content worth keeping, redirect the old addresses to the new pages, and check your DNS and email records before the switch so your inbox keeps working. If the domain was registered through the old platform or by someone else, moving it may need that account's login or that person's help.",
+        "Yes. I move the content worth keeping and redirect the old addresses to the new pages. Before the switch, I write down your DNS and email records, and afterward I test your email. If the domain was registered through the old platform or by someone else, moving it may need that account's login or that person's help.",
     },
     {
       question: 'Will I be able to edit it myself?',
@@ -124,7 +124,7 @@ export const WEBSITES: ServicePageContent = {
     {
       question: "Do you guarantee I'll rank on Google?",
       answer:
-        'No, and nobody honestly can. Rankings depend on your reviews, your competition, and time. I build in what search engines read, and for local search I point you through setting up a Google Business Profile, which matters as much as the site.',
+        "No, and nobody honestly can. Rankings depend on many things I don't control, including relevance, your reviews, and your competition. I build in what search engines read, and for local search I point you through setting up a Google Business Profile, which counts alongside the site.",
     },
     OUTSIDE_NH_FAQ,
   ],

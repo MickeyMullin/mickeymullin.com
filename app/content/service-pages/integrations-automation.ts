@@ -23,7 +23,7 @@ export const INTEGRATIONS: ServicePageContent = {
       heading: 'What can you connect?',
       body: [
         "The condition first: if a tool has an API or webhooks, I can usually connect it. If it only has an export, sometimes. If it has neither, I'll tell you before you spend anything.",
-        'Most of what a small business runs on has one or the other:',
+        'Many business tools offer an API or webhooks, including these:',
       ],
       points: [
         { lead: 'CRM:', text: 'HubSpot, Salesforce, Zoho, Pipedrive, and others with an API.' },
@@ -51,7 +51,7 @@ export const INTEGRATIONS: ServicePageContent = {
       eyebrow: 'Zapier, Make, or code',
       heading: 'Do I need Zapier or Make, or custom code?',
       body: [
-        "When a Zapier or Make workflow does the job, I set it up in your account, and that's the cheaper answer.",
+        "When a Zapier or Make workflow does the job, I set it up in your account, and it's usually the cheaper answer. I compare what each option would cost you while we scope the work.",
         'Custom code makes sense when the volume gets high enough that per-task pricing adds up, when the logic has more branches than a workflow builder handles cleanly, or when a failed step needs careful handling instead of a retry.',
         'Either way, the subscriptions are in your name and bill to you.',
       ],
@@ -64,7 +64,7 @@ export const INTEGRATIONS: ServicePageContent = {
         'Connections do break. A vendor changes its API, someone resets a password, or an authorization expires. So I plan for it:',
       ],
       points: [
-        { lead: 'Alerts,', text: 'so a failed run reaches a person instead of quietly dropping data.' },
+        { lead: 'Failure alerts', text: 'sent to a person you choose when a run fails, so a problem is less likely to go unnoticed.' },
         { lead: 'A written list of every connection:', text: 'what it does, the account it runs under, and how to switch it off.' },
       ],
       after: [

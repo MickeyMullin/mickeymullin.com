@@ -113,7 +113,7 @@ export const SOFTWARE_SERVICES: Service[] = [
     offer: {
       name: "Integrations and automation",
       description:
-        'Connecting the CRM, scheduling, invoicing, and email a small business already uses, such as HubSpot, Salesforce, Zoho, Pipedrive, QuickBooks Online, Xero, Google Workspace, Microsoft 365, and other tools with an API. Built with Zapier or Make where they fit, or custom code where they do not, with alerts when a connection fails.',
+        'Connecting the CRM, scheduling, invoicing, and email a small business already uses, such as HubSpot, Salesforce, Zoho, Pipedrive, QuickBooks Online, Xero, Google Workspace, Microsoft 365, and other tools with an API. Built with Zapier or Make where they fit, or custom code where they do not, with failure alerts sent to a person the client chooses.',
     },
   },
   {
