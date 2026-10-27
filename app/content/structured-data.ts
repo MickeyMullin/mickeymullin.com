@@ -1,9 +1,10 @@
 // JSON-LD for the home page: ProfessionalService (with OfferCatalog), Person, WebSite, FAQPage.
 // Inner pages get a BreadcrumbList (app/lib/seo.ts adds it) and point back to
-// the business by its @id.
+// the business by its @id; service pages add Service and FAQPage.
 
 import { FAQ, type FaqItem } from './faq'
 import type { Page } from './pages'
+import type { ServicePageContent } from './service-pages/types'
 import { OFFERS } from './services'
 import { LEGAL_NAME, SITE, absoluteUrl } from './site'
 import { REGION, STATE, TOWNS } from './towns'
@@ -131,4 +132,39 @@ export function breadcrumbJsonLd(page: Page) {
       { '@type': 'ListItem', position: 2, name: page.label, item: absoluteUrl(page.path) },
     ],
   }
+}
+
+// Service and FAQPage for a service page. The breadcrumb comes from pageMeta.
+export function servicePageJsonLd(content: ServicePageContent) {
+  const url = absoluteUrl(content.page.path)
+  const { offer } = content.service
+  if (!offer?.description) throw new Error(`${content.service.name} needs an offer with a description`)
+  const price = content.price.rows[0]
+  return [
+    {
+      '@context': 'https://schema.org',
+      '@type': 'Service',
+      '@id': `${url}#service`,
+      name: offer.name,
+      description: offer.description,
+      url,
+      provider: { '@id': BUSINESS_ID },
+      ...(content.onSite ? { areaServed: areaServed() } : {}),
+      ...(price?.range
+        ? {
+            offers: {
+              '@type': 'Offer',
+              description: price.plain,
+              priceSpecification: {
+                '@type': 'PriceSpecification',
+                minPrice: price.range[0],
+                maxPrice: price.range[1],
+                priceCurrency: 'USD',
+              },
+            },
+          }
+        : {}),
+    },
+    faqPageJsonLd(content.faq),
+  ]
 }

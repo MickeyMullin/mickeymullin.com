@@ -24,28 +24,36 @@ export function Contact() {
             A dead zone, a new office, a cabling bid, or software that should exist but doesn't. Send a note and I'll
             get back to you within one business day.
           </p>
-          <ul className="contact-direct">
-            <li>
-              <span>Email</span>{' '}
-              <a href={`mailto:${SITE.email}`} data-track="email">
-                {SITE.email}
-              </a>
-            </li>
-            <li>
-              <span>Phone</span>{' '}
-              <a href={`tel:${SITE.tel}`} data-track="call">
-                {SITE.phone}
-              </a>
-            </li>
-            <li>
-              <span>Hours</span> By appointment. Evenings and Saturdays available.
-            </li>
-          </ul>
+          <ContactDirect />
         </div>
 
         <ContactForm />
       </div>
     </section>
+  )
+}
+
+// Email, phone, and hours. Clicks on the mailto: and tel: links are counted by
+// the delegated listener in app/lib/analytics.ts.
+export function ContactDirect() {
+  return (
+    <ul className="contact-direct">
+      <li>
+        <span>Email</span>{' '}
+        <a href={`mailto:${SITE.email}`} data-track="email">
+          {SITE.email}
+        </a>
+      </li>
+      <li>
+        <span>Phone</span>{' '}
+        <a href={`tel:${SITE.tel}`} data-track="call">
+          {SITE.phone}
+        </a>
+      </li>
+      <li>
+        <span>Hours</span> By appointment. Evenings and Saturdays available.
+      </li>
+    </ul>
   )
 }
 

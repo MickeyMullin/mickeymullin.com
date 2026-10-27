@@ -11,9 +11,11 @@ import type { ServerBuild } from 'react-router'
 import { FAQ } from '../app/content/faq'
 import { PAGES } from '../app/content/pages'
 import { analyticsDisclosures } from '../app/content/privacy'
+import { SERVICE_PAGES } from '../app/content/service-pages'
 import type { MailMessage, MailSetup } from '../app/lib/mailer.server'
 // @ts-expect-error plain JS module without type declarations
 import { createApp } from '../server/app.js'
+import { missingSerialCommas, visibleText } from './text-checks'
 
 const ROOT = path.resolve(import.meta.dir, '..')
 const CLIENT = path.join(ROOT, 'build/client')
@@ -261,6 +263,71 @@ describe('every page in PAGES (#684)', () => {
       }
       expect(crumbs).toHaveLength(1)
       expect(crumbs[0].itemListElement.at(-1).item).toBe(`https://mickeymullin.com${p.path}`)
+    }
+  })
+})
+
+describe('service pages (#706, #705, #724)', () => {
+  const served = new Map<string, string>()
+  let home = ''
+  const escape = (s: string) => s.replace(/&/g, '&amp;').replace(/'/g, '&#x27;').replace(/"/g, '&quot;')
+
+  beforeAll(async () => {
+    const { url } = await start()
+    home = await (await fetch(`${url}/`)).text()
+    for (const c of SERVICE_PAGES) served.set(c.page.path, await (await fetch(`${url}${c.page.path}`)).text())
+  })
+
+  test('the H1, the meta description, and the Service, FAQPage, and BreadcrumbList JSON-LD', () => {
+    for (const c of SERVICE_PAGES) {
+      const html = served.get(c.page.path)!
+      expect(html).toContain(`<h1>${escape(c.h1)}</h1>`)
+      expect(html).toContain(`<meta name="description" content="${escape(c.page.description)}"/>`)
+      const types = jsonLdBlocks(html).flatMap((b) => [JSON.parse(b)].flat()).map((e) => e['@type'])
+      expect(types.sort()).toEqual(['BreadcrumbList', 'FAQPage', 'Service'])
+    }
+  })
+
+  test('the visible FAQ is the FAQPage JSON-LD, word for word', () => {
+    for (const c of SERVICE_PAGES) {
+      const html = served.get(c.page.path)!
+      const faq = jsonLdBlocks(html).flatMap((b) => [JSON.parse(b)].flat()).find((e) => e['@type'] === 'FAQPage')
+      const shown = [...html.matchAll(/<details><summary>([^<]*)<\/summary><p>([^<]*)<\/p><\/details>/g)].map((m) => [
+        visibleText(m[1]),
+        visibleText(m[2]),
+      ])
+      expect(shown).toEqual(faq.mainEntity.map((q: any) => [q.name, q.acceptedAnswer.text]))
+    }
+  })
+
+  test('contact links: tracked CTAs to /#contact, plus the tel: and mailto: links', () => {
+    for (const c of SERVICE_PAGES) {
+      const main = served.get(c.page.path)!.match(/<main[\s\S]*<\/main>/)?.[0] ?? ''
+      const ctas = [...main.matchAll(/<a [^>]*data-cta="([^"]+)"[^>]*>/g)]
+      expect(ctas.map((m) => m[1])).toEqual([`${c.id}-hero`, `${c.id}-contact`])
+      for (const [tag] of ctas) expect(tag).toContain('href="/#contact"')
+      expect(main).toContain('href="tel:+16036603913"')
+      expect(main).toContain('href="mailto:info@mickeymullin.com"')
+      // in-page anchors only for targets on this page
+      for (const [, id] of main.matchAll(/href="#([^"]+)"/g)) expect(main).toContain(`id="${id}"`)
+    }
+  })
+
+  test('each links to the other service pages, and the home page links to all of them', () => {
+    const homeMain = home.match(/<main[\s\S]*<\/main>/)?.[0] ?? ''
+    for (const c of SERVICE_PAGES) {
+      expect(homeMain).toContain(`<a href="${c.page.path}">${escape(c.service.name)}</a>`)
+      const main = served.get(c.page.path)!.match(/<main[\s\S]*<\/main>/)?.[0] ?? ''
+      for (const other of SERVICE_PAGES.filter((o) => o !== c)) expect(main).toContain(`href="${other.page.path}"`)
+    }
+  })
+
+  test('no list of three or more is missing its serial comma', () => {
+    for (const c of SERVICE_PAGES) {
+      const html = served.get(c.page.path)!
+      const main = visibleText(html.match(/<main[\s\S]*<\/main>/)?.[0] ?? '')
+      const head = [...html.matchAll(/<meta [^>]*content="([^"]*)"/g)].map((m) => visibleText(m[1]))
+      expect([main, ...head].flatMap(missingSerialCommas)).toEqual([])
     }
   })
 })

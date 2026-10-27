@@ -1,4 +1,4 @@
-import { PRICES } from '../../content/pricing'
+import { PRICES, type PriceRow } from '../../content/pricing'
 
 export function Pricing() {
   return (
@@ -13,27 +13,33 @@ export function Pricing() {
           </p>
         </header>
         <div className="price-wrap">
-          <table className="prices">
-            <caption className="sr-only">Typical labor price ranges</caption>
-            <thead>
-              <tr>
-                <th scope="col">Job</th>
-                <th scope="col">Typical labor</th>
-              </tr>
-            </thead>
-            <tbody>
-              {PRICES.map((row) => (
-                <tr key={row.job}>
-                  <th scope="row">
-                    {row.job} <small>{row.detail}</small>
-                  </th>
-                  <td>{row.price}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+          <PriceTable rows={PRICES} />
         </div>
       </div>
     </section>
+  )
+}
+
+export function PriceTable({ rows }: { rows: PriceRow[] }) {
+  return (
+    <table className="prices">
+      <caption className="sr-only">Typical labor price ranges</caption>
+      <thead>
+        <tr>
+          <th scope="col">Job</th>
+          <th scope="col">Typical labor</th>
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map((row) => (
+          <tr key={row.job}>
+            <th scope="row">
+              {row.job} <small>{row.detail}</small>
+            </th>
+            <td>{row.price}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
   )
 }

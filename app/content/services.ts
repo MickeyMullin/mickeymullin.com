@@ -1,8 +1,14 @@
 // Services shown on the page. Items with an `offer` also appear, in this order,
-// in the ProfessionalService OfferCatalog JSON-LD.
+// in the ProfessionalService OfferCatalog JSON-LD. Items with an `href` link to
+// their own page, and are listed under "Related services" on the other service pages.
+
+import { listOf } from '../lib/text'
 
 export type Offer = { name: string; description?: string };
-export type Service = { name: string; blurb: string; offer?: Offer };
+export type Service = { name: string; blurb: string; offer?: Offer; href?: string }
+
+// The AI app builders named on the site
+export const AI_BUILDERS = ['ChatGPT', 'Claude', 'Lovable', 'Bolt', 'Replit', 'v0']
 
 export const NETWORKING_SERVICES: Service[] = [
   {
@@ -19,7 +25,11 @@ export const NETWORKING_SERVICES: Service[] = [
     name: "Business & home Wi-Fi",
     blurb:
       "Coverage that reaches every room, the warehouse floor, and the back deck. Guest networks done right.",
-    offer: { name: "Business and home Wi-Fi design and installation" },
+    offer: {
+      name: "Business and home Wi-Fi design and installation",
+      description:
+        'Wi-Fi coverage planning and installation for homes and small offices: a site walk, wired access points or mesh, and a guest network kept apart from the business network.',
+    },
   },
   {
     name: "UniFi installs",
@@ -63,12 +73,10 @@ export const SOFTWARE_SERVICES: Service[] = [
   },
   {
     name: "Mockup to production",
-    blurb:
-      "You or your team built something with ChatGPT, Claude, Lovable, Bolt, or Replit, and it almost works. I take it the last mile: your domain, real hosting, logins, your email and CRM, backups, and a security check, so customers and staff can actually use it.",
+    blurb: `You or your team built something with ${listOf(AI_BUILDERS, 'or')}, and it almost works. I take it the last mile: your domain, real hosting, logins, your email and CRM, backups, and a security check, so customers and staff can actually use it.`,
     offer: {
       name: "AI prototype to production",
-      description:
-        "Taking apps built with AI tools such as ChatGPT, Claude, Lovable, Bolt, or Replit to production: custom domain and DNS, hosting, user accounts, Gmail / Google Workspace or Microsoft 365 email, CRM integration, security review, backups, and monitoring.",
+      description: `Taking apps built with AI tools such as ${listOf(AI_BUILDERS, 'or')} to production: custom domain and DNS, hosting, user accounts, Gmail / Google Workspace or Microsoft 365 email, CRM integration, security review, backups, and monitoring.`,
     },
   },
   {
@@ -95,37 +103,46 @@ export const OFFERS: Offer[] = [
   ...SOFTWARE_SERVICES,
 ].flatMap((s) => (s.offer ? [s.offer] : []));
 
-// "The last mile" callout in the software section.
-export const LAST_MILE: { question: string; answer: string }[] = [
+// "The last mile" callout in the software section. The mockup-to-production
+// page opens its matching sections with the same answers, by id.
+export type LastMileId = 'dns' | 'email' | 'crm' | 'hosting' | 'logins' | 'security' | 'reliability'
+export const LAST_MILE: { id: LastMileId; question: string; answer: string }[] = [
   {
+    id: 'dns',
     question: "What about DNS?",
     answer:
       "Your own domain pointed at the app, with HTTPS, and your existing email still working afterward.",
   },
   {
+    id: 'email',
     question: "How do I hook this to Gmail?",
     answer:
       "Send and receive through Google Workspace or Microsoft 365, with SPF, DKIM, and DMARC set up so mail lands in inboxes, not spam.",
   },
   {
+    id: 'crm',
     question: "How does it get into our CRM?",
     answer:
       "Leads, contacts, and orders flow into HubSpot, Salesforce, Zoho, or whatever you already use.",
   },
   {
+    id: 'hosting',
     question: "Where does it live?",
     answer: "Hosting sized to the job, in your name and on your billing.",
   },
   {
+    id: 'logins',
     question: "Who can log in?",
     answer: "Real accounts and roles instead of a shared link.",
   },
   {
+    id: 'security',
     question: "Is it safe?",
     answer:
       "API keys out of the code, the database locked down, customer data handled properly.",
   },
   {
+    id: 'reliability',
     question: "What if it breaks?",
     answer:
       "Backups, monitoring, and a written runbook, plus ongoing support if you want it.",

@@ -5,7 +5,7 @@ export function ServiceList({ services }: { services: Service[] }) {
     <ul className="svc">
       {services.map((s) => (
         <li key={s.name}>
-          <b>{s.name}</b>
+          <b>{s.href ? <a href={s.href}>{s.name}</a> : s.name}</b>
           <span>{s.blurb}</span>
         </li>
       ))}

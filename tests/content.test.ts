@@ -3,16 +3,20 @@ import { FAQ } from '../app/content/faq'
 import { PAGES } from '../app/content/pages'
 import { PRICES } from '../app/content/pricing'
 import { analyticsDisclosures } from '../app/content/privacy'
-import { OFFERS } from '../app/content/services'
+import { NETWORKING_SERVICES, OFFERS, SOFTWARE_SERVICES } from '../app/content/services'
 import { homeJsonLd } from '../app/content/structured-data'
 import { llmsTxt, robotsTxt, sitemapXml } from '../app/content/text-files'
+import { SERVICE_PAGES } from '../app/content/service-pages'
+import { servicePageJsonLd } from '../app/content/structured-data'
 import { pageMeta } from '../app/lib/seo'
+import { listOf } from '../app/lib/text'
 import { TOWNS } from '../app/content/towns'
 import { LEGAL_NAME, SITE, legalLine } from '../app/content/site'
 import { ANALYTICS } from '../app/lib/analytics'
 import { analyticsCsp, analyticsHostAllowed } from '../server/analytics.js'
 import { INDEXNOW_KEY, indexNowPayload } from '../scripts/indexnow'
 import { readFileSync } from 'node:fs'
+import { missingSerialCommas } from './text-checks'
 
 describe('structured data', () => {
   const blocks = homeJsonLd()
@@ -100,6 +104,79 @@ describe('pages and head tags (#684)', () => {
   })
 })
 
+// Every string in a value, however deeply nested
+function strings(value: unknown): string[] {
+  if (typeof value === 'string') return [value]
+  if (Array.isArray(value)) return value.flatMap(strings)
+  if (value && typeof value === 'object') return Object.values(value).flatMap(strings)
+  return []
+}
+
+describe('serial commas', () => {
+  test('listOf always uses one', () => {
+    expect(listOf(['A'])).toBe('A')
+    expect(listOf(['A', 'B'], 'or')).toBe('A or B')
+    expect(listOf(['A', 'B', 'C'])).toBe('A, B, and C')
+    expect(listOf(['A', 'B', 'C', 'D'], 'or')).toBe('A, B, C, or D')
+  })
+
+  test('the checker catches a missing one and passes a present one', () => {
+    expect(missingSerialCommas('Wi-Fi, cabling and software')).toEqual(['Wi-Fi, cabling and software'])
+    expect(missingSerialCommas('Wi-Fi, cabling, and software')).toEqual([])
+  })
+
+  test('none missing in the pages, service content, JSON-LD, or llms.txt', () => {
+    const text = [
+      ...strings(PAGES),
+      ...strings(SERVICE_PAGES.map(({ page, service, ...rest }) => rest)),
+      ...strings(SERVICE_PAGES.map(servicePageJsonLd)),
+      ...strings([...NETWORKING_SERVICES, ...SOFTWARE_SERVICES]),
+      ...strings(FAQ),
+      llmsTxt(),
+    ]
+    expect(text.flatMap(missingSerialCommas)).toEqual([])
+  })
+})
+
+describe('service pages', () => {
+  test('each one is a PAGES entry in the Services group, linked from its services.ts entry', () => {
+    expect(SERVICE_PAGES.map((c) => c.page.path)).toEqual(PAGES.filter((p) => p.group === 'Services').map((p) => p.path))
+    for (const c of SERVICE_PAGES) expect(c.service.href).toBe(c.page.path)
+    expect(new Set(SERVICE_PAGES.map((c) => c.id)).size).toBe(SERVICE_PAGES.length)
+  })
+
+  test('titles fit in 60 characters and name the area; descriptions fit in 160', () => {
+    for (const { page, onSite } of SERVICE_PAGES) {
+      expect(page.title.length).toBeLessThanOrEqual(60)
+      expect(page.description.length).toBeLessThanOrEqual(160)
+      if (onSite) expect(page.title).toMatch(/\bNH\b/)
+    }
+  })
+
+  test('JSON-LD: a Service from this business, plus the FAQPage built from the visible FAQ', () => {
+    for (const c of SERVICE_PAGES) {
+      const [service, faq] = servicePageJsonLd(c) as Record<string, any>[]
+      expect(service['@type']).toBe('Service')
+      expect(service.provider).toEqual({ '@id': 'https://mickeymullin.com/#business' })
+      expect(service.url).toBe(`https://mickeymullin.com${c.page.path}`)
+      expect(service.name).toBe(c.service.offer!.name)
+      if (c.onSite) expect(service.areaServed.filter((a: any) => a['@type'] === 'City').map((a: any) => a.name)).toEqual([...TOWNS])
+      else expect(service).not.toHaveProperty('areaServed')
+      const price = c.price.rows[0]
+      if (price.range) expect(service.offers.priceSpecification).toMatchObject({ minPrice: price.range[0], maxPrice: price.range[1], priceCurrency: 'USD' })
+      else expect(service).not.toHaveProperty('offers')
+      expect(faq['@type']).toBe('FAQPage')
+      expect(faq.mainEntity.map((q: any) => [q.name, q.acceptedAnswer.text])).toEqual(c.faq.map((f) => [f.question, f.answer]))
+      expect(c.faq.length).toBeGreaterThanOrEqual(4)
+      expect(c.faq.length).toBeLessThanOrEqual(6)
+    }
+  })
+
+  test('prices come from the pricing table', () => {
+    for (const c of SERVICE_PAGES) for (const row of c.price.rows) expect(PRICES).toContain(row)
+  })
+})
+
 describe('generated text files', () => {
   test('robots.txt allows all crawlers and points at the sitemap', () => {
     const robots = robotsTxt()
@@ -136,6 +213,14 @@ describe('generated text files', () => {
 
   test('every dollar price in the table also appears in its llms.txt line', () => {
     for (const row of PRICES.filter((r) => r.price.startsWith('$'))) expect(row.plain).toEndWith(row.price)
+  })
+
+  test('every dollar price has a matching numeric range, for the JSON-LD offers', () => {
+    const usd = (n: number) => n.toLocaleString('en-US')
+    for (const row of PRICES) {
+      if (row.price.startsWith('$')) expect(`$${usd(row.range![0])}–${usd(row.range![1])}`).toBe(row.price)
+      else expect(row.range).toBeUndefined()
+    }
   })
 })
 
