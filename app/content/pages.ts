@@ -74,6 +74,17 @@ export const PAGES: Page[] = [
     lastmod: '2026-10-27',
   },
   {
+    path: '/networking/small-office',
+    label: 'Small-office networks',
+    group: 'Services',
+    summary:
+      'network setup for offices of 1 to 20 people: what it includes, when to call before a move, cleaning up the network closet, what ongoing support is and is not offered, the hand-off, and the usual parts of the price',
+    title: 'Small Business Network Setup | Manchester, NH',
+    description:
+      'Office network installation for 1 to 20 people: internet, firewall, switching, Wi-Fi, and a closet someone else can make sense of. Manchester and southern NH.',
+    lastmod: '2026-10-27',
+  },
+  {
     path: '/software/mockup-to-production',
     label: 'Mockup to production',
     group: 'Services',

@@ -46,9 +46,14 @@ export const NETWORKING_SERVICES: Service[] = [
   },
   {
     name: "Small-office networks",
+    href: '/networking/small-office',
     blurb:
       "Internet, firewall, switching, and Wi-Fi for a new or reorganized office, plus a rack that someone else can make sense of.",
-    offer: { name: "Small-office network setup" },
+    offer: {
+      name: "Small-office network setup",
+      description:
+        'Network setup for offices of 1 to 20 people: the internet hand-off, a gateway with a firewall, switching, Wi-Fi, a guest network kept apart, and a labeled, documented equipment cabinet.',
+    },
   },
   {
     name: "Network cabling",

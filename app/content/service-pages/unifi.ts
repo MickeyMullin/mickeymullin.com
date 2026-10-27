@@ -149,5 +149,5 @@ export const UNIFI: ServicePageContent = {
     body: "The size of the space, how many people use it, and what's there now. I'll get back to you within one business day.",
     button: 'Get a quote',
   },
-  related: ['/networking/wifi', '/networking/troubleshooting'],
+  related: ['/networking/wifi', '/networking/small-office', '/networking/troubleshooting'],
 }

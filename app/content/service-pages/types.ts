@@ -35,8 +35,10 @@ export type ServicePageContent = {
   // What you get, in two or three sentences
   intro: string
   sections: Section[]
-  // The first row is the service's own price; one with a range becomes the JSON-LD offer
-  price: { heading: string; rows: PriceRow[]; notes: string[] }
+  // The first row is the service's own price; one with a range becomes the JSON-LD offer.
+  // `parts` marks rows that are the usual parts of the job rather than its own price,
+  // so there is no offer.
+  price: { heading: string; rows: PriceRow[]; notes: string[]; parts?: true }
   // Shown on the page and in the FAQPage JSON-LD
   faq: FaqItem[]
   cta: { heading: string; body: string; button: string }

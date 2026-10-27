@@ -27,6 +27,9 @@ const REVIEWED = new Set([
   'job, in your name and on',
   'on, from the domain and hosting',
   'software, including engineering and management',
+  // Small-office networks page (#708)
+  'Wi-Fi, and a rack or wall-mount',
+  'box, a consumer router or two',
 ])
 
 // "A, B and C" (no serial comma) in a list of three or more. A heuristic: it

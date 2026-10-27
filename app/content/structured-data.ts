@@ -139,7 +139,7 @@ export function servicePageJsonLd(content: ServicePageContent) {
   const url = absoluteUrl(content.page.path)
   const { offer } = content.service
   if (!offer?.description) throw new Error(`${content.service.name} needs an offer with a description`)
-  const price = content.price.rows[0]
+  const price = content.price.parts ? undefined : content.price.rows[0]
   return [
     {
       '@context': 'https://schema.org',

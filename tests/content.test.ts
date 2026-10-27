@@ -163,7 +163,7 @@ describe('service pages', () => {
       if (c.onSite) expect(service.areaServed.filter((a: any) => a['@type'] === 'City').map((a: any) => a.name)).toEqual([...TOWNS])
       else expect(service).not.toHaveProperty('areaServed')
       const price = c.price.rows[0]
-      if (price.range) expect(service.offers.priceSpecification).toMatchObject({ minPrice: price.range[0], maxPrice: price.range[1], priceCurrency: 'USD' })
+      if (price.range && !c.price.parts) expect(service.offers.priceSpecification).toMatchObject({ minPrice: price.range[0], maxPrice: price.range[1], priceCurrency: 'USD' })
       else expect(service).not.toHaveProperty('offers')
       expect(faq['@type']).toBe('FAQPage')
       expect(faq.mainEntity.map((q: any) => [q.name, q.acceptedAnswer.text])).toEqual(c.faq.map((f) => [f.question, f.answer]))
