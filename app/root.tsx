@@ -44,7 +44,7 @@ export function Layout({ children }: { children: ReactNode }) {
             defer
             src={ANALYTICS.umamiSrc}
             data-website-id={ANALYTICS.umamiId}
-            data-domains={ANALYTICS.umamiDomains || undefined}
+            data-domains={ANALYTICS.domains || undefined}
           />
         ) : null}
       </head>

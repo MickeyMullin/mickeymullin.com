@@ -12,9 +12,11 @@ export const ANALYTICS = {
   // Umami Cloud (#678, #682, #695)
   umamiSrc: 'https://cloud.umami.is/script.js',
   umamiId: '7052ef9d-7fe6-4ea4-98b7-31f2943a1f5f',
-  // Umami records visits only on these hosts, so the local preview and any
-  // other copy of the site never count.
-  umamiDomains: 'mickeymullin.com',
+  // The hosts that count, comma-separated. Umami gets it as data-domains, and
+  // startAnalytics() loads GA4 and Clarity only on these hosts, so the local
+  // preview, `react-router dev`, and any other copy of the site never send hits
+  // to the production properties (#727).
+  domains: 'mickeymullin.com',
   // Microsoft Clarity project ID (optional)
   clarity: '',
 }
@@ -25,6 +27,17 @@ export const ANALYTICS = {
 const UMAMI_CLOUD_SCRIPT = 'https://cloud.umami.is'
 const UMAMI_CLOUD_COLLECT = 'https://gateway.umami.is'
 const GTM = 'https://www.googletagmanager.com'
+
+/**
+ * Whether analytics should run on this hostname: exactly one of `cfg.domains`.
+ * An empty list allows nothing.
+ * @param {string} hostname
+ * @param {typeof ANALYTICS} cfg
+ */
+export function analyticsHostAllowed(hostname, cfg = ANALYTICS) {
+  const host = String(hostname || '').toLowerCase()
+  return Boolean(host) && cfg.domains.split(',').map((d) => d.trim().toLowerCase()).filter(Boolean).includes(host)
+}
 
 /**
  * The extra CSP sources the configured tools need.

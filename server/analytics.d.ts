@@ -4,8 +4,10 @@ export declare const ANALYTICS: {
   ga4: string
   umamiSrc: string
   umamiId: string
-  umamiDomains: string
+  domains: string
   clarity: string
 }
+
+export declare function analyticsHostAllowed(hostname: string, cfg?: typeof ANALYTICS): boolean
 
 export declare function analyticsCsp(cfg?: typeof ANALYTICS): { scriptSrc: string[]; connectSrc: string[]; imgSrc: string[] }

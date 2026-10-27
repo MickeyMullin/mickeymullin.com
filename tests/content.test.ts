@@ -9,7 +9,7 @@ import { llmsTxt, robotsTxt, sitemapXml } from '../app/content/text-files'
 import { TOWNS } from '../app/content/towns'
 import { LEGAL_NAME, SITE, legalLine } from '../app/content/site'
 import { ANALYTICS } from '../app/lib/analytics'
-import { analyticsCsp } from '../server/analytics.js'
+import { analyticsCsp, analyticsHostAllowed } from '../server/analytics.js'
 import { INDEXNOW_KEY, indexNowPayload } from '../scripts/indexnow'
 import { readFileSync } from 'node:fs'
 
@@ -91,7 +91,7 @@ describe('privacy page analytics disclosures', () => {
 
   test('every tool startAnalytics can load has a disclosure that turns on with it', () => {
     // If a new key is added to ANALYTICS, this fails until the privacy page covers it.
-    expect(Object.keys(ANALYTICS).sort()).toEqual(['clarity', 'ga4', 'umamiDomains', 'umamiId', 'umamiSrc'])
+    expect(Object.keys(ANALYTICS).sort()).toEqual(['clarity', 'domains', 'ga4', 'umamiId', 'umamiSrc'])
     const all = analyticsDisclosures({ ga4: 'G-TEST', umamiSrc: 'https://u.example/s.js', umamiId: 'id', clarity: 'c' })
     expect(all.map((d) => d.key)).toEqual(['ga4', 'umami', 'clarity'])
     for (const d of all) {
@@ -110,7 +110,7 @@ describe('privacy page analytics disclosures', () => {
 })
 
 describe('analytics CSP sources', () => {
-  const none = { ga4: '', umamiSrc: '', umamiId: '', umamiDomains: '', clarity: '' }
+  const none = { ga4: '', umamiSrc: '', umamiId: '', domains: '', clarity: '' }
 
   test('nothing configured adds nothing', () => {
     expect(analyticsCsp(none)).toEqual({ scriptSrc: [], connectSrc: [], imgSrc: [] })
@@ -141,11 +141,32 @@ describe('analytics CSP sources', () => {
   test('the committed config is Umami Cloud on the real and temporary domains only', () => {
     expect(ANALYTICS.umamiSrc).toBe('https://cloud.umami.is/script.js')
     expect(ANALYTICS.umamiId).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/)
-    expect(ANALYTICS.umamiDomains.split(',')).toContain('mickeymullin.com')
-    expect(ANALYTICS.umamiDomains).not.toContain('localhost')
-    expect(ANALYTICS.umamiDomains).not.toContain('home.vorheim.com')
+    expect(ANALYTICS.domains.split(',')).toContain('mickeymullin.com')
+    expect(ANALYTICS.domains).not.toContain('localhost')
+    expect(ANALYTICS.domains).not.toContain('home.vorheim.com')
     // the temporary domain was dropped at cutover (#690)
-    expect(ANALYTICS.umamiDomains).not.toContain('hostingersite.com')
+    expect(ANALYTICS.domains).not.toContain('hostingersite.com')
+  })
+})
+
+describe('analytics host allowlist (#727)', () => {
+  const cfg = { ga4: 'G-TEST', umamiSrc: '', umamiId: '', domains: 'mickeymullin.com', clarity: '' }
+
+  test('only the listed hosts run analytics', () => {
+    expect(analyticsHostAllowed('mickeymullin.com', cfg)).toBe(true)
+    expect(analyticsHostAllowed('MickeyMullin.com', cfg)).toBe(true)
+    for (const h of ['localhost', '127.0.0.1', 'mm.home.vorheim.com', 'x.hostingersite.com', 'evilmickeymullin.com', 'mickeymullin.com.evil.test', ''])
+      expect(analyticsHostAllowed(h, cfg)).toBe(false)
+  })
+
+  test('an empty list allows nothing', () => {
+    expect(analyticsHostAllowed('mickeymullin.com', { ...cfg, domains: '' })).toBe(false)
+  })
+
+  test('the committed config runs on the real domain only', () => {
+    expect(analyticsHostAllowed('mickeymullin.com')).toBe(true)
+    expect(analyticsHostAllowed('localhost')).toBe(false)
+    expect(analyticsHostAllowed('mm.home.vorheim.com')).toBe(false)
   })
 })
 

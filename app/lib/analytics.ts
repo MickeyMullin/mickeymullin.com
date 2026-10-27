@@ -3,7 +3,7 @@
 // is rendered into <head> by app/root.tsx (so its install check can see it); GA4
 // and Clarity load from here once their IDs are set (#692).
 
-import { ANALYTICS } from '../../server/analytics.js'
+import { ANALYTICS, analyticsHostAllowed } from '../../server/analytics.js'
 
 export { ANALYTICS }
 
@@ -32,6 +32,8 @@ export function startAnalytics() {
   if (started) return
   started = true
   const cfg = ANALYTICS
+  // Umami enforces this itself through data-domains; GA4 and Clarity don't.
+  if (!analyticsHostAllowed(location.hostname, cfg)) return
 
   if (cfg.ga4) {
     window.dataLayer = window.dataLayer || []
