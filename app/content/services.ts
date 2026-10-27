@@ -87,9 +87,14 @@ export const NETWORKING_SERVICES: Service[] = [
 export const SOFTWARE_SERVICES: Service[] = [
   {
     name: "Custom software",
+    href: '/software/custom-software',
     blurb:
       "Internal tools, portals, and dashboards that replace the spreadsheet, the whiteboard, and the sticky notes.",
-    offer: { name: "Custom software development" },
+    offer: {
+      name: "Custom software development",
+      description:
+        "Custom web apps for small businesses, such as dashboards, internal tools, job trackers, and portals for staff or customers, built in place of spreadsheets, with a fixed quote per project and the code and every account in the client's name.",
+    },
   },
   {
     name: "Mockup to production",

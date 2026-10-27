@@ -117,6 +117,17 @@ export const PAGES: Page[] = [
     lastmod: '2026-10-26',
   },
   {
+    path: '/software/custom-software',
+    label: 'Custom software',
+    group: 'Services',
+    summary:
+      'custom web apps for small businesses (internal tools, portals, and dashboards): when an off-the-shelf product is the better buy, first versions (MVPs) to test an idea, how a project goes, who builds it, who owns the code and accounts, what happens after launch, and pricing by fixed quote',
+    title: 'Custom Business Software Developer | Manchester, NH',
+    description:
+      'Custom software for small businesses: internal tools, portals, and dashboards in place of the spreadsheet. A fixed quote, and you own the code. Manchester, NH.',
+    lastmod: '2026-10-27',
+  },
+  {
     path: '/privacy',
     label: 'Privacy',
     summary: 'what the contact form collects, analytics and cookies, and how to ask for deletion',

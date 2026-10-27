@@ -2,10 +2,11 @@
 // The sections that match the home page's "last mile" callout open with the
 // same question and answer from LAST_MILE, so the two can't drift.
 
-import { AI_APP_FAQ, AI_FAQ } from '../faq'
+import { AI_APP_FAQ, AI_FAQ, OUTSIDE_NH_FAQ } from '../faq'
 import { getPage } from '../pages'
 import { priceRow } from '../pricing'
 import { LAST_MILE, type LastMileId } from '../services'
+import { OWNERSHIP } from './shared'
 import { findService, type Section, type ServicePageContent } from './types'
 
 const review = priceRow('mockup')
@@ -75,15 +76,7 @@ export const MOCKUP_TO_PRODUCTION: ServicePageContent = {
         { lead: 'A written runbook:', text: 'how to deploy, how to restore from a backup, and where every account lives.' },
       ],
     }),
-    {
-      id: 'ownership',
-      eyebrow: 'Ownership',
-      heading: "Who owns it when we're done?",
-      body: [
-        'You do. The code lives in your GitHub account, and every account the app depends on, from the domain and hosting to the email and the database, is in your name and on your billing.',
-        'If we stop working together, nothing has to be handed back, because none of it was ever mine.',
-      ],
-    },
+    OWNERSHIP,
     {
       id: 'how-it-goes',
       eyebrow: 'How it goes',
@@ -121,11 +114,7 @@ export const MOCKUP_TO_PRODUCTION: ServicePageContent = {
       answer:
         'Yes: HubSpot, Salesforce, Zoho, Pipedrive, or another CRM with an API. New leads and orders flow in on their own, so nobody enters them twice.',
     },
-    {
-      question: 'Do you work with clients outside New Hampshire?',
-      answer:
-        "For software, yes. I'm based in Manchester, NH, and software work doesn't need me on site. Network installs and troubleshooting are on site in southern New Hampshire.",
-    },
+    OUTSIDE_NH_FAQ,
     AI_FAQ,
   ],
   cta: {

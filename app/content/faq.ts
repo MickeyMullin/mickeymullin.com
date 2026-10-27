@@ -33,6 +33,13 @@ export const AI_APP_FAQ: FaqItem = {
     'Usually, yes. I start with a free review of what you have: what works, what is risky, and what is missing, such as the domain, hosting, logins, email, CRM, and security. Then you get a fixed quote to finish it. Sometimes rebuilding one piece costs less than patching it, and I will tell you when that is the case. You keep the code, and every account is in your name.',
 }
 
+// On the software pages, not the home page
+export const OUTSIDE_NH_FAQ: FaqItem = {
+  question: 'Do you work with clients outside New Hampshire?',
+  answer:
+    "For software, yes. I'm based in Manchester, NH, and software work doesn't need me on site. Network installs and troubleshooting are on site in southern New Hampshire.",
+}
+
 export const ELECTRICAL_FAQ: FaqItem = {
   question: 'Do you do electrical work?',
   answer:
