@@ -175,7 +175,7 @@ describe('pre-rendered home page', () => {
     expect(directive('connect-src')).toBe(
       "connect-src 'self' https://gateway.umami.is https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com",
     )
-    expect(directive('img-src')).toBe("img-src 'self' data: https://*.google-analytics.com https://*.googletagmanager.com")
+    expect(directive('img-src')).toBe("img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com")
   })
 
   test('every page carries the Umami tag in <head>, limited to the real domain', () => {
