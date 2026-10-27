@@ -24,24 +24,32 @@ export const ANALYTICS = {
 // receives them on the host that serves the script.
 const UMAMI_CLOUD_SCRIPT = 'https://cloud.umami.is'
 const UMAMI_CLOUD_COLLECT = 'https://gateway.umami.is'
+const GTM = 'https://www.googletagmanager.com'
 
 /**
  * The extra CSP sources the configured tools need.
  * @param {typeof ANALYTICS} cfg
- * @returns {{ scriptSrc: string[], connectSrc: string[] }}
+ * @returns {{ scriptSrc: string[], connectSrc: string[], imgSrc: string[] }}
  */
 export function analyticsCsp(cfg = ANALYTICS) {
   const scriptSrc = []
   const connectSrc = []
+  const imgSrc = []
   if (cfg.umamiSrc && cfg.umamiId) {
     const origin = new URL(cfg.umamiSrc).origin
     scriptSrc.push(origin)
     connectSrc.push(origin === UMAMI_CLOUD_SCRIPT ? UMAMI_CLOUD_COLLECT : origin)
   }
-  // Their hosts haven't been checked against the live scripts yet. Fail the
+  // GA4 without Google Ads features, per Google's CSP guide
+  // (developers.google.com/tag-platform/security/guides/csp#google_analytics).
+  if (cfg.ga4) {
+    scriptSrc.push(GTM)
+    imgSrc.push(GTM, 'https://*.google-analytics.com')
+    connectSrc.push(GTM, 'https://*.google-analytics.com', 'https://*.google.com')
+  }
+  // Clarity's hosts haven't been checked against its live script yet. Fail the
   // build's tests and the server's startup instead of shipping a CSP that
-  // silently blocks them.
-  if (cfg.ga4) throw new Error('analytics: add the GA4 hosts to analyticsCsp before setting ga4 (#692)')
+  // silently blocks it.
   if (cfg.clarity) throw new Error('analytics: add the Clarity hosts to analyticsCsp before setting clarity')
-  return { scriptSrc, connectSrc }
+  return { scriptSrc, connectSrc, imgSrc }
 }

@@ -134,7 +134,7 @@ export function createApp({
           scriptSrcAttr: ["'none'"],
           styleSrc: ["'self'"],
           fontSrc: ["'self'"],
-          imgSrc: ["'self'", 'data:'],
+          imgSrc: ["'self'", 'data:', ...analytics.imgSrc],
           connectSrc: ["'self'", ...analytics.connectSrc],
           manifestSrc: ["'self'"],
           formAction: ["'self'"],

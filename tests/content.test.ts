@@ -113,21 +113,28 @@ describe('analytics CSP sources', () => {
   const none = { ga4: '', umamiSrc: '', umamiId: '', umamiDomains: '', clarity: '' }
 
   test('nothing configured adds nothing', () => {
-    expect(analyticsCsp(none)).toEqual({ scriptSrc: [], connectSrc: [] })
+    expect(analyticsCsp(none)).toEqual({ scriptSrc: [], connectSrc: [], imgSrc: [] })
   })
 
   test('Umami Cloud: script from cloud.umami.is, visits sent to gateway.umami.is', () => {
     const cloud = { ...none, umamiSrc: 'https://cloud.umami.is/script.js', umamiId: 'id' }
-    expect(analyticsCsp(cloud)).toEqual({ scriptSrc: ['https://cloud.umami.is'], connectSrc: ['https://gateway.umami.is'] })
+    expect(analyticsCsp(cloud)).toEqual({ scriptSrc: ['https://cloud.umami.is'], connectSrc: ['https://gateway.umami.is'], imgSrc: [] })
   })
 
   test('self-hosted Umami: script and visits on its own host', () => {
     const own = { ...none, umamiSrc: 'https://umami.example.com/script.js', umamiId: 'id' }
-    expect(analyticsCsp(own)).toEqual({ scriptSrc: ['https://umami.example.com'], connectSrc: ['https://umami.example.com'] })
+    expect(analyticsCsp(own)).toEqual({ scriptSrc: ['https://umami.example.com'], connectSrc: ['https://umami.example.com'], imgSrc: [] })
   })
 
-  test('GA4 or Clarity without checked hosts fails loudly instead of being blocked silently', () => {
-    expect(() => analyticsCsp({ ...none, ga4: 'G-TEST' })).toThrow('#692')
+  test('GA4 (no Ads features): Google tag script, collection on google-analytics.com', () => {
+    expect(analyticsCsp({ ...none, ga4: 'G-TEST' })).toEqual({
+      scriptSrc: ['https://www.googletagmanager.com'],
+      connectSrc: ['https://www.googletagmanager.com', 'https://*.google-analytics.com', 'https://*.google.com'],
+      imgSrc: ['https://www.googletagmanager.com', 'https://*.google-analytics.com'],
+    })
+  })
+
+  test('Clarity without checked hosts fails loudly instead of being blocked silently', () => {
     expect(() => analyticsCsp({ ...none, clarity: 'c' })).toThrow('Clarity')
   })
 

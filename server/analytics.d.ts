@@ -8,4 +8,4 @@ export declare const ANALYTICS: {
   clarity: string
 }
 
-export declare function analyticsCsp(cfg?: typeof ANALYTICS): { scriptSrc: string[]; connectSrc: string[] }
+export declare function analyticsCsp(cfg?: typeof ANALYTICS): { scriptSrc: string[]; connectSrc: string[]; imgSrc: string[] }
