@@ -5,6 +5,7 @@ import { CABLING } from './cabling'
 import { CONTRACTORS } from './contractors'
 import { CUSTOM_SOFTWARE } from './custom-software'
 import { INTEGRATIONS } from './integrations-automation'
+import { INTERNET_FAILOVER } from './internet-failover'
 import { MOCKUP_TO_PRODUCTION } from './mockup-to-production'
 import { SMALL_OFFICE } from './small-office'
 import { TROUBLESHOOTING } from './troubleshooting'
@@ -14,4 +15,4 @@ import { WEBSITES } from './websites'
 import { WIFI } from './wifi'
 import { WIRELESS_BRIDGES } from './wireless-bridges'
 
-export const SERVICE_PAGES: ServicePageContent[] = [TROUBLESHOOTING, WIFI, UNIFI, SMALL_OFFICE, CABLING, WIRELESS_BRIDGES, CONTRACTORS, MOCKUP_TO_PRODUCTION, CUSTOM_SOFTWARE, INTEGRATIONS, WEBSITES]
+export const SERVICE_PAGES: ServicePageContent[] = [TROUBLESHOOTING, WIFI, UNIFI, SMALL_OFFICE, CABLING, WIRELESS_BRIDGES, INTERNET_FAILOVER, CONTRACTORS, MOCKUP_TO_PRODUCTION, CUSTOM_SOFTWARE, INTEGRATIONS, WEBSITES]

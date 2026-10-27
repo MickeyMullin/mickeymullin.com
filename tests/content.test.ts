@@ -40,6 +40,7 @@ describe('structured data', () => {
       'Small-office network setup',
       'Network cabling',
       'Point-to-point wireless bridge installation',
+      'Internet failover setup',
       'Low-voltage network subcontracting for general contractors',
       'Custom software development',
       'AI prototype to production',

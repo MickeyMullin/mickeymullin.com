@@ -78,7 +78,13 @@ export const NETWORKING_SERVICES: Service[] = [
   },
   {
     name: 'Internet failover',
+    href: '/networking/internet-failover',
     blurb: 'Automatic backup internet for when the main line goes down.',
+    offer: {
+      name: 'Internet failover setup',
+      description:
+        'Dual WAN internet failover for small businesses and home offices: a backup connection from a second wired provider, a cellular (LTE or 5G) plan, or satellite, with the gateway set to switch to it when the main line stops answering.',
+    },
   },
   {
     name: "For general contractors",

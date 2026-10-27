@@ -107,6 +107,17 @@ export const PAGES: Page[] = [
     lastmod: '2026-10-27',
   },
   {
+    path: '/networking/internet-failover',
+    label: 'Internet failover',
+    group: 'Services',
+    summary:
+      'dual WAN internet failover for small businesses: what failover is and how the switch works, the choice of backup (a second wired provider, a cellular plan, or satellite), what keeps working during an outage, who needs it, how the switch-over is tested, what to do about power, the hand-off, and how the job is quoted',
+    title: 'Internet Failover & Backup Internet | Manchester, NH',
+    description:
+      'Dual WAN internet failover for small businesses: a cellular, satellite, or second-provider backup line the gateway can switch to when the main line goes down.',
+    lastmod: '2026-10-27',
+  },
+  {
     path: '/networking/contractors',
     label: 'For general contractors',
     group: 'Services',
