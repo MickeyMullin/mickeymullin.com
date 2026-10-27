@@ -108,7 +108,7 @@ export const WEBSITES: ServicePageContent = {
     offer: priceRow('website'),
     column: 'Fixed price',
     notes: [
-      'Each package is a fixed price. Starter covers Home, Services, Areas, and Contact, plus everything under “What do I get?” above. Standard adds 2 more pages, such as About, a single service, or a second location.',
+      'Each package is a fixed price. Starter covers up to 4 pages, such as Home, Services, Areas, and Contact, plus everything under “What do I get?” above. Standard adds up to 2 more pages, such as About, a single service, or a second location.',
       "Before I quote, the written scope lists the pages and what's included, so the price is settled before work starts.",
       "Domain registration and hosting aren't part of the fixed price. They bill to you directly, in your name.",
       'Also outside the fixed price: copywriting beyond light editing of the text you provide, photography, stock images beyond free sources, and ongoing updates after launch.',
