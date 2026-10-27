@@ -14,14 +14,14 @@ export const WIRELESS_BRIDGES: ServicePageContent = {
   eyebrow: 'Wireless bridges · Manchester, NH',
   h1: 'Point-to-point wireless bridges to the barn, the shop, or the second building',
   intro:
-    "Where there's a clear line of sight between the buildings, I mount a pair of outdoor radios, one on each, and aim them at each other, so your network reaches the barn, detached garage, shop, or second house without trenching a cable. At the far end, a switch, an access point, or both give that building wired ports and Wi-Fi. You get the admin logins, a labeled port map, and a one-page summary of how it's set up.",
+    "Where there's a clear line of sight between the buildings, I mount a pair of outdoor radios, one on each, and aim them at each other, so your network reaches the barn, detached garage, shop, or second house without trenching a cable. At the far end, a switch gives that building wired ports, and an access point gives it Wi-Fi. You get the admin logins, a labeled port map, and a one-page summary of how it's set up.",
   sections: [
     {
       id: 'what',
       heading: 'What is a point-to-point wireless bridge?',
       body: [
         'Two outdoor radios, one on each building, aimed at each other. They carry your network across the gap the way a cable would, only through the air.',
-        'At the far end, the radio connects to a switch, an access point, or both. The barn, garage, shop, or second house gets wired ports for a computer or a printer, and Wi-Fi for phones and laptops.',
+        'At the far end, the radio connects to the network equipment that building needs: a switch for wired ports and an access point for Wi-Fi.',
         "It extends the internet you already have. It isn't a second internet line: when the service at the main building goes down, the far building loses it too.",
       ],
     },
@@ -32,7 +32,7 @@ export const WIRELESS_BRIDGES: ServicePageContent = {
         "It depends mostly on line of sight: whether the two radios can see each other from where they'd mount. Trees, a rise in the ground, or another building in between can weaken the link or block it.",
         'Leaves count. A path that looks clear in March can look very different in July, so I plan for the trees with their leaves on.',
         "For the short distances between buildings on one property, the view usually matters more than the distance. On a clear path, a bridge usually carries a typical home or small-office internet connection with room to spare. I don't promise a speed before I've seen the path.",
-        "I check the line of sight on site before quoting. If there's no clear path, I'll say so, and we'll talk about the alternative: cable or fiber in buried conduit between the buildings. That's more work, but a buried line doesn't care about trees. I don't dig trenches; the cable side is network cabling.",
+        "I check the line of sight on site before quoting. If there's no clear path, I'll say so, and we can talk about the alternatives, including cable in buried conduit between the buildings. That's more work, but a buried line doesn't care about trees. I don't dig trenches, so that option gets scoped separately.",
       ],
       more: { href: '/networking/cabling', text: 'More about network cabling' },
     },
@@ -40,7 +40,7 @@ export const WIRELESS_BRIDGES: ServicePageContent = {
       id: 'mesh-or-bridge',
       heading: "Can't I just use a mesh unit or an extender?",
       body: [
-        'You can try. An indoor mesh unit or extender has to get its signal through the walls of both buildings and across the yard, and it usually struggles. The signal at the far end tends to be weak. It comes and goes.',
+        'You can try. An indoor mesh unit or extender has to get its signal through the walls of both buildings and across the yard, and it usually struggles. The signal at the far end tends to be weak. It may come and go.',
         "A bridge is built for the gap. The radios mount outside and aim straight at each other, with no walls in the way, so the link is usually much steadier.",
         "If the other building is close and an outdoor access point at the main building already reaches it, that may be all you need, and I'll say so.",
       ],
@@ -78,14 +78,14 @@ export const WIRELESS_BRIDGES: ServicePageContent = {
       heading: 'Is a wireless bridge secure?',
       body: [
         "The two radios are set up to talk only to each other, over an encrypted link, and they're part of your own network, not a public hotspot.",
-        "Like any network equipment, the radios have admin logins. They're set up in your name, the firmware is updated before hand-off, and the logins are handed over with everything else.",
+        "Like any network equipment, the radios have admin logins. They're set up in your name, and the logins are handed over with everything else.",
       ],
     },
     {
       id: 'equipment',
       heading: 'What equipment do you use?',
       body: [
-        "Usually Ubiquiti radios, from the same maker as the UniFi equipment I usually use for the rest of the network. I pick the radios once I've seen the distance and the path. I'm an independent installer, not affiliated with Ubiquiti.",
+        "I choose the radios after checking the distance and the path. For the rest of the network, I usually use UniFi equipment. I'm an independent installer, not affiliated with Ubiquiti.",
       ],
       more: { href: '/networking/unifi', text: 'More about UniFi installs' },
     },
@@ -108,7 +108,7 @@ export const WIRELESS_BRIDGES: ServicePageContent = {
     heading: 'What does it cost?',
     rows: [],
     notes: [
-      "A wireless bridge doesn't have a price range of its own. It depends on the buildings and the path between them, so it's quoted after a site visit to check the line of sight.",
+      'I quote a wireless bridge after a site visit to check the buildings and the line of sight between them.',
       'Hardware is separate from labor. It is billed at cost plus a small markup, or you can buy it yourself from a parts list. Jobs with hardware take a 50% deposit on the equipment; the rest is due on completion.',
       'Every job gets a written quote, with labor and hardware itemized, before any work starts.',
     ],

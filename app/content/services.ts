@@ -73,7 +73,7 @@ export const NETWORKING_SERVICES: Service[] = [
     offer: {
       name: 'Point-to-point wireless bridge installation',
       description:
-        'Point-to-point wireless bridges that carry a home or small-office network to a barn, detached garage, shop, or second building without trenching, where there is a clear line of sight. A switch or access point at the far end gives that building wired ports and Wi-Fi.',
+        'Point-to-point wireless bridges that carry a home or small-office network to a barn, detached garage, shop, or second building without trenching, where there is a clear line of sight. At the far end, a switch can provide wired ports, and an access point can provide Wi-Fi.',
     },
   },
   {

@@ -21,7 +21,7 @@ export const INTERNET_FAILOVER: ServicePageContent = {
       id: 'what',
       heading: 'What is internet failover?',
       body: [
-        'Your network gets a second internet connection, plugged into a gateway that can use two. That is what dual WAN means: two internet connections on one gateway: a main line and a backup.',
+        'Your network gets a second internet connection, plugged into a gateway that can use two. That is what dual WAN means: a main line and a backup on one gateway.',
         'The gateway keeps checking the main line. When it stops answering, the gateway moves your traffic to the backup. When the main line comes back, it moves the traffic back. Nobody has to be there to swap a cable.',
         "The switch usually takes somewhere from a few seconds to a minute or so, depending on the equipment and how the checks are set. What it catches depends on those checks, too. A line that's down is easy to spot. A line that's up but crawling may not trigger a switch.",
         "If the gateway you have can't handle two connections, I'll tell you, and quote one that can.",
@@ -64,7 +64,7 @@ export const INTERNET_FAILOVER: ServicePageContent = {
         'A camera or a server that people reach from outside the building.',
       ],
       after: [
-        "If any of those matter, tell me, and I'll work out what can be set up to use the backup. On a capped cellular plan, I can also limit data-heavy traffic, such as cloud backups and large updates, to save the plan for the work that needs it.",
+        "If any of those matter, tell me, and I'll work out what can be set up to use the backup. On a capped cellular plan, where the gateway supports it, I can also limit data-heavy traffic, such as cloud backups and large updates, to save the plan for the work that needs it.",
       ],
     },
     {
@@ -87,16 +87,16 @@ export const INTERNET_FAILOVER: ServicePageContent = {
       heading: 'How do I know the backup is working?',
       body: [
         'Before hand-off, I test it the plain way: unplug the main line and watch the gateway move to the backup, then plug it back in and watch it move back.',
-        'Where the gateway supports it, I also set up a notification for when it switches over, so the switch is not silent.',
-        "After that, check every so often that the backup's plan is still active and paid. Cellular plans in particular can lapse, and a lapsed plan often goes unnoticed until the day it's needed.",
+        'Where the gateway supports it, I also set up a notification for when it switches over.',
+        "After that, check every so often that the backup's plan is still active and paid. Cellular plans in particular can lapse, leaving the backup unavailable when it's needed.",
       ],
     },
     {
       id: 'power',
       heading: 'What about a power outage?',
       body: [
-        'Failover does not help when the power goes out. The modem, the gateway, and the switch go dark with everything else.',
-        'A UPS, a battery backup that plugs into an outlet, keeps them running for a while. I can include a plug-in UPS for the network equipment. A new outlet or circuit for it is electrical work, so it goes to a licensed electrician.',
+        'A power outage can take the network equipment offline, so a backup line alone may not help.',
+        "A UPS, a battery backup that plugs into an outlet, can keep the modem, the gateway, and the switch running for a while, if it is sized for them. The connection also depends on the provider's equipment staying up. I can include a plug-in UPS for the network equipment. A new outlet or circuit for it is electrical work, so it goes to a licensed electrician.",
       ],
     },
     {
@@ -118,7 +118,7 @@ export const INTERNET_FAILOVER: ServicePageContent = {
     heading: 'What does it cost?',
     rows: [],
     notes: [
-      "Failover doesn't have a price range of its own. It depends on the gateway and the lines you already have, so it's quoted after a look at your current setup.",
+      'I quote failover after looking at your current gateway and internet connections.',
       'Hardware is separate from labor. It is billed at cost plus a small markup, or you can buy it yourself from a parts list. Jobs with hardware take a 50% deposit on the equipment; the rest is due on completion.',
       'The backup line is your own account with the provider, and they bill you directly. Every job gets a written quote, with labor and hardware itemized, before any work starts.',
     ],
@@ -127,7 +127,7 @@ export const INTERNET_FAILOVER: ServicePageContent = {
     {
       question: 'Will failover keep us online through every outage?',
       answer:
-        "No. It covers the main line going down, and the switch usually takes from a few seconds to a minute or so. It doesn't help in a power outage without a UPS, and a slow line that's still up may not trigger it.",
+        "No. It covers the main line going down, and the switch usually takes from a few seconds to a minute or so. A slow line that's still up may not trigger it. In a power outage, a UPS can keep your own equipment running for a while, but the provider's connection also has to stay up.",
     },
     {
       question: 'What is dual WAN?',
@@ -137,7 +137,7 @@ export const INTERNET_FAILOVER: ServicePageContent = {
     {
       question: 'Is cellular backup internet good enough?',
       answer:
-        'For keeping card terminals, email, and VoIP going through an outage, usually, if the signal is decent where the modem sits. Many cellular plans have data caps, so I can limit data-heavy traffic on the backup.',
+        'For keeping card terminals, email, and VoIP going through an outage, usually, if the signal is decent where the modem sits. Many cellular plans have data caps, so where the gateway supports it, I can limit data-heavy traffic on the backup.',
     },
     {
       question: 'Do you sign us up with the backup provider?',

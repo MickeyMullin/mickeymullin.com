@@ -198,6 +198,11 @@ describe('service pages', () => {
       expect(website.plain).toContain(text)
     for (const row of WEBSITE_PACKAGES) expect(row.plain).toEndWith(row.price)
   })
+
+  test('only the quoted-on-site pages have no price rows', () => {
+    const unpriced = SERVICE_PAGES.filter((c) => c.price.rows.length === 0).map((c) => c.page.path).sort()
+    expect(unpriced).toEqual(['/networking/internet-failover', '/networking/wireless-bridges'])
+  })
 })
 
 describe('generated text files', () => {
