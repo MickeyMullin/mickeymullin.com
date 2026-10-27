@@ -85,6 +85,17 @@ export const PAGES: Page[] = [
     lastmod: '2026-10-27',
   },
   {
+    path: '/networking/cabling',
+    label: 'Network cabling',
+    group: 'Services',
+    summary:
+      'Cat6 network cabling: what a job includes, how it is installed (plenum or riser cable, firestopping, and J-hooks), how every run is tested and labeled, certification testing, electrical work, cabling in older buildings and finished walls, and pricing',
+    title: 'Network Cabling & Cat6 Installation | Manchester, NH',
+    description:
+      'Cat6 network cabling for small offices: runs to a patch panel, jacks, and wall plates. Every run tested and labeled at both ends. Manchester and southern NH.',
+    lastmod: '2026-10-27',
+  },
+  {
     path: '/software/mockup-to-production',
     label: 'Mockup to production',
     group: 'Services',

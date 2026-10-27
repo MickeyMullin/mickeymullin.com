@@ -30,6 +30,9 @@ const REVIEWED = new Set([
   // Small-office networks page (#708)
   'Wi-Fi, and a rack or wall-mount',
   'box, a consumer router or two',
+  // Network cabling page (#709)
+  'installation, tested and labeled',
+  'Manchester, NH Network cabling and Cat6',
 ])
 
 // "A, B and C" (no serial comma) in a list of three or more. A heuristic: it

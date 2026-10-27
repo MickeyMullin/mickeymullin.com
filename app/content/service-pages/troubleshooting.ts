@@ -123,5 +123,5 @@ export const TROUBLESHOOTING: ServicePageContent = {
     body: "What drops, when, and where. I'll get back to you within one business day.",
     button: 'Set up a visit',
   },
-  related: ['/networking/wifi', '/networking/unifi'],
+  related: ['/networking/wifi', '/networking/unifi', '/networking/cabling'],
 }

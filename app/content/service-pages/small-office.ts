@@ -115,5 +115,5 @@ export const SMALL_OFFICE: ServicePageContent = {
     body: "How many people, where it is, and whether you're moving in or sorting out what's there. I'll get back to you within one business day.",
     button: 'Set up a site walk',
   },
-  related: ['/networking/unifi', '/networking/wifi'],
+  related: ['/networking/unifi', '/networking/cabling', '/networking/wifi'],
 }

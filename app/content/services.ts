@@ -57,9 +57,14 @@ export const NETWORKING_SERVICES: Service[] = [
   },
   {
     name: "Network cabling",
+    href: '/networking/cabling',
     blurb:
       "Cat6 drops, jacks, and patch panels, tested and labeled. Power work goes to a licensed electrician.",
-    offer: { name: "Network cabling" },
+    offer: {
+      name: "Network cabling",
+      description:
+        'Cat6 network cabling for small offices and homes, with every run terminated at a patch panel, tested for wire map and length, and labeled at both ends.',
+    },
   },
   {
     name: "Wireless bridges & failover",
