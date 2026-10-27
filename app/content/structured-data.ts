@@ -1,11 +1,14 @@
 // JSON-LD for the home page: ProfessionalService (with OfferCatalog), Person, WebSite, FAQPage.
+// Inner pages get a BreadcrumbList (app/lib/seo.ts adds it) and point back to
+// the business by its @id.
 
-import { FAQ } from './faq'
+import { FAQ, type FaqItem } from './faq'
+import type { Page } from './pages'
 import { OFFERS } from './services'
-import { LEGAL_NAME, SITE } from './site'
+import { LEGAL_NAME, SITE, absoluteUrl } from './site'
 import { REGION, STATE, TOWNS } from './towns'
 
-const BUSINESS_ID = `${SITE.url}#business`
+export const BUSINESS_ID = `${SITE.url}#business`
 const PERSON_ID = `${SITE.url}#mickey`
 const WEBSITE_ID = `${SITE.url}#website`
 
@@ -26,14 +29,7 @@ export function homeJsonLd() {
       logo: SITE.logo,
       priceRange: '$$',
       founder: { '@id': PERSON_ID },
-      areaServed: [
-        { '@type': 'AdministrativeArea', name: REGION },
-        ...TOWNS.map((name) => ({
-          '@type': 'City',
-          name,
-          containedInPlace: { '@type': 'State', name: STATE },
-        })),
-      ],
+      areaServed: areaServed(),
       knowsAbout: [
         'Business Wi-Fi',
         'Home Wi-Fi',
@@ -94,14 +90,45 @@ export function homeJsonLd() {
       url: SITE.url,
       publisher: { '@id': BUSINESS_ID },
     },
-    {
-      '@context': 'https://schema.org',
-      '@type': 'FAQPage',
-      mainEntity: FAQ.map(({ question, answer }) => ({
-        '@type': 'Question',
-        name: question,
-        acceptedAnswer: { '@type': 'Answer', text: answer },
-      })),
-    },
+    faqPageJsonLd(FAQ),
   ]
+}
+
+// The on-site service area: southern NH and each town in it.
+export function areaServed() {
+  return [
+    { '@type': 'AdministrativeArea', name: REGION },
+    ...TOWNS.map((name) => ({
+      '@type': 'City',
+      name,
+      containedInPlace: { '@type': 'State', name: STATE },
+    })),
+  ]
+}
+
+// Built from the same items the page shows, so the two cannot drift.
+export function faqPageJsonLd(items: FaqItem[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map(({ question, answer }) => ({
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: { '@type': 'Answer', text: answer },
+    })),
+  }
+}
+
+// Home → page. The section pages (/networking, /software) don't exist yet, and
+// Google only accepts a ListItem without `item` in last place, so the section
+// level is left out until those pages are built.
+export function breadcrumbJsonLd(page: Page) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: SITE.url },
+      { '@type': 'ListItem', position: 2, name: page.label, item: absoluteUrl(page.path) },
+    ],
+  }
 }

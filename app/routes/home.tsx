@@ -11,31 +11,14 @@ import { Process } from '../components/home/Process'
 import { ServiceArea } from '../components/home/ServiceArea'
 import { Software } from '../components/home/Software'
 import { getPage } from '../content/pages'
-import { SITE, absoluteUrl } from '../content/site'
 import { homeJsonLd } from '../content/structured-data'
 import { handleContact } from '../lib/contact.server'
 import { defaultMailSetup } from '../lib/mailer.server'
+import { pageMeta } from '../lib/seo'
 
 const page = getPage('/')
 
-export const meta: Route.MetaFunction = () => [
-  { title: page.title },
-  { name: 'description', content: page.description },
-  { name: 'author', content: SITE.name },
-  { tagName: 'link', rel: 'canonical', href: absoluteUrl(page.path) },
-  { name: 'robots', content: 'index, follow, max-image-preview:large' },
-  { property: 'og:type', content: 'website' },
-  { property: 'og:site_name', content: SITE.name },
-  { property: 'og:locale', content: 'en_US' },
-  { property: 'og:url', content: absoluteUrl(page.path) },
-  { property: 'og:title', content: page.ogTitle },
-  { property: 'og:description', content: page.ogDescription },
-  { property: 'og:image', content: SITE.ogImage },
-  { name: 'twitter:card', content: 'summary_large_image' },
-  { name: 'twitter:site', content: SITE.twitter },
-  { name: 'twitter:creator', content: SITE.twitter },
-  { 'script:ld+json': homeJsonLd() },
-]
+export const meta: Route.MetaFunction = () => pageMeta(page, { jsonLd: homeJsonLd() })
 
 // The contact form posts here (works without JavaScript).
 export async function action({ request, context }: Route.ActionArgs) {

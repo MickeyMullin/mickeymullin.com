@@ -1,26 +1,12 @@
 import type { Route } from './+types/privacy'
 import { getPage } from '../content/pages'
 import { PRIVACY_UPDATED, analyticsDisclosures } from '../content/privacy'
-import { LEGAL_NAME, SITE, absoluteUrl } from '../content/site'
+import { LEGAL_NAME, SITE } from '../content/site'
+import { pageMeta } from '../lib/seo'
 
 const page = getPage('/privacy')
 
-export const meta: Route.MetaFunction = () => [
-  { title: page.title },
-  { name: 'description', content: page.description },
-  { name: 'author', content: SITE.name },
-  { tagName: 'link', rel: 'canonical', href: absoluteUrl(page.path) },
-  { name: 'robots', content: 'index, follow' },
-  { property: 'og:type', content: 'website' },
-  { property: 'og:site_name', content: SITE.name },
-  { property: 'og:locale', content: 'en_US' },
-  { property: 'og:url', content: absoluteUrl(page.path) },
-  { property: 'og:title', content: page.ogTitle },
-  { property: 'og:description', content: page.ogDescription },
-  { property: 'og:image', content: SITE.ogImage },
-  { name: 'twitter:card', content: 'summary' },
-  { name: 'twitter:site', content: SITE.twitter },
-]
+export const meta: Route.MetaFunction = () => pageMeta(page)
 
 function formatDate(iso: string) {
   return new Date(`${iso}T12:00:00Z`).toLocaleDateString('en-US', {

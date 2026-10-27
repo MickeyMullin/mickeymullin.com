@@ -35,7 +35,16 @@ ${urls}
 
 export function llmsTxt() {
   const pricing = PRICES.map((row) => `- ${row.plain}`).join('\n')
-  const pages = PAGES.map((p) => `- [${p.label}](${absoluteUrl(p.path)}): ${p.summary}`).join('\n')
+  // One section per group, in the order each group first appears in PAGES
+  const groups = [...new Set(PAGES.map((p) => p.group ?? 'Pages'))]
+  const pages = groups
+    .map((group) => {
+      const links = PAGES.filter((p) => (p.group ?? 'Pages') === group)
+        .map((p) => `- [${p.label}](${absoluteUrl(p.path)}): ${p.summary}`)
+        .join('\n')
+      return `## ${group}\n${links}`
+    })
+    .join('\n\n')
   return `# ${SITE.name}: ${SITE.tagline}
 
 > Local networking, Wi-Fi, and custom software business in Manchester, New Hampshire, serving southern NH. On-site work: network troubleshooting, business and home Wi-Fi, Ubiquiti UniFi installation, small-office networks (1–20 people), Cat6 network cabling, wireless bridges and internet failover, and low-voltage network subcontracting for general contractors. Software: custom internal tools, taking AI-built prototypes to production ("last mile": custom domain and DNS, hosting, logins, Gmail / Google Workspace or Microsoft 365 email, CRM integration, security review, backups), integrations and automation, small-business websites, and MVPs. One person scopes, installs, and supports every job.
@@ -54,7 +63,6 @@ export function llmsTxt() {
 ## Typical labor pricing
 ${pricing}
 
-## Pages
 ${pages}
 `
 }

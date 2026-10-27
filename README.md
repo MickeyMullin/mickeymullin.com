@@ -22,7 +22,7 @@ app/
   routes/robots.ts, sitemap.ts, llms.ts   generated text files (pre-rendered)
   content/           all copy and data as typed modules (pages, services, pricing, FAQ, towns, JSON-LD)
   components/        header, footer, logo, and one component per home page section
-  lib/               contact form validation and sending, mailer, analytics, CSP nonce
+  lib/               contact form validation and sending, mailer, analytics, CSP nonce, head tags (seo.ts)
   entry.server.tsx   server rendering with the CSP nonce
   styles.css         the single global stylesheet (Mint Dark theme)
 public/              favicons, app icons, images (copied to build/client as-is)
@@ -38,7 +38,7 @@ docs/                Hostinger deploy runbook
 deploy/              local preview at mm.home.vorheim.com: deploy.sh, launchd template, Caddy block
 ```
 
-To add a page: create the route in `app/routes/`, register it in `app/routes.ts`, and add it to `PAGES` in `app/content/pages.ts`. That list drives pre-rendering, `sitemap.xml` and `llms.txt`.
+To add a page: add it to `PAGES` in `app/content/pages.ts`, create the route in `app/routes/` with `export const meta = () => pageMeta(page)` (from `app/lib/seo.ts`), and register it in `app/routes.ts`. `PAGES` drives pre-rendering, `sitemap.xml`, `llms.txt`, and the head tags: title, description, canonical, robots, Open Graph, Twitter card, and JSON-LD, with a BreadcrumbList on every inner page. Every page uses `SITE.ogImage` unless its entry sets `ogImage`.
 
 ## Local development
 

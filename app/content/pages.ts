@@ -1,16 +1,26 @@
 // The route list. Every page here is pre-rendered at build time and listed in
-// sitemap.xml and llms.txt. Add service, town and blog pages here as they are built.
+// sitemap.xml and llms.txt, and app/lib/seo.ts builds its head tags from it.
+// Add service, town and blog pages here as they are built.
 
 export type Page = {
   path: string
-  // Link text in llms.txt
+  // Link text in llms.txt, and the page's name in its breadcrumb
   label: string
   // What the page covers, for llms.txt
   summary: string
+  // The llms.txt heading the page is listed under (default "Pages")
+  group?: 'Services'
   title: string
   description: string
-  ogTitle: string
-  ogDescription: string
+  // Open Graph title and description, when they should differ from title and description
+  ogTitle?: string
+  ogDescription?: string
+  // Absolute URL; defaults to SITE.ogImage
+  ogImage?: string
+  // Defaults to DEFAULT_ROBOTS in app/lib/seo.ts
+  robots?: string
+  // Defaults to summary_large_image
+  twitterCard?: 'summary' | 'summary_large_image'
   lastmod: string
 }
 
@@ -34,8 +44,9 @@ export const PAGES: Page[] = [
     title: `Privacy | Mickey Mullin`,
     description:
       'What mickeymullin.com collects (the contact form, server logs, any analytics), what Mickey Mullin does with it, and how to ask for it to be deleted.',
-    ogTitle: 'Privacy | Mickey Mullin',
     ogDescription: 'What this site collects, and what I do with it.',
+    robots: 'index, follow',
+    twitterCard: 'summary',
     lastmod: '2026-10-26',
   },
 ]

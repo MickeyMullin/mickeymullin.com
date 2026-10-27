@@ -6,6 +6,7 @@ import { analyticsDisclosures } from '../app/content/privacy'
 import { OFFERS } from '../app/content/services'
 import { homeJsonLd } from '../app/content/structured-data'
 import { llmsTxt, robotsTxt, sitemapXml } from '../app/content/text-files'
+import { pageMeta } from '../app/lib/seo'
 import { TOWNS } from '../app/content/towns'
 import { LEGAL_NAME, SITE, legalLine } from '../app/content/site'
 import { ANALYTICS } from '../app/lib/analytics'
@@ -56,6 +57,49 @@ describe('structured data', () => {
   })
 })
 
+describe('pages and head tags (#684)', () => {
+  const metaFor = (path: string) => pageMeta(PAGES.find((p) => p.path === path)!) as Record<string, any>[]
+  const canonical = (path: string) => metaFor(path).find((m) => m.rel === 'canonical')?.href
+
+  test('every page has a unique title, description, and canonical URL', () => {
+    for (const key of ['title', 'description'] as const) {
+      const values = PAGES.map((p) => p[key])
+      expect(new Set(values).size).toBe(values.length)
+      for (const v of values) expect(v.length).toBeGreaterThan(10)
+    }
+    const urls = PAGES.map((p) => canonical(p.path))
+    expect(urls).toEqual(PAGES.map((p) => `https://mickeymullin.com${p.path}`))
+    expect(new Set(urls).size).toBe(urls.length)
+  })
+
+  test('each page gets title, description, Open Graph, and Twitter tags', () => {
+    for (const p of PAGES) {
+      const meta = metaFor(p.path)
+      expect(meta[0]).toEqual({ title: p.title })
+      const content = (attr: string, name: string) => meta.find((m) => m[attr] === name)?.content
+      expect(content('name', 'description')).toBe(p.description)
+      expect(content('property', 'og:url')).toBe(`https://mickeymullin.com${p.path}`)
+      expect(content('property', 'og:image')).toBe(p.ogImage ?? SITE.ogImage)
+      for (const tag of ['og:type', 'og:site_name', 'og:locale', 'og:title', 'og:description']) {
+        expect(content('property', tag)).toBeString()
+      }
+      for (const tag of ['robots', 'twitter:card', 'twitter:site', 'twitter:creator']) expect(content('name', tag)).toBeString()
+    }
+  })
+
+  test('inner pages get a BreadcrumbList ending at the page itself; the home page has none', () => {
+    const jsonLd = (path: string) => (metaFor(path).find((m) => m['script:ld+json'])?.['script:ld+json'] ?? []) as any[]
+    expect(jsonLd('/').some((b) => b['@type'] === 'BreadcrumbList')).toBe(false)
+    for (const p of PAGES.filter((p) => p.path !== '/')) {
+      const crumbs = jsonLd(p.path).filter((b) => b['@type'] === 'BreadcrumbList')
+      expect(crumbs).toHaveLength(1)
+      const items = crumbs[0].itemListElement as any[]
+      expect(items[0]).toMatchObject({ position: 1, name: 'Home', item: 'https://mickeymullin.com/' })
+      expect(items.at(-1)).toMatchObject({ position: items.length, name: p.label, item: `https://mickeymullin.com${p.path}` })
+    }
+  })
+})
+
 describe('generated text files', () => {
   test('robots.txt allows all crawlers and points at the sitemap', () => {
     const robots = robotsTxt()
@@ -65,9 +109,14 @@ describe('generated text files', () => {
     expect(robots).toContain('Sitemap: https://mickeymullin.com/sitemap.xml')
   })
 
-  test('sitemap.xml lists every page', () => {
+  test('sitemap.xml lists exactly the pages, each with its lastmod', () => {
     const xml = sitemapXml()
-    for (const p of PAGES) expect(xml).toContain(`<loc>https://mickeymullin.com${p.path}</loc>`)
+    const locs = [...xml.matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])
+    expect(locs).toEqual(PAGES.map((p) => `https://mickeymullin.com${p.path}`))
+    for (const p of PAGES) {
+      expect(p.lastmod).toMatch(/^\d{4}-\d{2}-\d{2}$/)
+      expect(xml).toContain(`<loc>https://mickeymullin.com${p.path}</loc>\n    <lastmod>${p.lastmod}</lastmod>`)
+    }
   })
 
   test('llms.txt lists every page, the prices, and the service area', () => {
@@ -75,6 +124,14 @@ describe('generated text files', () => {
     for (const p of PAGES) expect(txt).toContain(`(https://mickeymullin.com${p.path})`)
     for (const row of PRICES) expect(txt).toContain(`- ${row.plain}`)
     expect(txt).toContain(`${TOWNS.join(', ')}, and nearby towns`)
+  })
+
+  test('llms.txt groups the pages, with service pages under Services', () => {
+    const txt = llmsTxt()
+    const section = (name: string) => txt.split(`\n## ${name}\n`)[1]?.split('\n\n')[0] ?? ''
+    for (const p of PAGES) {
+      expect(section(p.group ?? 'Pages')).toContain(`- [${p.label}](https://mickeymullin.com${p.path}): ${p.summary}`)
+    }
   })
 
   test('every dollar price in the table also appears in its llms.txt line', () => {

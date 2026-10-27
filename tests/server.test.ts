@@ -134,7 +134,7 @@ describe('pre-rendered home page', () => {
     expect(html).toContain('action="/?index#contact" method="post"')
   })
 
-  test('every JSON-LD block is valid JSON with the expected entities', () => {
+  test('every JSON-LD block is valid JSON with the expected entities, and no breadcrumb', () => {
     const blocks = jsonLdBlocks(html)
     expect(blocks.length).toBeGreaterThan(0)
     const parsed = blocks.flatMap((b) => [JSON.parse(b)].flat())
@@ -222,6 +222,46 @@ describe('pre-rendered home page', () => {
     const a = await fetch(`${url}${asset}`)
     expect(a.status).toBe(200)
     expect(a.headers.get('cache-control')).toBe('public, max-age=31536000, immutable')
+  })
+})
+
+describe('every page in PAGES (#684)', () => {
+  const served = new Map<string, string>()
+
+  beforeAll(async () => {
+    const { url } = await start()
+    for (const p of PAGES) {
+      const res = await fetch(`${url}${p.path}`)
+      expect(res.status).toBe(200)
+      served.set(p.path, await res.text())
+    }
+  })
+
+  test('is pre-rendered, with one H1, its own title, and its canonical URL', () => {
+    for (const p of PAGES) {
+      const file = path.join(CLIENT, p.path, 'index.html')
+      expect(fs.existsSync(file)).toBe(true)
+      const html = served.get(p.path)!
+      expect(html.match(/<h1[\s>]/g)).toHaveLength(1)
+      expect(html.match(/<link rel="canonical"[^>]*>/g)).toEqual([`<link rel="canonical" href="https://mickeymullin.com${p.path}"/>`])
+      expect(html.match(/<title>/g)).toHaveLength(1)
+    }
+  })
+
+  test('every JSON-LD block parses, and inner pages end their breadcrumb at themselves', () => {
+    for (const p of PAGES) {
+      const blocks = jsonLdBlocks(served.get(p.path)!)
+      expect(blocks.length).toBeGreaterThan(0)
+      const entities = blocks.flatMap((b) => [JSON.parse(b)].flat())
+      for (const e of entities) expect(e['@context']).toBe('https://schema.org')
+      const crumbs = entities.filter((e) => e['@type'] === 'BreadcrumbList')
+      if (p.path === '/') {
+        expect(crumbs).toHaveLength(0)
+        continue
+      }
+      expect(crumbs).toHaveLength(1)
+      expect(crumbs[0].itemListElement.at(-1).item).toBe(`https://mickeymullin.com${p.path}`)
+    }
   })
 })
 
