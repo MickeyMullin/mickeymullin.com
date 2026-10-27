@@ -73,10 +73,13 @@ export const NETWORKING_SERVICES: Service[] = [
   },
   {
     name: "For general contractors",
+    href: '/networking/contractors',
     blurb:
       "Low-voltage network sub: itemized bid, rough-in and trim-out on your schedule, port map at closeout.",
     offer: {
       name: "Low-voltage network subcontracting for general contractors",
+      description:
+        "Network cabling and Wi-Fi subcontracting for general contractors and remodelers: an itemized bid from the plans, Cat6 cabling roughed in and trimmed out on the contractor's schedule, and a tested, labeled closeout with a port map.",
     },
   },
 ];

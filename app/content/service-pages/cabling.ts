@@ -113,5 +113,5 @@ export const CABLING: ServicePageContent = {
     body: "Roughly how many, where they go, and what the building is like. I'll get back to you within one business day.",
     button: 'Get a quote',
   },
-  related: ['/networking/small-office', '/networking/unifi'],
+  related: ['/networking/small-office', '/networking/unifi', '/networking/contractors'],
 }

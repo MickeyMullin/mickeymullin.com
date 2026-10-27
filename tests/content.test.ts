@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'bun:test'
 import { FAQ } from '../app/content/faq'
 import { PAGES } from '../app/content/pages'
-import { PRICES } from '../app/content/pricing'
+import { CONTRACTOR_BID, PRICES } from '../app/content/pricing'
 import { analyticsDisclosures } from '../app/content/privacy'
 import { NETWORKING_SERVICES, OFFERS, SOFTWARE_SERVICES } from '../app/content/services'
 import { homeJsonLd } from '../app/content/structured-data'
@@ -184,7 +184,7 @@ describe('service pages', () => {
   })
 
   test('prices come from the pricing table', () => {
-    for (const c of SERVICE_PAGES) for (const row of c.price.rows) expect(PRICES).toContain(row)
+    for (const c of SERVICE_PAGES) for (const row of c.price.rows) expect([...PRICES, CONTRACTOR_BID]).toContain(row)
   })
 })
 

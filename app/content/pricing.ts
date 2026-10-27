@@ -2,7 +2,7 @@
 // a test checks that every dollar price also appears in its `plain` line, and
 // that `range` (the numbers the service pages' JSON-LD offers use) matches `price`.
 
-export type PriceId = 'troubleshooting' | 'wifi' | 'cabling' | 'software' | 'mockup'
+export type PriceId = 'troubleshooting' | 'wifi' | 'cabling' | 'software' | 'mockup' | 'bid'
 export type PriceRow = {
   id: PriceId
   job: string
@@ -52,6 +52,16 @@ export const PRICES: PriceRow[] = [
     plain: 'AI prototype to production: free review, then a fixed quote to finish',
   },
 ]
+
+// General contractor work is bid per job from the plans. Shown on the contractors
+// page only, not in the home page's table of typical ranges.
+export const CONTRACTOR_BID: PriceRow = {
+  id: 'bid',
+  job: 'Low-voltage network sub',
+  detail: 'from your plans',
+  price: 'Itemized bid',
+  plain: 'Low-voltage network subcontracting for general contractors: itemized bid from the plans',
+}
 
 export function priceRow(id: PriceId): PriceRow {
   const row = PRICES.find((r) => r.id === id)

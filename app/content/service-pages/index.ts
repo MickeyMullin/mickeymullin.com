@@ -2,6 +2,7 @@
 // group 'Services', a route in app/routes.ts, and an `href` on its services.ts entry.
 
 import { CABLING } from './cabling'
+import { CONTRACTORS } from './contractors'
 import { MOCKUP_TO_PRODUCTION } from './mockup-to-production'
 import { SMALL_OFFICE } from './small-office'
 import { TROUBLESHOOTING } from './troubleshooting'
@@ -9,4 +10,4 @@ import type { ServicePageContent } from './types'
 import { UNIFI } from './unifi'
 import { WIFI } from './wifi'
 
-export const SERVICE_PAGES: ServicePageContent[] = [TROUBLESHOOTING, WIFI, UNIFI, SMALL_OFFICE, CABLING, MOCKUP_TO_PRODUCTION]
+export const SERVICE_PAGES: ServicePageContent[] = [TROUBLESHOOTING, WIFI, UNIFI, SMALL_OFFICE, CABLING, CONTRACTORS, MOCKUP_TO_PRODUCTION]

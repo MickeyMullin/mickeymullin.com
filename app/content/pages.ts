@@ -96,6 +96,17 @@ export const PAGES: Page[] = [
     lastmod: '2026-10-27',
   },
   {
+    path: '/networking/contractors',
+    label: 'For general contractors',
+    group: 'Services',
+    summary:
+      'low-voltage network subcontracting for general contractors and remodelers: bidding from plans, working to the schedule at rough-in and trim-out, what is in the closeout, what is out of scope, and who buys the hardware',
+    title: 'Low-Voltage Network Subcontractor | Manchester, NH',
+    description:
+      'Data and Wi-Fi sub for NH general contractors: an itemized bid from your plans, rough-in and trim-out on your schedule, and a tested, labeled closeout.',
+    lastmod: '2026-10-27',
+  },
+  {
     path: '/software/mockup-to-production',
     label: 'Mockup to production',
     group: 'Services',
