@@ -10,6 +10,8 @@ import { TOWNS } from '../app/content/towns'
 import { LEGAL_NAME, SITE, legalLine } from '../app/content/site'
 import { ANALYTICS } from '../app/lib/analytics'
 import { analyticsCsp } from '../server/analytics.js'
+import { INDEXNOW_KEY, indexNowPayload } from '../scripts/indexnow'
+import { readFileSync } from 'node:fs'
 
 describe('structured data', () => {
   const blocks = homeJsonLd()
@@ -151,5 +153,20 @@ describe('legal name (the LLC behind the public name)', () => {
     if (LEGAL_NAME) expect(business.legalName).toBe(LEGAL_NAME)
     else expect(business).not.toHaveProperty('legalName')
     expect(JSON.stringify(homeJsonLd())).not.toMatch(LEGAL_NAME ? /$^/ : /Mullinnovations/)
+  })
+})
+
+describe('IndexNow (#691)', () => {
+  test('the key file is in public/ and holds exactly the key', () => {
+    expect(INDEXNOW_KEY).toMatch(/^[a-f0-9]{32}$/)
+    expect(readFileSync(`public/${INDEXNOW_KEY}.txt`, 'utf8')).toBe(INDEXNOW_KEY)
+  })
+  test('submits every sitemap URL, on the site host, with the key file as keyLocation', () => {
+    const p = indexNowPayload()
+    const locs = [...sitemapXml().matchAll(/<loc>([^<]+)<\/loc>/g)].map((m) => m[1])
+    expect(p.urlList).toEqual(locs)
+    expect(p.host).toBe(new URL(SITE.url).host)
+    expect(p.keyLocation).toBe(`${SITE.url.replace(/\/$/, '')}/${INDEXNOW_KEY}.txt`)
+    for (const u of p.urlList) expect(new URL(u).host).toBe(p.host)
   })
 })

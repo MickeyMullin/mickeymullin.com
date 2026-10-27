@@ -142,7 +142,7 @@ Luci verifies with the stage 1 checks against `https://mickeymullin.com`, plus:
 - The trust-proxy check from stage 1 (`LOG_CLIENT_IP=1`, plain and spoofed requests, then remove it).
 - A real contact submission arrives in the inbox (`info@mickeymullin.com`), and its headers show SPF, DKIM, and DMARC passing.
 - `/privacy` names each analytics tool the site loads (GA4 at least, #692). The page says the site uses analytics, and its tool list is generated from the analytics IDs baked into the build, so an empty list means the IDs are missing from this build: fix that before announcing the site. Set `PRIVACY_UPDATED` in `app/content/privacy.ts` to the launch date.
-- Search Console: submit `/sitemap.xml` and request indexing of `/` (#693). Then ping IndexNow (#691).
+- Search Console: submit `/sitemap.xml` and request indexing of `/` (#693). IndexNow (#691) runs by itself: the GitHub workflow `.github/workflows/indexnow.yml` runs `bun scripts/indexnow.ts --wait` after each push to `master` that changes `app/`, `public/`, or `server/`. The script waits until the live sitemap matches the commit, checks that the key file `/<key>.txt` is served, then submits every sitemap URL. To run it by hand: `bun scripts/indexnow.ts` (or **Run workflow** in GitHub Actions).
 
 **What actually happened (2026-10-26):**
 

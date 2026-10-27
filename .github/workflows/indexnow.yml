@@ -1,0 +1,29 @@
+# After a push to master deploys the site (Hostinger builds from GitHub), tell the
+# IndexNow engines (Bing, Yandex, and others) to recrawl the sitemap's pages (#691).
+# The script waits until the live sitemap matches this commit before submitting.
+name: IndexNow
+
+on:
+  push:
+    branches: [master]
+    paths:
+      - 'app/**'
+      - 'public/**'
+      - 'server/**'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: indexnow
+  cancel-in-progress: true
+
+jobs:
+  submit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: oven-sh/setup-bun@v2
+      - run: bun scripts/indexnow.ts --wait
