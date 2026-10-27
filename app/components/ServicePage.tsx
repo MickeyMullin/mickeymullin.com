@@ -104,7 +104,7 @@ export function ServicePage({ content }: { content: ServicePageContent }) {
             <h2 id="price-h">{content.price.heading}</h2>
           </header>
           <div className="price-wrap">
-            <PriceTable rows={content.price.rows} column={content.price.column} />
+            {content.price.rows.length ? <PriceTable rows={content.price.rows} column={content.price.column} /> : null}
             <div className="prose price-notes">
               {content.price.notes.map((p) => (
                 <p key={p}>{p}</p>

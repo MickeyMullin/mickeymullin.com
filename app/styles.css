@@ -322,6 +322,7 @@ a:hover { color: var(--ink); }
 .band-tight .split-head h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); }
 .prose ol { padding-left: 1.4rem; margin: 0 0 1rem; }
 .price-notes { margin-top: 1.6rem; }
+.price-notes:first-child { margin-top: 0; }
 .contact-copy .btn { margin-top: .4rem; }
 .nowrap { white-space: nowrap; }
 

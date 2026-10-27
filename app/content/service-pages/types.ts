@@ -39,7 +39,8 @@ export type ServicePageContent = {
   // `parts` marks rows that are the usual parts of the job rather than its own price,
   // so there is no offer. `offer` names the service's own price when the rows break
   // it down instead (the website packages), and `column` replaces the "Typical quote"
-  // header when the rows are fixed prices rather than ranges.
+  // header when the rows are fixed prices rather than ranges. No rows at all: the job
+  // has no price row and is quoted after a look, so the notes say how.
   price: { heading: string; rows: PriceRow[]; notes: string[]; parts?: true; offer?: PriceRow; column?: string }
   // Shown on the page and in the FAQPage JSON-LD
   faq: FaqItem[]

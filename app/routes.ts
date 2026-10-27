@@ -9,6 +9,7 @@ export default [
   route('networking/unifi', 'routes/networking-unifi.tsx'),
   route('networking/small-office', 'routes/networking-small-office.tsx'),
   route('networking/cabling', 'routes/networking-cabling.tsx'),
+  route('networking/wireless-bridges', 'routes/networking-wireless-bridges.tsx'),
   route('networking/contractors', 'routes/networking-contractors.tsx'),
   route('software/mockup-to-production', 'routes/software-mockup-to-production.tsx'),
   route('software/custom-software', 'routes/software-custom-software.tsx'),

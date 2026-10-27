@@ -67,9 +67,18 @@ export const NETWORKING_SERVICES: Service[] = [
     },
   },
   {
-    name: "Wireless bridges & failover",
-    blurb:
-      "Reach the barn or second building without trenching. Automatic backup internet for when the main line goes down.",
+    name: 'Wireless bridges',
+    href: '/networking/wireless-bridges',
+    blurb: 'Reach the barn or second building without trenching.',
+    offer: {
+      name: 'Point-to-point wireless bridge installation',
+      description:
+        'Point-to-point wireless bridges that carry a home or small-office network to a barn, detached garage, shop, or second building without trenching, where there is a clear line of sight. A switch or access point at the far end gives that building wired ports and Wi-Fi.',
+    },
+  },
+  {
+    name: 'Internet failover',
+    blurb: 'Automatic backup internet for when the main line goes down.',
   },
   {
     name: "For general contractors",

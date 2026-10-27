@@ -68,6 +68,7 @@ export const WIFI: ServicePageContent = {
         'Yes. Outdoor-rated access points cover a deck, patio, or yard. A warehouse or shop floor gets access points mounted and aimed for open space and high ceilings.',
         'Detached garages, barns, and second buildings are common out in Goffstown and Bedford. A point-to-point wireless bridge can carry the network across the yard without trenching a cable.',
       ],
+      more: { href: '/networking/wireless-bridges', text: 'How a wireless bridge works' },
     },
     // TODO(#706): photo of a real install beside this section (an access point on the ceiling, a tidy switch)
     {

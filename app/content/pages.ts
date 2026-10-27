@@ -96,6 +96,17 @@ export const PAGES: Page[] = [
     lastmod: '2026-10-27',
   },
   {
+    path: '/networking/wireless-bridges',
+    label: 'Wireless bridges',
+    group: 'Services',
+    summary:
+      'point-to-point wireless bridges that carry a network to a barn, detached garage, shop, or second building: what a bridge is, why the line of sight matters, a bridge compared with a mesh unit or an extender, how the radios are mounted and powered over PoE, security, the equipment, the hand-off, and how the job is quoted',
+    title: 'Point-to-Point Wireless Bridges | Manchester, NH',
+    description:
+      'A point-to-point wireless bridge can carry your network to the barn, detached garage, or shop without trenching. I check the line of sight first. Southern NH.',
+    lastmod: '2026-10-27',
+  },
+  {
     path: '/networking/contractors',
     label: 'For general contractors',
     group: 'Services',

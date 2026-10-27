@@ -12,5 +12,6 @@ import type { ServicePageContent } from './types'
 import { UNIFI } from './unifi'
 import { WEBSITES } from './websites'
 import { WIFI } from './wifi'
+import { WIRELESS_BRIDGES } from './wireless-bridges'
 
-export const SERVICE_PAGES: ServicePageContent[] = [TROUBLESHOOTING, WIFI, UNIFI, SMALL_OFFICE, CABLING, CONTRACTORS, MOCKUP_TO_PRODUCTION, CUSTOM_SOFTWARE, INTEGRATIONS, WEBSITES]
+export const SERVICE_PAGES: ServicePageContent[] = [TROUBLESHOOTING, WIFI, UNIFI, SMALL_OFFICE, CABLING, WIRELESS_BRIDGES, CONTRACTORS, MOCKUP_TO_PRODUCTION, CUSTOM_SOFTWARE, INTEGRATIONS, WEBSITES]
