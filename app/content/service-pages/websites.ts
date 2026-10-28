@@ -59,7 +59,7 @@ export const WEBSITES: ServicePageContent = {
       heading: 'Can I update it myself?',
       body: [
         "Yes, for the things you change often: hours, services, prices, and photos. We agree up front which parts you'll edit yourself, and I show you how before hand-off.",
-        "If you plan to post news, articles, or specials regularly, I'll suggest building the site on WordPress with a simple theme, because posting there is straightforward.",
+        "If you plan to post news, articles, or specials regularly, I'll suggest building the site on WordPress with a simple theme, because posting there is straightforward. The package prices are the same either way, and the hosting is still in your name.",
       ],
     },
     {
@@ -124,7 +124,7 @@ export const WEBSITES: ServicePageContent = {
     {
       question: 'Will I be able to edit it myself?',
       answer:
-        "Yes, for the things you change often, such as hours, services, prices, and photos. We agree up front which parts you'll edit, and I show you how before hand-off. If you plan to post news, articles, or specials regularly, I'll suggest building the site on WordPress with a simple theme, because posting there is straightforward.",
+        "Yes, for the things you change often, such as hours, services, prices, and photos. We agree up front which parts you'll edit, and I show you how before hand-off. If you plan to post news, articles, or specials regularly, I'll suggest building the site on WordPress with a simple theme, because posting there is straightforward. The package prices are the same either way, and the hosting is still in your name.",
     },
     {
       question: "Do you guarantee I'll rank on Google?",

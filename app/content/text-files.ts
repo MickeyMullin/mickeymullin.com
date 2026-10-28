@@ -60,7 +60,7 @@ export function llmsTxt() {
 - Model: written quotes; hardware at cost plus a small markup with a 50% hardware deposit; clients receive admin logins, a labeled port map, and a written setup summary (no lock-in)
 - Does not do electrical/power work (subcontracted to a licensed electrician). Independent installer, not affiliated with Ubiquiti.
 
-## Typical labor pricing
+## Typical pricing
 ${pricing}
 
 ${pages}

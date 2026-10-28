@@ -38,7 +38,7 @@ export type ServicePageContent = {
   // The first row is the service's own price; one with a range becomes the JSON-LD offer.
   // `parts` marks rows that are the usual parts of the job rather than its own price,
   // so there is no offer. `offer` names the service's own price when the rows break
-  // it down instead (the website packages), and `column` replaces the "Typical labor"
+  // it down instead (the website packages), and `column` replaces the "Typical quote"
   // header when the rows are fixed prices rather than ranges.
   price: { heading: string; rows: PriceRow[]; notes: string[]; parts?: true; offer?: PriceRow; column?: string }
   // Shown on the page and in the FAQPage JSON-LD

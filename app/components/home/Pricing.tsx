@@ -8,7 +8,7 @@ export function Pricing() {
           <p className="eyebrow">Pricing</p>
           <h2>Typical ranges, stated up front.</h2>
           <p>
-            Every job gets a written quote. These ranges cover labor. Hardware is billed at cost plus a small markup, or
+            Every job gets a written quote. The ranges cover labor, and the website row is a fixed package price. Hardware is billed at cost plus a small markup, or
             you can buy it from a parts list.
           </p>
         </header>
@@ -23,11 +23,11 @@ export function Pricing() {
 export function PriceTable({ rows, column }: { rows: PriceRow[]; column?: string }) {
   return (
     <table className="prices">
-      <caption className="sr-only">{column ? `${column}s` : 'Typical labor price ranges'}</caption>
+      <caption className="sr-only">{column ? `${column}s` : 'Typical quotes'}</caption>
       <thead>
         <tr>
           <th scope="col">Job</th>
-          <th scope="col">{column ?? 'Typical labor'}</th>
+          <th scope="col">{column ?? 'Typical quote'}</th>
         </tr>
       </thead>
       <tbody>
