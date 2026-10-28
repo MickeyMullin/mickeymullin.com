@@ -5,10 +5,10 @@ export function SiteHeader() {
   return (
     <header className="site-head">
       <div className="wrap head-row">
-        <a className="mark" href="/" aria-label={`${SITE.name}, home`}>
+        <a className="mark" href="/">
           <Logo />
           <span className="mark-text">
-            <span className="mark-name">{SITE.name}</span>
+            <span className="mark-name">{SITE.name}</span>{' '}
             <span className="mark-sub">{SITE.tagline}</span>
           </span>
         </a>
