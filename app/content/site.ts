@@ -24,10 +24,8 @@ export const SITE = {
 
 // The LLC that owns the business. The public name stays SITE.name; once this is
 // set, the footer, the privacy page and the JSON-LD say the business is
-// "Mickey Mullin" operated by this company. Leave it empty until the
-// Certificate of Formation is accepted, and copy the name exactly as filed.
-// TODO(#730): set to the filed name after NH accepts Form LLC-1.
-export const LEGAL_NAME: string = ''
+// "Mickey Mullin" operated by this company. Copy the name exactly as filed.
+export const LEGAL_NAME: string = 'Mullinnovations LLC'
 
 // "Mullinnovations LLC, doing business as Mickey Mullin", or null before the LLC exists.
 export function legalLine(legalName: string = LEGAL_NAME): string | null {
