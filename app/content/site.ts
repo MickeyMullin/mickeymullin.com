@@ -25,9 +25,9 @@ export const SITE = {
 // The LLC that owns the business. The public name stays SITE.name; once this is
 // set, the footer, the privacy page and the JSON-LD say the business is
 // "Mickey Mullin" operated by this company. Copy the name exactly as filed.
-export const LEGAL_NAME: string = 'Mullinnovations LLC'
+export const LEGAL_NAME: string = 'MullInnovations LLC'
 
-// "Mullinnovations LLC, doing business as Mickey Mullin", or null before the LLC exists.
+// "MullInnovations LLC, doing business as Mickey Mullin", or null before the LLC exists.
 export function legalLine(legalName: string = LEGAL_NAME): string | null {
   return legalName ? `${legalName}, doing business as ${SITE.name}` : null
 }

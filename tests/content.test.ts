@@ -342,7 +342,7 @@ describe('analytics host allowlist (#727)', () => {
 
 describe('legal name (the LLC behind the public name)', () => {
   test('reads "<LLC>, doing business as Mickey Mullin" once set', () => {
-    expect(legalLine('Mullinnovations LLC')).toBe('Mullinnovations LLC, doing business as Mickey Mullin')
+    expect(legalLine('MullInnovations LLC')).toBe('MullInnovations LLC, doing business as Mickey Mullin')
   })
 
   test('nothing names a company until LEGAL_NAME is set', () => {
@@ -350,7 +350,7 @@ describe('legal name (the LLC behind the public name)', () => {
     const business = homeJsonLd().find((b) => b['@type'] === 'ProfessionalService') as Record<string, unknown>
     if (LEGAL_NAME) expect(business.legalName).toBe(LEGAL_NAME)
     else expect(business).not.toHaveProperty('legalName')
-    expect(JSON.stringify(homeJsonLd())).not.toMatch(LEGAL_NAME ? /$^/ : /Mullinnovations/)
+    expect(JSON.stringify(homeJsonLd())).not.toMatch(LEGAL_NAME ? /$^/ : /MullInnovations/i)
   })
 })
 
