@@ -6,9 +6,8 @@ export const SITE = {
   origin: 'https://mickeymullin.com',
   url: 'https://mickeymullin.com/',
   email: 'info@mickeymullin.com',
-  // Mickey's personal number for now (#702); swap for a business line when there is one
-  phone: '(603) 660-3913',
-  tel: '+16036603913',
+  phone: '(603) 347-8100',
+  tel: '+16033478100',
   locality: 'Manchester, NH',
   twitter: '@MickeyMullin',
   themeColor: '#140A1F',

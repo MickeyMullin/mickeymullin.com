@@ -306,7 +306,7 @@ describe('service pages (#706, #705, #724)', () => {
       const ctas = [...main.matchAll(/<a [^>]*data-cta="([^"]+)"[^>]*>/g)]
       expect(ctas.map((m) => m[1])).toEqual([`${c.id}-hero`, `${c.id}-contact`])
       for (const [tag] of ctas) expect(tag).toContain('href="/#contact"')
-      expect(main).toContain('href="tel:+16036603913"')
+      expect(main).toContain('href="tel:+16033478100"')
       expect(main).toContain('href="mailto:info@mickeymullin.com"')
       // in-page anchors only for targets on this page
       for (const [, id] of main.matchAll(/href="#([^"]+)"/g)) expect(main).toContain(`id="${id}"`)

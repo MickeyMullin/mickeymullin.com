@@ -10,7 +10,7 @@ Everything here matches the live site, so name, phone, and services stay consist
 | --- | --- | --- |
 | Business name | **Mickey Mullin** | Must match the site, the JSON-LD `name`, and the trade name (#733). Don't add keywords ("Mickey Mullin Wi-Fi & Networking"): that breaks Google's name rules and gets profiles suspended. |
 | Business type | **Service-area business, address hidden** | No storefront. Google still needs the home address for verification but doesn't show it. Switch to a storefront only with a real staffed office (no PO box or virtual office). |
-| Phone | **(603) 660-3913** for now | Matches the site. When #702 lands, change the site, GBP, and listings on the same day. |
+| Phone | **(603) 347-8100** | The business line (#702), the same number the site shows. Use it on every listing (#701) too. |
 | Hours | **Mon–Fri 5:30–9 PM, Sat 9 AM–5 PM, Sun closed** | GBP shows "Open"/"Closed" from these, so list only times you can actually answer. Alternative: no hours at all, which shows nothing and reads as "by appointment". |
 | Website link | **`https://mickeymullin.com/?utm_source=google&utm_medium=organic&utm_campaign=gbp`** | Tags profile clicks so GA4 and Umami show them as Google Business Profile traffic instead of plain Google search. |
 | Appointment link | **`https://mickeymullin.com/#contact`** | The contact form. Leave it empty if you'd rather not show a "Book" button. |
