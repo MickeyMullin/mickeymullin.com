@@ -4,6 +4,7 @@
 
 import { FAQ, type FaqItem } from './faq'
 import type { Page } from './pages'
+import type { PriceRow } from './pricing'
 import type { ServicePageContent } from './service-pages/types'
 import { OFFERS } from './services'
 import { LEGAL_NAME, SITE, absoluteUrl } from './site'
@@ -140,6 +141,7 @@ export function servicePageJsonLd(content: ServicePageContent) {
   const { offer } = content.service
   if (!offer?.description) throw new Error(`${content.service.name} needs an offer with a description`)
   const price = content.price.parts ? undefined : (content.price.offer ?? content.price.rows[0])
+  const offers = price ? offerFor(price) : undefined
   return [
     {
       '@context': 'https://schema.org',
@@ -150,21 +152,40 @@ export function servicePageJsonLd(content: ServicePageContent) {
       url,
       provider: { '@id': BUSINESS_ID },
       ...(content.onSite ? { areaServed: areaServed() } : {}),
-      ...(price?.range
-        ? {
-            offers: {
-              '@type': 'Offer',
-              description: price.plain,
-              priceSpecification: {
-                '@type': 'PriceSpecification',
-                minPrice: price.range[0],
-                maxPrice: price.range[1],
-                priceCurrency: 'USD',
-              },
-            },
-          }
-        : {}),
+      ...(offers ? { offers } : {}),
     },
     faqPageJsonLd(content.faq),
   ]
+}
+
+// A labor range becomes a min/max PriceSpecification; a recurring price per unit
+// (the phone row) becomes a UnitPriceSpecification with only a minimum. A row
+// with neither, such as a fixed quote, has no offer.
+function offerFor(price: PriceRow) {
+  if (price.range) {
+    return {
+      '@type': 'Offer',
+      description: price.plain,
+      priceSpecification: {
+        '@type': 'PriceSpecification',
+        minPrice: price.range[0],
+        maxPrice: price.range[1],
+        priceCurrency: 'USD',
+      },
+    }
+  }
+  if (price.unitPrice) {
+    return {
+      '@type': 'Offer',
+      description: price.plain,
+      priceCurrency: 'USD',
+      priceSpecification: {
+        '@type': 'UnitPriceSpecification',
+        minPrice: price.unitPrice.min,
+        priceCurrency: 'USD',
+        unitText: price.unitPrice.unitText,
+      },
+    }
+  }
+  return undefined
 }

@@ -1,6 +1,9 @@
-// Typical labor ranges. `plain` is the same row as one plain-text line for llms.txt;
+// Typical labor ranges, plus the website package price and the phone service's
+// monthly price. `plain` is the same row as one plain-text line for llms.txt;
 // a test checks that every dollar price also appears in its `plain` line, and
 // that `range` (the numbers the service pages' JSON-LD offers use) matches `price`.
+// `unitPrice` is a recurring minimum price per unit instead of a range (the phone
+// row), and becomes a UnitPriceSpecification offer.
 
 export type PriceId =
   | 'troubleshooting'
@@ -13,6 +16,7 @@ export type PriceId =
   | 'website-starter'
   | 'website-standard'
   | 'website-page'
+  | 'phone-systems'
 export type PriceRow = {
   id: PriceId
   job: string
@@ -20,6 +24,7 @@ export type PriceRow = {
   price: string
   plain: string
   range?: [number, number]
+  unitPrice?: { min: number; unitText: string }
 }
 
 export const PRICES: PriceRow[] = [
@@ -69,6 +74,15 @@ export const PRICES: PriceRow[] = [
     plain:
       'Small-business website, fixed package price ($1,500 for up to 4 pages, $2,200 for up to 6, and $250 per extra page): $1,500–2,200',
     range: [1500, 2200],
+  },
+  // Mickey's decision, 2026-11-08: a monthly service price, not a labor range
+  {
+    id: 'phone-systems',
+    job: 'Business phone systems',
+    detail: 'per month, no contract',
+    price: 'From $25/line',
+    plain: 'Business phone systems: from $25 per line per month, no contract',
+    unitPrice: { min: 25, unitText: 'per line per month' },
   },
 ]
 

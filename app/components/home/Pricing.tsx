@@ -8,7 +8,7 @@ export function Pricing() {
           <p className="eyebrow">Pricing</p>
           <h2>Typical ranges, stated up front.</h2>
           <p>
-            Every job gets a written quote. The ranges cover labor, and the website row is a fixed package price. Hardware is billed at cost plus a small markup, or
+            Every job gets a written quote. The ranges cover labor, the website row is a fixed package price, and the phone row is a monthly price per line. Hardware is billed at cost plus a small markup, or
             you can buy it from a parts list.
           </p>
         </header>

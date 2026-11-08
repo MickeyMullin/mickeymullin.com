@@ -118,6 +118,16 @@ export const PAGES: Page[] = [
     lastmod: '2026-10-27',
   },
   {
+    path: '/networking/phone-systems',
+    label: 'Business phone systems',
+    group: 'Services',
+    summary: `business phone service for small offices: what you get (a number, a line for each person, desk phones, and a call flow), keeping your existing number (porting), how calls get answered (auto-attendant menus, ring groups, and after-hours rules), whether you need new desk phones, what the service needs from the network, what happens when the internet goes down, and pricing: ${priceRow('phone-systems').plain.split(': ')[1]}`,
+    title: 'Business Phone Systems & VoIP Service | Manchester, NH',
+    description:
+      'Small business phone service with no contract: a phone menu, after-hours rules, desk phones, and your current number moved over if it can be. Manchester, NH.',
+    lastmod: '2026-11-08',
+  },
+  {
     path: '/networking/contractors',
     label: 'For general contractors',
     group: 'Services',

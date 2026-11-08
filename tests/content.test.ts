@@ -41,6 +41,7 @@ describe('structured data', () => {
       'Network cabling',
       'Point-to-point wireless bridge installation',
       'Internet failover setup',
+      'Business phone system setup and service',
       'Low-voltage network subcontracting for general contractors',
       'Custom software development',
       'AI prototype to production',
@@ -166,6 +167,7 @@ describe('service pages', () => {
       else expect(service).not.toHaveProperty('areaServed')
       const price = c.price.offer ?? c.price.rows[0]
       if (price?.range && !c.price.parts) expect(service.offers.priceSpecification).toMatchObject({ minPrice: price.range[0], maxPrice: price.range[1], priceCurrency: 'USD' })
+      else if (price?.unitPrice && !c.price.parts) expect(service.offers.priceSpecification['@type']).toBe('UnitPriceSpecification')
       else expect(service).not.toHaveProperty('offers')
       expect(faq['@type']).toBe('FAQPage')
       expect(faq.mainEntity.map((q: any) => [q.name, q.acceptedAnswer.text])).toEqual(c.faq.map((f) => [f.question, f.answer]))
@@ -197,6 +199,18 @@ describe('service pages', () => {
     for (const text of [`${starter.price} for up to 4 pages`, `${standard.price} for up to 6`, `${page.price.replace(' each', '')} per extra page`])
       expect(website.plain).toContain(text)
     for (const row of WEBSITE_PACKAGES) expect(row.plain).toEndWith(row.price)
+  })
+
+  test('the phone page offers a monthly per-line minimum, not a range (#883)', () => {
+    const phone = SERVICE_PAGES.find((c) => c.page.path === '/networking/phone-systems')!
+    const [service] = servicePageJsonLd(phone) as Record<string, any>[]
+    expect(service.offers).toEqual({
+      '@type': 'Offer',
+      description: 'Business phone systems: from $25 per line per month, no contract',
+      priceCurrency: 'USD',
+      priceSpecification: { '@type': 'UnitPriceSpecification', minPrice: 25, priceCurrency: 'USD', unitText: 'per line per month' },
+    })
+    expect(phone.price.rows).toEqual([priceRow('phone-systems')])
   })
 
   test('only the quoted-on-site pages have no price rows', () => {
@@ -241,6 +255,17 @@ describe('generated text files', () => {
 
   test('every dollar price in the table also appears in its llms.txt line', () => {
     for (const row of PRICES.filter((r) => r.price.startsWith('$'))) expect(row.plain).toEndWith(row.price)
+  })
+
+  test('a monthly price per unit agrees with its table cell and its llms.txt line, and has no range', () => {
+    const monthly = PRICES.filter((r) => r.unitPrice)
+    expect(monthly.map((r) => r.id)).toEqual(['phone-systems'])
+    for (const row of monthly) {
+      const { min, unitText } = row.unitPrice!
+      expect(row.price).toContain(`$${min}`)
+      expect(row.plain).toContain(`$${min} ${unitText}`)
+      expect(row.range).toBeUndefined()
+    }
   })
 
   test('every dollar price has a matching numeric range, for the JSON-LD offers', () => {

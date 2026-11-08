@@ -87,6 +87,16 @@ export const NETWORKING_SERVICES: Service[] = [
     },
   },
   {
+    name: 'Business phone systems',
+    href: '/networking/phone-systems',
+    blurb: 'Phone service for the office: a menu callers can press through, desk phones if you want them, and your current number moved over if it can be.',
+    offer: {
+      name: 'Business phone system setup and service',
+      description:
+        'VoIP phone service for small businesses and offices: a business phone number or a ported existing one where it can be moved, an auto attendant with phone menus, ring groups, and after-hours call rules, voicemail, and desk phones sold and set up on site, quoted separately.',
+    },
+  },
+  {
     name: "For general contractors",
     href: '/networking/contractors',
     blurb:
