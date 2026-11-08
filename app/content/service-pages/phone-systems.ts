@@ -23,7 +23,7 @@ export const PHONE_SYSTEMS: ServicePageContent = {
     {
       id: 'what',
       heading: 'What do I get?',
-      body: ['Phone service for the office, set up by one person, me:'],
+      body: ['I set up your office phone service:'],
       points: [
         { lead: 'A phone number.', text: 'A new business number, or the one you have now, moved over if it can be.' },
         { lead: 'A line for each person.', text: 'Everyone who takes calls gets their own.' },
@@ -66,7 +66,7 @@ export const PHONE_SYSTEMS: ServicePageContent = {
       body: [
         "If you already have desk phones, tell me the make and model, and I'll check whether they can be used. If they can't, or you have none, I sell desk phones and set them up, quoted separately.",
         "Each new phone is set up to fetch its settings from the service when it's plugged in, which is called provisioning. I still set up each one and test it before hand-off.",
-        'Each desk phone plugs into the network with a cable, and gets its power one of two ways: from a PoE switch, which powers it through that same cable, or from its own power adapter at the desk. A new outlet for an adapter is electrical work, so it goes to a licensed electrician.',
+        'Each desk phone plugs into the network with a cable and gets its power one of two ways: from a PoE switch, which powers it through that same cable, or from its own power adapter at the desk. A new outlet for an adapter is electrical work, so it goes to a licensed electrician.',
         'If a desk has no network jack, it needs a cable run, which is priced as network cabling.',
       ],
       after: [

@@ -402,3 +402,21 @@ describe('IndexNow (#691)', () => {
     expect(byteLength('café')).toBe(5)
   })
 })
+
+describe('phone systems page stays within what was decided (#883)', () => {
+  const phone = SERVICE_PAGES.find((c) => c.page.path === '/networking/phone-systems')!
+  const text = JSON.stringify([phone, servicePageJsonLd(phone), llmsTxt(), homeJsonLd()]).toLowerCase()
+
+  test('promises no held-back features', () => {
+    for (const word of ['app store', 'mobile app', 'desktop app', 'softphone', 'texting', 'sms', 'efax', 'fax', 'transcri', 'recording', 'unlimited', '99.9', 'crystal']) {
+      expect(text).not.toContain(word)
+    }
+  })
+
+  test('shows no wholesale prices and links nowhere off the site', () => {
+    for (const price of ['$0.019', '$1.50', '$4/', '$4 ']) expect(text).not.toContain(price)
+    const pageText = JSON.stringify(phone)
+    const urls = pageText.match(/https?:\/\/[^\s"')]+/g) ?? []
+    for (const url of urls) expect(url.startsWith(SITE.url)).toBe(true)
+  })
+})
