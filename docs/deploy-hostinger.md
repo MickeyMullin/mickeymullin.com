@@ -11,7 +11,7 @@ The first deploy happens in two stages so the current WordPress site stays up un
 
 ## Who does what
 
-Hostinger, GitHub authorization, Namecheap and Google Workspace all need Mickey's logins. No credentials go in the repo, in chat or in Dispatch.
+Hostinger, GitHub authorization, Cloudflare and Google Workspace all need Mickey's logins. No credentials go in the repo, in chat or in Dispatch.
 
 | Step | Mickey | Luci |
 | --- | --- | --- |
@@ -20,7 +20,7 @@ Hostinger, GitHub authorization, Namecheap and Google Workspace all need Mickey'
 | Verify the temporary-domain deploy | | ✔ checks below |
 | Back up WordPress, then delete it (#687) | ✔ irreversible, his call | confirm the backup exists before deletion |
 | Connect the domain in hPanel | ✔ | |
-| DNS records at Namecheap | ✔ | provide exact records, verify with `dig` |
+| DNS records at Cloudflare | ✔ | provide exact records, verify with `dig` |
 | Workspace sending address, app password, DKIM (#686) | ✔ | provide records, verify |
 | Enter secrets as hPanel env vars | ✔ | name the variables |
 | Post-cutover verification, GSC sitemap | GSC login if needed | ✔ |
@@ -30,7 +30,7 @@ Optional: a Hostinger API token stored in the browser vault (not in chat) would 
 ## Current state (checked 2026-10-26, after cutover)
 
 - The new app serves `https://mickeymullin.com`. WordPress is deleted (#687); its backup is in `~/backup/mickeymullin.com-wordpress-2026-10-26/` and on the NAS.
-- DNS is hosted at **Namecheap** (`dns1/dns2.registrar-servers.com`).
+- DNS moved from Namecheap to **Cloudflare** (nameservers `josh`/`kayleigh`) after cutover. Apex and `www` are proxied (orange cloud) to `46.202.183.215`. Zone settings: SSL/TLS **Full (strict)** (verify the origin cert with `curl --resolve <host>:443:46.202.183.215` before changing it, because a bad origin cert turns strict into a 526), Email Obfuscation **off** (it rewrites addresses in the HTML), Always Use HTTPS **on**, minimum TLS **1.2**. `learn.mickeymullin.com` is a DNS-only (grey cloud) A record to the same IP. After any zone change, check the raw live HTML. Edits use `CLOUDFLARE_API_TOKEN`; read a setting first, change one thing, and check live.
 - `mickeymullin.com` A → `46.202.183.215`, and `www` A → `46.202.183.215` only. Hostinger kept the same IP for the Node.js app, so the A records didn't change.
 - MX → Google (`aspmx.l.google.com`).
 - SPF is still `v=spf1 include:mailgun.org ~all`; Mailgun was only WordPress's mailer (WP Mail SMTP). It should become `v=spf1 include:_spf.google.com ~all`, plus Google DKIM and DMARC `p=none` (#686).
@@ -116,9 +116,9 @@ Prerequisites: stage 1 verified; the business name (#675) and prices (#676) are 
 1. **Back up WordPress (Mickey).** In hPanel, generate and **download** a full backup (files + database), plus a WordPress export. Keep them outside Hostinger. Luci confirms the files exist and are non-empty before the next step.
 2. **Remove WordPress (Mickey, #687).** Delete the WordPress website for `mickeymullin.com` in hPanel, which releases the domain. Hostinger won't attach a domain that another website on the account is using. The site is down from here until step 4 propagates, so do steps 2 through 4 together.
 3. **Connect the domain (Mickey).** On the Node.js app: **Connect domain** → `mickeymullin.com`. hPanel then shows the IP to point at.
-4. **DNS at Namecheap (Mickey; Luci provides the exact values).**
+4. **DNS (Cloudflare now; at cutover it was Namecheap).**
    - `@` A → the IP from step 3 (it may still be `46.202.183.215`).
-   - `www`: exactly one A record to the same IP (or a CNAME to `mickeymullin.com` if hPanel suggests one). If `dig` shows an extra `www` address that isn't in Advanced DNS, it's a Namecheap redirect: delete the redirect.
+   - `www`: exactly one A record to the same IP (or a CNAME to `mickeymullin.com` if hPanel suggests one). If `dig` shows an extra `www` address that isn't in Advanced DNS, it's a registrar redirect (at Namecheap it was): delete the redirect.
    - Leave MX and the verification TXT records alone.
 5. **Email and secrets (Mickey).** In hPanel → the app → Environment variables:
 
