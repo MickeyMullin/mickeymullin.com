@@ -7,7 +7,7 @@ export function ServiceArea() {
         <header className="split-head">
           <p className="eyebrow">Service area</p>
           <h2>Around Manchester and southern NH.</h2>
-          <p>On-site work across the area below. Software work is done anywhere.</p>
+          <p>On-site work across southern New Hampshire. Software work is done anywhere.</p>
         </header>
         <ul className="towns">
           {TOWNS.map((town) => (
