@@ -11,7 +11,7 @@ Everything here matches the live site, so name, phone, and services stay consist
 | Business name | **Mickey Mullin** | Must match the site, the JSON-LD `name`, and the trade name (#733). Don't add keywords ("Mickey Mullin Wi-Fi & Networking"): that breaks Google's name rules and gets profiles suspended. |
 | Business type | **Service-area business, address hidden** | No storefront. Google still needs the home address for verification but doesn't show it. Switch to a storefront only with a real staffed office (no PO box or virtual office). |
 | Phone | **(603) 347-8100** | The business line (#702), the same number the site shows. Use it on every listing (#701) too. |
-| Hours | **Mon–Fri 5:30–9 PM, Sat 9 AM–5 PM, Sun closed** | GBP shows "Open"/"Closed" from these, so list only times you can actually answer. Alternative: no hours at all, which shows nothing and reads as "by appointment". |
+| Hours | **Mon–Fri 5–10 PM, Sat 8 AM–6 PM, Sun closed** (what Mickey set on the profile, 2026-11-13; Sunday not stated, assumed closed) | GBP shows "Open"/"Closed" from these, so list only times you can actually answer. Alternative: no hours at all, which shows nothing and reads as "by appointment". |
 | Website link | **`https://mickeymullin.com/?utm_source=google&utm_medium=organic&utm_campaign=gbp`** | Tags profile clicks so GA4 and Umami show them as Google Business Profile traffic instead of plain Google search. |
 | Appointment link | **`https://mickeymullin.com/#contact`** | The contact form. Leave it empty if you'd rather not show a "Book" button. |
 | Opening date | **Month the LLC is approved** | Or leave it blank. |
@@ -22,7 +22,7 @@ Primary category: **Computer networking service**. It's the most specific fit fo
 
 Additional categories (all confirmed on Google's current list; up to 9 allowed, fewer is better):
 
-1. **Telecommunications contractor**: cabling and the GC low-voltage sub work.
+1. **Telecommunications contractor**: cabling, the GC low-voltage sub work, and business phone service.
 2. **Software company**: custom software, integrations, and mockup to production.
 3. **Website designer**: small-business websites.
 4. *Computer support and services*: the task lists it, but it attracts "fix my laptop/printer" calls. **Include it only if you'll take those.** Otherwise leave it off.
@@ -39,7 +39,7 @@ Add more only if you'd really drive there (Auburn, Candia, Litchfield, Hudson, a
 
 ## Description (≤ 750 characters, no links, no prices)
 
-> I'm Mickey Mullin. I set up and fix networks for small offices and homes around Manchester and southern New Hampshire: business and home Wi-Fi, Ubiquiti UniFi installs, Cat6 cabling, troubleshooting, wireless bridges to outbuildings, and backup internet. General contractors can use me as their low-voltage network sub. I also build custom software, integrations, and small-business websites, and I take apps people built with AI tools the last mile to something customers can use. One person from quote to hand-off: an itemized written quote, then your admin logins, a labeled port map, and a one-page summary of the setup. Evening and Saturday appointments available.
+> I'm Mickey Mullin. I set up and fix networks for small offices and homes around Manchester and southern New Hampshire: business and home Wi-Fi, Ubiquiti UniFi installs, Cat6 cabling, troubleshooting, wireless bridges to outbuildings, backup internet, and business phone service. General contractors can use me as their low-voltage network sub. I also build custom software, integrations, and small-business websites, and I take apps people built with AI tools the last mile to something customers can use. One person from quote to hand-off: an itemized written quote, then your admin logins, a labeled port map, and a one-page summary of the setup. Evening and Saturday appointments available.
 
 (Run `wc -m` on it before pasting; it is under 750.)
 
@@ -57,6 +57,7 @@ GBP → Edit services. Add these as custom services under the category shown. De
 **Telecommunications contractor**
 - **Network cabling**: Cat6 drops, jacks, and patch panels, tested and labeled. Power work goes to a licensed electrician.
 - **Low-voltage sub for general contractors**: Itemized bid, rough-in and trim-out on your schedule, and a port map at closeout.
+- **Business phone systems**: Business phone service for small offices: an auto-attendant, menus, ring groups, after-hours call flows, and voicemail. Keep your number (I do the porting paperwork). Desk phones are set up and quoted separately. From $25 per line per month, no contract.
 
 **Software company**
 - **Custom software**: Internal tools, portals, and dashboards that replace the spreadsheet, the whiteboard, and the sticky notes.
