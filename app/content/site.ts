@@ -19,6 +19,13 @@ export const SITE = {
     'https://www.linkedin.com/in/MickeyMullin',
     'https://www.youtube.com/@MickeyMullin',
   ],
+  // Google Business Profile (#698), live 2026-11-20. Belongs to the business, not the person.
+  googleProfile: 'https://www.google.com/maps?cid=6530069249322543935',
+  // Hours set on the Google Business Profile; keep the two identical (#703).
+  hours: [
+    { days: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'], opens: '17:00', closes: '22:00' },
+    { days: ['Saturday'], opens: '08:00', closes: '18:00' },
+  ],
 } as const
 
 // The LLC that owns the business. The public name stays SITE.name; once this is

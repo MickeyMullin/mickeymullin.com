@@ -58,6 +58,17 @@ describe('structured data', () => {
     expect(llmsTxt()).toContain(`- Phone: ${SITE.phone}`)
   })
 
+  test('the business lists the hours set on the Google Business Profile', () => {
+    const spec = byType('ProfessionalService').openingHoursSpecification as any[]
+    const flat = spec.map((s) => `${s.dayOfWeek.join('/')} ${s.opens}-${s.closes}`)
+    expect(flat).toEqual([
+      'Monday/Tuesday/Wednesday/Thursday/Friday 17:00-22:00',
+      'Saturday 08:00-18:00',
+    ])
+    expect(byType('ProfessionalService').sameAs).toEqual([SITE.googleProfile])
+    expect(SITE.googleProfile).toContain('cid=6530069249322543935')
+  })
+
   test('areaServed covers every town in the service area', () => {
     const cities = (byType('ProfessionalService').areaServed as any[]).filter((a) => a['@type'] === 'City')
     expect(cities.map((c) => c.name)).toEqual([...TOWNS])

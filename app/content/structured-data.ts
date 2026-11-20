@@ -27,9 +27,16 @@ export function homeJsonLd() {
         'Wi-Fi, UniFi networking, network cabling, troubleshooting, and custom software for small offices and homes in southern New Hampshire.',
       email: SITE.email,
       telephone: SITE.tel,
+      openingHoursSpecification: SITE.hours.map((h) => ({
+        '@type': 'OpeningHoursSpecification',
+        dayOfWeek: [...h.days],
+        opens: h.opens,
+        closes: h.closes,
+      })),
       image: SITE.ogImage,
       logo: SITE.logo,
       priceRange: '$$',
+      sameAs: [SITE.googleProfile],
       founder: { '@id': PERSON_ID },
       areaServed: areaServed(),
       knowsAbout: [
