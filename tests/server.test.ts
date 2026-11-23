@@ -10,6 +10,7 @@ import type { Server } from 'node:http'
 import type { ServerBuild } from 'react-router'
 import { FAQ } from '../app/content/faq'
 import { PAGES } from '../app/content/pages'
+import { ALIASES, aliasLocation } from '../app/content/aliases'
 import { analyticsDisclosures } from '../app/content/privacy'
 import { SERVICE_PAGES } from '../app/content/service-pages'
 import type { MailMessage, MailSetup } from '../app/lib/mailer.server'
@@ -471,6 +472,56 @@ describe('404', () => {
   test('no PHP: /contact.php is gone', async () => {
     const { url } = await start()
     expect((await fetch(`${url}/contact.php`)).status).toBe(404)
+  })
+})
+
+describe('route aliases', () => {
+  const home = () => fs.readFileSync(path.join(CLIENT, 'index.html'), 'utf8')
+
+  test('every alias redirects to a section id that exists on the home page', () => {
+    const html = home()
+    for (const id of new Set(Object.values(ALIASES))) expect(html).toContain(`id="${id}"`)
+  })
+
+  test('each alias answers 302 with the section in Location, and HEAD does the same', async () => {
+    const { url } = await start()
+    for (const [alias, id] of Object.entries(ALIASES)) {
+      const res = await fetch(`${url}${alias}`, { redirect: 'manual' })
+      expect(res.status).toBe(302)
+      expect(res.headers.get('location')).toBe(`/#${id}`)
+      const head = await fetch(`${url}${alias}`, { method: 'HEAD', redirect: 'manual' })
+      expect(head.status).toBe(302)
+      expect(head.headers.get('location')).toBe(`/#${id}`)
+    }
+  })
+
+  test('the query string survives (a QR code can carry tracking parameters), and case and a trailing slash match', async () => {
+    const { url } = await start()
+    const res = await fetch(`${url}/Contact/?utm_source=card&utm_medium=qr`, { redirect: 'manual' })
+    expect(res.status).toBe(302)
+    expect(res.headers.get('location')).toBe('/?utm_source=card&utm_medium=qr#contact')
+  })
+
+  test('a POST or PUT to an alias is refused, and never reaches the contact action', async () => {
+    const { url, sent } = await start()
+    const post = await fetch(`${url}/contact`, { method: 'POST', body: new URLSearchParams(valid), redirect: 'manual' })
+    expect(post.status).toBe(405)
+    expect((await fetch(`${url}/contact`, { method: 'PUT', body: 'x', redirect: 'manual' })).status).toBe(405)
+    expect(sent).toHaveLength(0)
+  })
+
+  test('other paths are unchanged: unknown 404, real subpages 200, aliases absent from sitemap and llms.txt', async () => {
+    const { url } = await start()
+    expect((await fetch(`${url}/services`, { redirect: 'manual' })).status).toBe(404)
+    expect((await fetch(`${url}/networking/wifi`, { redirect: 'manual' })).status).toBe(200)
+    const listed = (await (await fetch(`${url}/sitemap.xml`)).text()) + (await (await fetch(`${url}/llms.txt`)).text())
+    for (const alias of Object.keys(ALIASES)) expect(listed).not.toMatch(new RegExp(String.raw`mickeymullin\.com${alias}(?![\w/-])`))
+  })
+
+  test('aliasLocation ignores paths that are not aliases, including prototype names', () => {
+    expect(aliasLocation('/constructor')).toBeNull()
+    expect(aliasLocation('/__proto__')).toBeNull()
+    expect(aliasLocation('/privacy')).toBeNull()
   })
 })
 

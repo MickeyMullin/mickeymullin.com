@@ -1,4 +1,5 @@
 import { type RouteConfig, index, route } from '@react-router/dev/routes'
+import { ALIASES } from './content/aliases'
 
 // Pages to pre-render are listed in app/content/pages.ts. Unknown paths fall
 // through to the root ErrorBoundary with a 404 status.
@@ -21,4 +22,6 @@ export default [
   route('robots.txt', 'routes/robots.ts'),
   route('sitemap.xml', 'routes/sitemap.ts'),
   route('llms.txt', 'routes/llms.ts'),
+  // Redirects to home-page sections (app/content/aliases.ts)
+  ...Object.keys(ALIASES).map((path) => route(path.slice(1), 'routes/alias.ts', { id: `alias${path.replace('/', '-')}` })),
 ] satisfies RouteConfig
