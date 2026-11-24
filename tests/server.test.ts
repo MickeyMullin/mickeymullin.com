@@ -512,7 +512,7 @@ describe('route aliases', () => {
 
   test('other paths are unchanged: unknown 404, real subpages 200, aliases absent from sitemap and llms.txt', async () => {
     const { url } = await start()
-    expect((await fetch(`${url}/services`, { redirect: 'manual' })).status).toBe(404)
+    expect((await fetch(`${url}/service`, { redirect: 'manual' })).status).toBe(404)
     expect((await fetch(`${url}/networking/wifi`, { redirect: 'manual' })).status).toBe(200)
     const listed = (await (await fetch(`${url}/sitemap.xml`)).text()) + (await (await fetch(`${url}/llms.txt`)).text())
     for (const alias of Object.keys(ALIASES)) expect(listed).not.toMatch(new RegExp(String.raw`mickeymullin\.com${alias}(?![\w/-])`))

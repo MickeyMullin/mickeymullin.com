@@ -6,15 +6,17 @@
 // tests/content.test.ts fails when a target id is missing from it.
 
 export const ALIASES = {
-  '/about': 'about',
-  '/about-us': 'about',
-  '/contact': 'contact',
-  '/contact-us': 'contact',
-  '/networking': 'networking',
-  '/software': 'software',
-  '/pricing': 'pricing',
-  '/prices': 'pricing',
-  '/area': 'area',
+  '/about':        'about',
+  '/about-us':     'about',
+  '/area':         'area',
+  '/areas':        'area',
+  '/contact':      'contact',
+  '/contact-us':   'contact',
+  '/networking':   'networking',
+  '/software':     'software',
+  '/pricing':      'pricing',
+  '/prices':       'pricing',
+  '/services':     'pricing',
   '/service-area': 'area',
 } as const satisfies Record<string, string>
 
